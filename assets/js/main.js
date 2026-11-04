@@ -160,7 +160,7 @@
         if (el.hasAttribute('data-scale')) {
           const r = t.getBoundingClientRect();
           const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
-          el.style.transform = `scale(${(1.18 - p * 0.18).toFixed(4)})`;
+          el.style.transform = `scale(${(1.08 - p * 0.08).toFixed(4)})`;
         } else {
           el.style.translate = `0 ${(Math.min(y, vh) * parseFloat(el.dataset.drift)).toFixed(1)}px`;
         }
@@ -342,6 +342,7 @@
       [[nb, b.dataset.built], [nd, b.dataset.drawn]].forEach(([im, src]) => {
         im.removeAttribute('fetchpriority'); im.loading = 'eager';
         im.srcset = srcsetFor(src); im.src = src; im.classList.add('is-entering');
+        im.style.objectPosition = b.dataset.pos || '50% 50%';
       });
       nb.alt = b.dataset.alt;
       await Promise.all([decoded(nb), decoded(nd)]);
@@ -380,7 +381,7 @@
     const pitch = () => (items[1] ? items[1].offsetLeft - items[0].offsetLeft : row.clientWidth);
     const range = () => {
       const first = clamp(Math.round(row.scrollLeft / pitch()), 0, items.length - 1);
-      const shown = Math.max(1, Math.floor((row.clientWidth + 8) / pitch()));
+      const shown = Math.max(1, Math.round(row.clientWidth / pitch()));
       return [first + 1, Math.min(items.length, first + shown)];
     };
     const update = () => {
@@ -495,34 +496,6 @@
     sync();
   };
 
-  /* ---------- cursor label over pictures that open the portfolio ---------- */
-  const cursor = () => {
-    const targets = $$('[data-cursor]');
-    if (!targets.length || !window.matchMedia('(pointer: fine)').matches) return;
-    const c = document.createElement('div');
-    c.className = 'cursor';
-    c.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(c);
-    let x = -200, y = -200, cx = x, cy = y, raf = 0, on = false;
-    const loop = () => {
-      cx += (x - cx) * 0.22; cy += (y - cy) * 0.22;
-      c.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
-      raf = on || Math.abs(x - cx) > 0.5 ? requestAnimationFrame(loop) : 0;
-    };
-    window.addEventListener('pointermove', (e) => { x = e.clientX; y = e.clientY; if (on && !raf) raf = requestAnimationFrame(loop); }, { passive: true });
-    targets.forEach((t) => {
-      t.addEventListener('pointerenter', (e) => {
-        if (motion.reduced || e.pointerType !== 'mouse') return;
-        c.textContent = t.dataset.cursor; on = true; cx = x; cy = y;
-        c.classList.add('is-on');
-        if (!raf) raf = requestAnimationFrame(loop);
-      });
-      t.addEventListener('pointerleave', () => { on = false; c.classList.remove('is-on', 'is-down'); });
-      t.addEventListener('pointerdown', () => c.classList.add('is-down'));
-      t.addEventListener('pointerup', () => c.classList.remove('is-down'));
-    });
-  };
-
   /* ---------- moving between pages ---------- */
   // Browsers with cross-document view transitions animate the change in CSS and keep the header in place;
   // the page is prefetched on hover by the speculation rules in the head. Other browsers get a short fade
@@ -560,43 +533,45 @@
     window.addEventListener('pageshow', (e) => { if (e.persisted) document.body.classList.remove('is-leaving'); });
   };
 
-  /* ---------- portfolio: animated filtering, kept in the address, and a lightbox ---------- */
+  /* ---------- portfolio: animated filtering, kept in the address, and a photograph viewer ---------- */
   const portfolio = () => {
     const gallery = $('.gallery');
     if (!gallery) return;
-    const items = $$('a', gallery);
+    const cards = $$('.card', gallery);
     const buttons = $$('[data-filter]');
     const status = $('#filter-status');
-    const names = { all: '', residential: 'residential ', commercial: 'commercial ' };
+    const count = $('[data-count]');
+    const names = Object.fromEntries(buttons.map((b) => [b.dataset.filter, b.firstChild.textContent.trim()]));
 
     const apply = async (f, animate) => {
       buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === f)));
-      const keep = new Set(items.filter((a) => f === 'all' || a.dataset.cat === f));
+      const keep = new Set(cards.filter((c) => f === 'all' || c.dataset.cat === f));
       if (!animate || motion.reduced) {
-        items.forEach((a) => { a.hidden = !keep.has(a); });
+        cards.forEach((c) => { c.hidden = !keep.has(c); });
       } else {
-        // FLIP: note where every visible picture is, let the leaving ones fade, re-flow, then glide the
-        // rest from their old place to the new one while the newcomers settle in.
-        const before = new Map(items.filter((a) => !a.hidden).map((a) => [a, a.getBoundingClientRect()]));
-        const leaving = items.filter((a) => !a.hidden && !keep.has(a));
-        leaving.forEach((a) => a.classList.add('is-leaving'));
+        // FLIP: note where every visible card is, let the leaving ones fade, re-flow, then glide the rest
+        // from their old place to the new one while the newcomers settle in.
+        const before = new Map(cards.filter((c) => !c.hidden).map((c) => [c, c.getBoundingClientRect()]));
+        const leaving = cards.filter((c) => !c.hidden && !keep.has(c));
+        leaving.forEach((c) => c.classList.add('is-leaving'));
         if (leaving.length) await wait(220);
-        items.forEach((a) => { a.hidden = !keep.has(a); a.classList.remove('is-leaving'); });
+        cards.forEach((c) => { c.hidden = !keep.has(c); c.classList.remove('is-leaving'); });
         const vh = window.innerHeight;
         let n = 0;
-        keep.forEach((a) => {
-          const now = a.getBoundingClientRect();
+        keep.forEach((c) => {
+          const now = c.getBoundingClientRect();
           if (now.bottom < -200 || now.top > vh + 200) return;
-          const was = before.get(a);
+          const was = before.get(c);
           if (was) {
             const dx = was.left - now.left, dy = was.top - now.top;
-            if (dx || dy) a.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }], { duration: 650, easing: 'cubic-bezier(.16,1,.3,1)' });
+            if (dx || dy) c.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }], { duration: 650, easing: 'cubic-bezier(.16,1,.3,1)' });
           } else {
-            a.animate([{ opacity: 0, transform: 'scale(.94)' }, { opacity: 1, transform: 'none' }], { duration: 550, delay: Math.min(n++ * 35, 400), easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
+            c.animate([{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }], { duration: 600, delay: Math.min(n++ * 40, 360), easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
           }
         });
       }
-      status.textContent = `Showing ${keep.size} ${names[f]}projects`;
+      if (count) count.textContent = keep.size;
+      status.textContent = `Showing ${keep.size} ${f === 'all' ? 'rooms' : names[f].toLowerCase()}`;
       history.replaceState(null, '', f === 'all' ? location.pathname : `#${f}`);
     };
     buttons.forEach((b) => b.addEventListener('click', () => apply(b.dataset.filter, true)));
@@ -604,6 +579,8 @@
     fromHash();
     window.addEventListener('hashchange', fromHash);
 
+    // Each card carries every photograph of its room; the viewer walks through all of them, room by room.
+    const photosOf = (card) => card.dataset.photos.split('|').map((p) => { const [src, alt] = p.split('::'); return { src, alt, card }; });
     const lb = $('.lightbox');
     document.body.appendChild(lb); // a direct child of body, so everything else can be made inert while it is open
     const lbImg = $('img', lb);
@@ -611,19 +588,21 @@
     const lbIndex = $('.lb-index', lb);
     lb.inert = true;
     let list = [], idx = 0, ticket = 0;
-    const load = (a) => new Promise((res) => { const im = new Image(); im.onload = im.onerror = () => res(im); im.src = a.href; });
+    const load = (src) => new Promise((res) => { const im = new Image(); im.onload = im.onerror = () => res(im); im.src = src; });
     const show = async (n) => {
       idx = (n + list.length) % list.length;
-      const a = list[idx], mine = ++ticket;
-      lbCaption.textContent = $('img', a).alt;
+      const item = list[idx], mine = ++ticket;
+      const room = $('h2', item.card).textContent;
+      const inRoom = list.filter((x) => x.card === item.card);
+      lbCaption.textContent = inRoom.length > 1 ? `${room}, photograph ${inRoom.indexOf(item) + 1} of ${inRoom.length}` : room;
       lbIndex.textContent = `${idx + 1} of ${list.length}`;
       lb.classList.add('is-loading');
-      await load(a);
+      await load(item.src);
       if (mine !== ticket) return;
-      lbImg.src = a.href;
-      lbImg.alt = $('img', a).alt;
+      lbImg.src = item.src;
+      lbImg.alt = item.alt;
       lb.classList.remove('is-loading');
-      idle(() => [1, -1].forEach((d) => load(list[(idx + d + list.length) % list.length]))); // neighbours ready
+      idle(() => [1, -1].forEach((d) => load(list[(idx + d + list.length) % list.length].src))); // neighbours ready
     };
     const close = () => {
       if (!lb.classList.contains('is-open')) return;
@@ -631,18 +610,18 @@
       lb.setAttribute('aria-hidden', 'true');
       lb.inert = true;
       overlay.close();
-      const back = list[idx];
+      const back = list[idx].card;
       back.focus({ preventScroll: true });
-      back.scrollIntoView({ block: 'nearest', behavior: motion.reduced ? 'auto' : 'smooth' }); // the photo last viewed
+      back.scrollIntoView({ block: 'nearest', behavior: motion.reduced ? 'auto' : 'smooth' }); // the room last viewed
     };
-    items.forEach((a) => a.addEventListener('click', (e) => {
+    cards.forEach((card) => card.addEventListener('click', (e) => {
       e.preventDefault();
-      list = items.filter((x) => !x.hidden);
+      list = cards.filter((c) => !c.hidden).flatMap(photosOf);
       lb.inert = false;
       lb.classList.add('is-open');
       lb.setAttribute('aria-hidden', 'false');
       overlay.open([lb], close);
-      show(list.indexOf(a));
+      show(list.findIndex((x) => x.card === card));
       $('.lb-close', lb).focus();
     }));
     $('.lb-close', lb).addEventListener('click', close);
@@ -664,6 +643,36 @@
       if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) show(idx + (dx < 0 ? 1 : -1));
       else if (dy > 90 && Math.abs(dy) > Math.abs(dx)) close(); // swipe down to close
     });
+  };
+
+  /* ---------- services list: hovering or focusing a service shows its photograph ---------- */
+  const servicePreview = () => {
+    const items = $$('[data-preview]');
+    const imgs = $$('.svc-preview img');
+    const caption = $('[data-preview-caption]');
+    if (!items.length || !imgs.length) return;
+    const set = (i) => {
+      items.forEach((it, k) => it.classList.toggle('is-active', k === i));
+      imgs.forEach((im, k) => im.classList.toggle('is-on', k === i));
+      caption.textContent = imgs[i].dataset.caption;
+    };
+    items.forEach((it, i) => { it.addEventListener('pointerenter', () => set(i)); it.addEventListener('focus', () => set(i)); });
+    idle(() => imgs.forEach((im) => { im.loading = 'eager'; }));
+  };
+
+  /* ---------- in-page section links mark the section being read ---------- */
+  const jumpNav = () => {
+    const links = $$('.jump a');
+    if (!links.length) return;
+    const map = new Map(links.map((a) => [$(a.getAttribute('href')), a]).filter(([sec]) => sec));
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (!e.isIntersecting) return;
+      links.forEach((a) => { a.classList.remove('is-current'); a.removeAttribute('aria-current'); });
+      const a = map.get(e.target);
+      a.classList.add('is-current');
+      a.setAttribute('aria-current', 'location');
+    }), { rootMargin: '-45% 0px -50% 0px' });
+    map.forEach((_, sec) => io.observe(sec));
   };
 
   /* ---------- enquiry form: email or WhatsApp with the details filled in ---------- */
@@ -773,8 +782,9 @@
   compare();
   $$('[data-row]').forEach(timeline);
   quotes();
-  cursor();
   portfolio();
+  servicePreview();
+  jumpNav();
   enquiry();
   const y = $('#year');
   if (y) y.textContent = new Date().getFullYear();
