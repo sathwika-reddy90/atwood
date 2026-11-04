@@ -1,0 +1,3711 @@
+{
+ "url": "index.html",
+ "at": "2026-11-03T10:07:07.252Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.97,
+    0.53,
+    0.94,
+    0.96,
+    0.97,
+    0.76,
+    0.82,
+    0.83,
+    0.43,
+    0.97,
+    0.97,
+    0.99
+   ],
+   "motion": {
+    "elements": 7,
+    "css": 5,
+    "transitions": 2,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 10152,
+     "screens": 11.3,
+     "words": 968,
+     "img": 17,
+     "video": 0,
+     "canvas": 0,
+     "svg": 7,
+     "sections": 9,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 15,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "homeimg-slide-1.jpg",
+      "interior2.jpg",
+      "commercial-interior-1.jpg",
+      "specialized-interior-2.jpg",
+      "res-04.jpg",
+      "com-01.jpg",
+      "res-14.jpg",
+      "res-24.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 1,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Interiors designed, drawn and built by one team.",
+     "words": 8,
+     "chars": 48,
+     "lines": 2,
+     "size": 92,
+     "vw": 6.4,
+     "font": "Marcellus",
+     "weight": 400,
+     "tracking": -0.005,
+     "leading": 1.12,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.77,
+     "top": 299,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Interiors designed, drawn and built by one team.",
+     "words": 8,
+     "lines": 2,
+     "size": 92,
+     "font": "Marcellus"
+    },
+    "headings": [
+     {
+      "text": "Interiors designed, drawn and built by one team.",
+      "words": 8,
+      "chars": 48,
+      "lines": 2,
+      "size": 92,
+      "vw": 6.4,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.77,
+      "top": 299,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "We turn spaces into experiences, whether it's a cosy home, a sharp office or a lively shop floor.",
+      "words": 18,
+      "chars": 97,
+      "lines": 5,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.39,
+      "top": 1040,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Modern spaces shaped with vision and style",
+      "words": 7,
+      "chars": 42,
+      "lines": 2,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.48,
+      "top": 1656,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Residential interiors",
+      "words": 2,
+      "chars": 21,
+      "lines": 1,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.33,
+      "top": 1951,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Commercial interiors",
+      "words": 2,
+      "chars": 20,
+      "lines": 1,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 2494,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Specialized solutions",
+      "words": 2,
+      "chars": 21,
+      "lines": 1,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.33,
+      "top": 3018,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Ten stages from first meeting to handover",
+      "words": 7,
+      "chars": 41,
+      "lines": 3,
+      "size": 68,
+      "vw": 4.7,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.39,
+      "top": 3719,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Design process",
+      "words": 2,
+      "chars": 14,
+      "lines": 1,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 4088,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "01",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.14,
+      "top": 4238,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "02",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.14,
+      "top": 4238,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "03",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.14,
+      "top": 4238,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "04",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.14,
+      "top": 4238,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "05",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.14,
+      "top": 4238,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "Execution process",
+      "words": 2,
+      "chars": 17,
+      "lines": 1,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 4608,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "06",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.14,
+      "top": 4758,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "07",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.14,
+      "top": 4758,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "08",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.14,
+      "top": 4758,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "09",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.14,
+      "top": 4758,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "10",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.14,
+      "top": 4758,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "Recent homes and workplaces",
+      "words": 4,
+      "chars": 27,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.45,
+      "top": 5255,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "What our clients say",
+      "words": 4,
+      "chars": 20,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.3,
+      "top": 6677,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "What we stand for",
+      "words": 4,
+      "chars": 17,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.39,
+      "top": 7562,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "From the journal",
+      "words": 3,
+      "chars": 16,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.25,
+      "top": 8324,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Let's start with a conversation about your space.",
+      "words": 8,
+      "chars": 49,
+      "lines": 3,
+      "size": 68,
+      "vw": 4.7,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.61,
+      "top": 9197,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 24,
+     "maxLines": 5,
+     "over2Lines": 2,
+     "statements": 11,
+     "centered": 0,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Manrope",
+       "share": 0.74,
+       "mono": false
+      },
+      {
+       "family": "Marcellus",
+       "share": 0.26,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      14,
+      15,
+      16,
+      18,
+      22,
+      36,
+      48,
+      68,
+      92
+     ],
+     "sizeCount": 9,
+     "notLoaded": [],
+     "body": {
+      "font": "Manrope",
+      "size": 14,
+      "leading": 1.65,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.6
+     },
+     "measureChars": 62,
+     "max": {
+      "size": 92,
+      "vw": 6.4,
+      "font": "Marcellus",
+      "text": "Interiors designed, drawn and built by o"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "Design / stages 1 to 5",
+      "above": "Design process",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 4035
+     },
+     {
+      "text": "Execution / stages 6 to 10",
+      "above": "Execution process",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 4555
+     }
+    ],
+    "numbered": [
+     {
+      "text": "01",
+      "size": 48,
+      "top": 4238
+     },
+     {
+      "text": "02",
+      "size": 48,
+      "top": 4238
+     },
+     {
+      "text": "03",
+      "size": 48,
+      "top": 4238
+     },
+     {
+      "text": "04",
+      "size": 48,
+      "top": 4238
+     },
+     {
+      "text": "05",
+      "size": 48,
+      "top": 4238
+     },
+     {
+      "text": "06",
+      "size": 48,
+      "top": 4758
+     },
+     {
+      "text": "07",
+      "size": 48,
+      "top": 4758
+     },
+     {
+      "text": "08",
+      "size": 48,
+      "top": 4758
+     },
+     {
+      "text": "09",
+      "size": 48,
+      "top": 4758
+     }
+    ],
+    "color": {
+     "bodyBg": "#f2f1ed",
+     "bodyBgHsl": {
+      "h": 48,
+      "s": 0.16,
+      "l": 0.94
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#2b2019",
+       "top": 0,
+       "hsl": {
+        "h": 23,
+        "s": 0.26,
+        "l": 0.13
+       }
+      },
+      {
+       "color": "#ffffff",
+       "top": 1516,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#56666a",
+       "top": 6537,
+       "hsl": {
+        "h": 192,
+        "s": 0.1,
+        "l": 0.38
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#5f5750",
+       "share": 0.23
+      },
+      {
+       "color": "#c8bdb2",
+       "share": 0.17
+      },
+      {
+       "color": "#eef2f2",
+       "share": 0.16
+      },
+      {
+       "color": "#cfc6bc",
+       "share": 0.15
+      },
+      {
+       "color": "#2b2019",
+       "share": 0.11
+      }
+     ],
+     "button": {
+      "bg": "#9c5f22",
+      "hsl": {
+       "h": 30,
+       "s": 0.64,
+       "l": 0.37
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 5,
+     "inHero": 4,
+     "radius": "pill",
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to content",
+      "Book a free consultation",
+      "Book a free consultation",
+      "See our work"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 1,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 15,
+     "hairlineSamples": [
+      "div.hero__foot 1208px",
+      "article.svc 1208px",
+      "article.svc 1208px",
+      "li 319px",
+      "li 319px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 2,
+     "roundedMedia": 13,
+     "mediaRadius": 3,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 3,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 1803
+      },
+      {
+       "count": 6,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 6771
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 1
+     }
+    ],
+    "nav": {
+     "links": 10,
+     "fixed": true,
+     "height": 76,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "manrope",
+     "marcellus"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 10152,
+    "margins": {
+     "left": 116,
+     "right": 116
+    },
+    "sections": [
+     {
+      "sel": "section.hero",
+      "tag": "section",
+      "top": 0,
+      "height": 900,
+      "words": 43,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Interiors designed, drawn and built by one team.",
+       "size": 92,
+       "tag": "h1"
+      },
+      "left": 116,
+      "right": 287,
+      "textLeft": 116,
+      "textRight": 287,
+      "fullBleed": true,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section",
+      "tag": "section",
+      "top": 900,
+      "height": 616,
+      "words": 67,
+      "media": 0,
+      "middle": 117,
+      "heading": {
+       "text": "We turn spaces into experiences, whether it's a co",
+       "size": 48,
+       "tag": "p"
+      },
+      "left": 116,
+      "right": 155,
+      "textLeft": 116,
+      "textRight": 155,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section.section--paper",
+      "tag": "section",
+      "top": 1516,
+      "height": 2063,
+      "words": 102,
+      "media": 3,
+      "middle": 72,
+      "heading": {
+       "text": "Modern spaces shaped with vision and style",
+       "size": 48,
+       "tag": "h2"
+      },
+      "left": 116,
+      "right": 116,
+      "textLeft": 116,
+      "textRight": 116,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section.section--dark",
+      "tag": "section",
+      "top": 3579,
+      "height": 1537,
+      "words": 304,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Ten stages from first meeting to handover",
+       "size": 68,
+       "tag": "h2"
+      },
+      "left": 116,
+      "right": 133,
+      "textLeft": 116,
+      "textRight": 133,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section",
+      "tag": "section",
+      "top": 5115,
+      "height": 1422,
+      "words": 6,
+      "media": 6,
+      "middle": 0,
+      "heading": {
+       "text": "Recent homes and workplaces",
+       "size": 48,
+       "tag": "h2"
+      },
+      "left": 116,
+      "right": 116,
+      "textLeft": 116,
+      "textRight": 116,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section.section--stone",
+      "tag": "section",
+      "top": 6537,
+      "height": 666,
+      "words": 105,
+      "media": 0,
+      "middle": 41,
+      "heading": {
+       "text": "What our clients say",
+       "size": 48,
+       "tag": "h2"
+      },
+      "left": 116,
+      "right": 116,
+      "textLeft": 116,
+      "textRight": 120,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section",
+      "tag": "section",
+      "top": 7203,
+      "height": 981,
+      "words": 61,
+      "media": 1,
+      "middle": 86,
+      "heading": {
+       "text": "What we stand for",
+       "size": 48,
+       "tag": "h2"
+      },
+      "left": 116,
+      "right": 119,
+      "textLeft": 763,
+      "textRight": 119,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section.section--paper",
+      "tag": "section",
+      "top": 8184,
+      "height": 863,
+      "words": 117,
+      "media": 3,
+      "middle": 40,
+      "heading": {
+       "text": "From the journal",
+       "size": 48,
+       "tag": "h2"
+      },
+      "left": 116,
+      "right": 116,
+      "textLeft": 116,
+      "textRight": 116,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.cta-band",
+      "tag": "section",
+      "top": 9047,
+      "height": 686,
+      "words": 32,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Let's start with a conversation about your space.",
+       "size": 68,
+       "tag": "h2"
+      },
+      "left": 116,
+      "right": 579,
+      "textLeft": 116,
+      "textRight": 579,
+      "fullBleed": true,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.site-footer",
+      "tag": "footer",
+      "top": 9733,
+      "height": 419,
+      "words": 77,
+      "media": 0,
+      "middle": 192,
+      "heading": {
+       "text": "Services",
+       "size": 14,
+       "tag": "h4"
+      },
+      "left": 116,
+      "right": 116,
+      "textLeft": 116,
+      "textRight": 116,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [
+     {
+      "top": 1332,
+      "height": 316
+     },
+     {
+      "top": 3368,
+      "height": 344
+     },
+     {
+      "top": 4968,
+      "height": 280
+     },
+     {
+      "top": 6400,
+      "height": 272
+     },
+     {
+      "top": 7044,
+      "height": 296
+     },
+     {
+      "top": 8044,
+      "height": 272
+     }
+    ],
+    "h1s": [
+     {
+      "text": "Interiors designed, drawn and built by one team.",
+      "size": 92,
+      "top": 299,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 116,
+      "n": 19
+     },
+     {
+      "x": 756,
+      "n": 6
+     },
+     {
+      "x": 851,
+      "n": 4
+     },
+     {
+      "x": 532,
+      "n": 3
+     },
+     {
+      "x": 948,
+      "n": 3
+     }
+    ],
+    "leftBlocks": 35,
+    "bodySize": 14,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.95,
+    0.59,
+    0.9,
+    0.91,
+    0.93,
+    0.95,
+    0.82,
+    0.8,
+    0.77,
+    0.95,
+    0.95,
+    0.95
+   ],
+   "motion": {
+    "elements": 7,
+    "css": 5,
+    "transitions": 2,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 12682,
+     "screens": 12.4,
+     "words": 953,
+     "img": 17,
+     "video": 0,
+     "canvas": 0,
+     "svg": 7,
+     "sections": 9,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 15,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "homeimg-slide-1.jpg",
+      "interior2.jpg",
+      "commercial-interior-1.jpg",
+      "specialized-interior-2.jpg",
+      "res-04.jpg",
+      "com-01.jpg",
+      "res-14.jpg",
+      "res-24.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 1,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Interiors designed, drawn and built by one team.",
+     "words": 8,
+     "chars": 48,
+     "lines": 2,
+     "size": 61.4,
+     "vw": 8,
+     "font": "Marcellus",
+     "weight": 400,
+     "tracking": -0.005,
+     "leading": 1.12,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.92,
+     "top": 551,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Interiors designed, drawn and built by one team.",
+     "words": 8,
+     "lines": 2,
+     "size": 61.4,
+     "font": "Marcellus"
+    },
+    "headings": [
+     {
+      "text": "Interiors designed, drawn and built by one team.",
+      "words": 8,
+      "chars": 48,
+      "lines": 2,
+      "size": 61.4,
+      "vw": 8,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 551,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "We turn spaces into experiences, whether it's a cosy home, a sharp office or a lively shop floor.",
+      "words": 18,
+      "chars": 97,
+      "lines": 3,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.83,
+      "top": 1101,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Modern spaces shaped with vision and style",
+      "words": 7,
+      "chars": 42,
+      "lines": 2,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.68,
+      "top": 1703,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Residential interiors",
+      "words": 2,
+      "chars": 21,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 2380,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Commercial interiors",
+      "words": 2,
+      "chars": 20,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 3274,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Specialized solutions",
+      "words": 2,
+      "chars": 21,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 4131,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Ten stages from first meeting to handover",
+      "words": 7,
+      "chars": 41,
+      "lines": 2,
+      "size": 46.1,
+      "vw": 6,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 4585,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Design process",
+      "words": 2,
+      "chars": 14,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 4911,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "01",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 5079,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "02",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 5199,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "03",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 5318,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "04",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 5437,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "05",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 5556,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "Execution process",
+      "words": 2,
+      "chars": 17,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 5743,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "06",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 5912,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "07",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 6008,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "08",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 6127,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "09",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 6223,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "10",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 6342,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "Recent homes and workplaces",
+      "words": 4,
+      "chars": 27,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.63,
+      "top": 6569,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "What our clients say",
+      "words": 4,
+      "chars": 20,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.42,
+      "top": 7456,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "What we stand for",
+      "words": 4,
+      "chars": 17,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 8973,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "From the journal",
+      "words": 3,
+      "chars": 16,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.35,
+      "top": 9375,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Let's start with a conversation about your space.",
+      "words": 8,
+      "chars": 49,
+      "lines": 3,
+      "size": 46.1,
+      "vw": 6,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.77,
+      "top": 11685,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 24,
+     "maxLines": 3,
+     "over2Lines": 1,
+     "statements": 11,
+     "centered": 0,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Manrope",
+       "share": 0.73,
+       "mono": false
+      },
+      {
+       "family": "Marcellus",
+       "share": 0.27,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      14,
+      16,
+      18,
+      22,
+      36,
+      46,
+      61
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Manrope",
+      "size": 14,
+      "leading": 1.65,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.6
+     },
+     "measureChars": 76,
+     "max": {
+      "size": 61.4,
+      "vw": 8,
+      "font": "Marcellus",
+      "text": "Interiors designed, drawn and built by o"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "Design / stages 1 to 5",
+      "above": "Design process",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 4858
+     },
+     {
+      "text": "Execution / stages 6 to 10",
+      "above": "Execution process",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 5690
+     }
+    ],
+    "numbered": [
+     {
+      "text": "01",
+      "size": 36,
+      "top": 5079
+     },
+     {
+      "text": "02",
+      "size": 36,
+      "top": 5199
+     },
+     {
+      "text": "03",
+      "size": 36,
+      "top": 5318
+     },
+     {
+      "text": "04",
+      "size": 36,
+      "top": 5437
+     },
+     {
+      "text": "05",
+      "size": 36,
+      "top": 5556
+     },
+     {
+      "text": "06",
+      "size": 36,
+      "top": 5912
+     },
+     {
+      "text": "07",
+      "size": 36,
+      "top": 6008
+     },
+     {
+      "text": "08",
+      "size": 36,
+      "top": 6127
+     },
+     {
+      "text": "09",
+      "size": 36,
+      "top": 6223
+     }
+    ],
+    "color": {
+     "bodyBg": "#f2f1ed",
+     "bodyBgHsl": {
+      "h": 48,
+      "s": 0.16,
+      "l": 0.94
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#2b2019",
+       "top": 0,
+       "hsl": {
+        "h": 23,
+        "s": 0.26,
+        "l": 0.13
+       }
+      },
+      {
+       "color": "#ffffff",
+       "top": 1626,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#56666a",
+       "top": 7374,
+       "hsl": {
+        "h": 192,
+        "s": 0.1,
+        "l": 0.38
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#5f5750",
+       "share": 0.23
+      },
+      {
+       "color": "#c8bdb2",
+       "share": 0.17
+      },
+      {
+       "color": "#eef2f2",
+       "share": 0.16
+      },
+      {
+       "color": "#cfc6bc",
+       "share": 0.15
+      },
+      {
+       "color": "#2b2019",
+       "share": 0.11
+      }
+     ],
+     "button": {
+      "bg": "#9c5f22",
+      "hsl": {
+       "h": 30,
+       "s": 0.64,
+       "l": 0.37
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 5,
+     "inHero": 4,
+     "radius": "pill",
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to content",
+      "Book a free consultation",
+      "See our work"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 1,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 35,
+     "hairlineSamples": [
+      "div.hero__foot 707px",
+      "article.svc 707px",
+      "li 341px",
+      "li 341px",
+      "li 341px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 2,
+     "roundedMedia": 12,
+     "mediaRadius": 3,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 6,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 7537
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 1
+     }
+    ],
+    "nav": {
+     "links": 2,
+     "fixed": true,
+     "height": 76,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "manrope",
+     "marcellus"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 12682,
+    "margins": {
+     "left": 31,
+     "right": 31
+    },
+    "sections": [
+     {
+      "sel": "section.hero",
+      "tag": "section",
+      "top": 0,
+      "height": 1024,
+      "words": 43,
+      "media": 1,
+      "middle": 0,
+      "heading": null,
+      "left": 31,
+      "right": 45,
+      "textLeft": 31,
+      "textRight": 45,
+      "fullBleed": true,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section",
+      "tag": "section",
+      "top": 1024,
+      "height": 602,
+      "words": 67,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "We turn spaces into experiences, whether it's a co",
+       "size": 36,
+       "tag": "p"
+      },
+      "left": 31,
+      "right": 66,
+      "textLeft": 31,
+      "textRight": 66,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section.section--paper",
+      "tag": "section",
+      "top": 1626,
+      "height": 2882,
+      "words": 102,
+      "media": 3,
+      "middle": 0,
+      "heading": {
+       "text": "Modern spaces shaped with vision and style",
+       "size": 36,
+       "tag": "h2"
+      },
+      "left": 31,
+      "right": 31,
+      "textLeft": 31,
+      "textRight": 31,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section.section--dark",
+      "tag": "section",
+      "top": 4508,
+      "height": 1984,
+      "words": 304,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Ten stages from first meeting to handover",
+       "size": 46,
+       "tag": "h2"
+      },
+      "left": 31,
+      "right": 34,
+      "textLeft": 31,
+      "textRight": 34,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section",
+      "tag": "section",
+      "top": 6492,
+      "height": 882,
+      "words": 6,
+      "media": 6,
+      "middle": 0,
+      "heading": {
+       "text": "Recent homes and workplaces",
+       "size": 36,
+       "tag": "h2"
+      },
+      "left": 31,
+      "right": 31,
+      "textLeft": 31,
+      "textRight": 31,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section.section--stone",
+      "tag": "section",
+      "top": 7374,
+      "height": 593,
+      "words": 105,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "What our clients say",
+       "size": 36,
+       "tag": "h2"
+      },
+      "left": 31,
+      "right": 31,
+      "textLeft": 31,
+      "textRight": 31,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section",
+      "tag": "section",
+      "top": 7967,
+      "height": 1332,
+      "words": 61,
+      "media": 1,
+      "middle": 0,
+      "heading": null,
+      "left": 31,
+      "right": 31,
+      "textLeft": 31,
+      "textRight": 63,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section.section--paper",
+      "tag": "section",
+      "top": 9299,
+      "height": 2302,
+      "words": 117,
+      "media": 3,
+      "middle": 0,
+      "heading": {
+       "text": "From the journal",
+       "size": 36,
+       "tag": "h2"
+      },
+      "left": 31,
+      "right": 31,
+      "textLeft": 31,
+      "textRight": 31,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.cta-band",
+      "tag": "section",
+      "top": 11601,
+      "height": 481,
+      "words": 32,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Let's start with a conversation about your space.",
+       "size": 46,
+       "tag": "h2"
+      },
+      "left": 31,
+      "right": 192,
+      "textLeft": 31,
+      "textRight": 192,
+      "fullBleed": true,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.site-footer",
+      "tag": "footer",
+      "top": 12082,
+      "height": 601,
+      "words": 77,
+      "media": 0,
+      "middle": 48,
+      "heading": {
+       "text": "Services",
+       "size": 14,
+       "tag": "h4"
+      },
+      "left": 31,
+      "right": 31,
+      "textLeft": 31,
+      "textRight": 31,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Interiors designed, drawn and built by one team.",
+      "size": 61,
+      "top": 551,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 31,
+      "n": 33
+     },
+     {
+      "x": 354,
+      "n": 1
+     },
+     {
+      "x": 677,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 35,
+    "bodySize": 14,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.96,
+    0.63,
+    0.9,
+    0.93,
+    0.93,
+    0.96,
+    0.97,
+    0.75,
+    0.66,
+    0.86,
+    0.64,
+    0.96
+   ],
+   "motion": {
+    "elements": 7,
+    "css": 5,
+    "transitions": 2,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 12289,
+     "screens": 14.6,
+     "words": 953,
+     "img": 17,
+     "video": 0,
+     "canvas": 0,
+     "svg": 7,
+     "sections": 9,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 15,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "homeimg-slide-1.jpg",
+      "interior2.jpg",
+      "commercial-interior-1.jpg",
+      "specialized-interior-2.jpg",
+      "res-04.jpg",
+      "com-01.jpg",
+      "res-14.jpg",
+      "res-24.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 1,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Interiors designed, drawn and built by one team.",
+     "words": 8,
+     "chars": 48,
+     "lines": 4,
+     "size": 44,
+     "vw": 11.3,
+     "font": "Marcellus",
+     "weight": 400,
+     "tracking": -0.005,
+     "leading": 1.12,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.92,
+     "top": 243,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Interiors designed, drawn and built by one team.",
+     "words": 8,
+     "lines": 4,
+     "size": 44,
+     "font": "Marcellus"
+    },
+    "headings": [
+     {
+      "text": "Interiors designed, drawn and built by one team.",
+      "words": 8,
+      "chars": 48,
+      "lines": 4,
+      "size": 44,
+      "vw": 11.3,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 243,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "We turn spaces into experiences, whether it's a cosy home, a sharp office or a lively shop floor.",
+      "words": 18,
+      "chars": 97,
+      "lines": 5,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 916,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Modern spaces shaped with vision and style",
+      "words": 7,
+      "chars": 42,
+      "lines": 3,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 1670,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Residential interiors",
+      "words": 2,
+      "chars": 21,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 2189,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Commercial interiors",
+      "words": 2,
+      "chars": 20,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 2855,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Specialized solutions",
+      "words": 2,
+      "chars": 21,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 3482,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Ten stages from first meeting to handover",
+      "words": 7,
+      "chars": 41,
+      "lines": 3,
+      "size": 40,
+      "vw": 10.3,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 3947,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Design process",
+      "words": 2,
+      "chars": 14,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 4344,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "01",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.16,
+      "top": 4572,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "02",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.16,
+      "top": 4714,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "03",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.16,
+      "top": 4856,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "04",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.16,
+      "top": 4998,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "05",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.16,
+      "top": 5140,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "Execution process",
+      "words": 2,
+      "chars": 17,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 5369,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "06",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.16,
+      "top": 5597,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "07",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.16,
+      "top": 5716,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "08",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.16,
+      "top": 5858,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "09",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.16,
+      "top": 5977,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "10",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Manrope",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.16,
+      "top": 6119,
+      "tag": "b",
+      "kind": "statement"
+     },
+     {
+      "text": "Recent homes and workplaces",
+      "words": 4,
+      "chars": 27,
+      "lines": 2,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 6359,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "What our clients say",
+      "words": 4,
+      "chars": 20,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 7472,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "“Our retail store needed a fresh look and they nailed it. The interiors attract more customers and the layout is far more efficient.”",
+      "words": 23,
+      "chars": 133,
+      "lines": 5,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.4,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.77,
+      "top": 7646,
+      "tag": "blockquote",
+      "kind": "statement"
+     },
+     {
+      "text": "“I wanted a kitchen that was practical and beautiful, and that's exactly what I got. Cooking is so much easier now and the finishes are stunning.”",
+      "words": 26,
+      "chars": 146,
+      "lines": 6,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.4,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.77,
+      "top": 7646,
+      "tag": "blockquote",
+      "kind": "statement"
+     },
+     {
+      "text": "What we stand for",
+      "words": 4,
+      "chars": 17,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 8600,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "From the journal",
+      "words": 3,
+      "chars": 16,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.69,
+      "top": 9111,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Sustainable interior design: responsible design for modern living",
+      "words": 8,
+      "chars": 65,
+      "lines": 2,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 9565,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Commercial interior design: spaces that drive productivity and brand identity",
+      "words": 10,
+      "chars": 77,
+      "lines": 3,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 10040,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Residential interior design: creating homes that support real life",
+      "words": 9,
+      "chars": 66,
+      "lines": 2,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 10564,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Let's start with a conversation about your space.",
+      "words": 8,
+      "chars": 49,
+      "lines": 3,
+      "size": 40,
+      "vw": 10.3,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.005,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 10844,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 29,
+     "maxLines": 6,
+     "over2Lines": 5,
+     "statements": 13,
+     "centered": 0,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Manrope",
+       "share": 0.73,
+       "mono": false
+      },
+      {
+       "family": "Marcellus",
+       "share": 0.27,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      14,
+      16,
+      18,
+      22,
+      36,
+      40,
+      44
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Manrope",
+      "size": 14,
+      "leading": 1.65,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.6
+     },
+     "measureChars": 40,
+     "max": {
+      "size": 44,
+      "vw": 11.3,
+      "font": "Marcellus",
+      "text": "Interiors designed, drawn and built by o"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "Design / stages 1 to 5",
+      "above": "Design process",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 4291
+     },
+     {
+      "text": "Execution / stages 6 to 10",
+      "above": "Execution process",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 5316
+     }
+    ],
+    "numbered": [
+     {
+      "text": "01",
+      "size": 36,
+      "top": 4572
+     },
+     {
+      "text": "02",
+      "size": 36,
+      "top": 4714
+     },
+     {
+      "text": "03",
+      "size": 36,
+      "top": 4856
+     },
+     {
+      "text": "04",
+      "size": 36,
+      "top": 4998
+     },
+     {
+      "text": "05",
+      "size": 36,
+      "top": 5140
+     },
+     {
+      "text": "06",
+      "size": 36,
+      "top": 5597
+     },
+     {
+      "text": "07",
+      "size": 36,
+      "top": 5716
+     },
+     {
+      "text": "08",
+      "size": 36,
+      "top": 5858
+     },
+     {
+      "text": "09",
+      "size": 36,
+      "top": 5977
+     }
+    ],
+    "color": {
+     "bodyBg": "#f2f1ed",
+     "bodyBgHsl": {
+      "h": 48,
+      "s": 0.16,
+      "l": 0.94
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#2b2019",
+       "top": 0,
+       "hsl": {
+        "h": 23,
+        "s": 0.26,
+        "l": 0.13
+       }
+      },
+      {
+       "color": "#ffffff",
+       "top": 1598,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#56666a",
+       "top": 7400,
+       "hsl": {
+        "h": 192,
+        "s": 0.1,
+        "l": 0.38
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#5f5750",
+       "share": 0.23
+      },
+      {
+       "color": "#c8bdb2",
+       "share": 0.17
+      },
+      {
+       "color": "#eef2f2",
+       "share": 0.16
+      },
+      {
+       "color": "#cfc6bc",
+       "share": 0.15
+      },
+      {
+       "color": "#2b2019",
+       "share": 0.11
+      }
+     ],
+     "button": {
+      "bg": "#9c5f22",
+      "hsl": {
+       "h": 30,
+       "s": 0.64,
+       "l": 0.37
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 5,
+     "inHero": 4,
+     "radius": "pill",
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to content",
+      "Book a free consultation",
+      "See our work"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 1,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 21,
+     "hairlineSamples": [
+      "div.hero__foot 358px",
+      "article.svc 358px",
+      "article.svc 358px",
+      "article.svc 358px",
+      "li.step 358px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 2,
+     "roundedMedia": 8,
+     "mediaRadius": 4,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 6,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 7623
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 1
+     }
+    ],
+    "nav": {
+     "links": 2,
+     "fixed": true,
+     "height": 76,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "manrope",
+     "marcellus"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 12289,
+    "margins": {
+     "left": 16,
+     "right": 16
+    },
+    "sections": [
+     {
+      "sel": "section.hero",
+      "tag": "section",
+      "top": 0,
+      "height": 844,
+      "words": 43,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Interiors designed, drawn and built by one team.",
+       "size": 44,
+       "tag": "h1"
+      },
+      "left": 16,
+      "right": 23,
+      "textLeft": 16,
+      "textRight": 23,
+      "fullBleed": true,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section",
+      "tag": "section",
+      "top": 844,
+      "height": 754,
+      "words": 67,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "We turn spaces into experiences, whether it's a co",
+       "size": 36,
+       "tag": "p"
+      },
+      "left": 16,
+      "right": 18,
+      "textLeft": 16,
+      "textRight": 18,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section.section--paper",
+      "tag": "section",
+      "top": 1598,
+      "height": 2278,
+      "words": 102,
+      "media": 3,
+      "middle": 0,
+      "heading": {
+       "text": "Modern spaces shaped with vision and style",
+       "size": 36,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 16,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section.section--dark",
+      "tag": "section",
+      "top": 3875,
+      "height": 2412,
+      "words": 304,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Ten stages from first meeting to handover",
+       "size": 40,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 18,
+      "textLeft": 16,
+      "textRight": 18,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section",
+      "tag": "section",
+      "top": 6287,
+      "height": 1113,
+      "words": 6,
+      "media": 6,
+      "middle": 0,
+      "heading": {
+       "text": "Recent homes and workplaces",
+       "size": 36,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 76,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section.section--stone",
+      "tag": "section",
+      "top": 7400,
+      "height": 648,
+      "words": 72,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "What our clients say",
+       "size": 36,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 16,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section",
+      "tag": "section",
+      "top": 8048,
+      "height": 991,
+      "words": 61,
+      "media": 1,
+      "middle": 0,
+      "heading": null,
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 23,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.section.section--paper",
+      "tag": "section",
+      "top": 9039,
+      "height": 1725,
+      "words": 117,
+      "media": 3,
+      "middle": 0,
+      "heading": {
+       "text": "From the journal",
+       "size": 36,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 18,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.cta-band",
+      "tag": "section",
+      "top": 10764,
+      "height": 481,
+      "words": 32,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Let's start with a conversation about your space.",
+       "size": 40,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 28,
+      "textLeft": 16,
+      "textRight": 28,
+      "fullBleed": true,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.site-footer",
+      "tag": "footer",
+      "top": 11245,
+      "height": 1044,
+      "words": 77,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Services",
+       "size": 14,
+       "tag": "h4"
+      },
+      "left": 16,
+      "right": 33,
+      "textLeft": 16,
+      "textRight": 33,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Interiors designed, drawn and built by one team.",
+      "size": 44,
+      "top": 243,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 16,
+      "n": 33
+     },
+     {
+      "x": 336,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 34,
+    "bodySize": 14,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 1440,
+   "message": "3 headline(s) wrap past two lines at 1440px: \"We turn spaces into experiences, whether it's a \" → 5 lines (18 words, 48px, a paragraph set above 36px); \"Ten stages from first meeting to handover\" → 3 lines (7 words, 68px); \"Let's start with a conversation about your space\" → 3 lines (8 words, 68px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 36px or less."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "width": 1440,
+   "message": "2 eyebrow/kicker label(s) above headings: \"Design / stages 1 to 5\" above \"Design process\"; \"Execution / stages 6 to 10\" above \"Execution process\"",
+   "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "width": 1440,
+   "message": "Decorative index numbers: \"01\", \"02\", \"03\", \"04\", \"05\", \"06\"",
+   "fix": "Remove them. If order truly matters, write it into the words (\"First, …\") or use a real <ol>.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "width": 1440,
+   "message": "15 thin rule(s)/divider line(s): div.hero__foot 1208px | article.svc 1208px | article.svc 1208px | li 319px",
+   "fix": "Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "card-rows",
+   "width": 1440,
+   "message": "2 rows of identical boxed cards.",
+   "fix": "Vary the composition; not every section is a card grid."
+  },
+  {
+   "level": "WARN",
+   "id": "palette-cream",
+   "width": 1440,
+   "message": "Yellow-cream background (page background #f2f1ed).",
+   "fix": "Use the drawn palette. If you want warmth, take a low-chroma stone or bone, not a yellow cream.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "body-size",
+   "width": 1440,
+   "message": "Body text is 14px (the size most of the running text is set in).",
+   "fix": "Body copy 16–20px. Map small sizes from blueprints onto your body step.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "WARN",
+   "id": "side-scroll",
+   "width": 1440,
+   "message": "1 row(s) scroll sideways with content past their edge.",
+   "fix": "Jurors and most visitors read a row cut at the edge as clipped, not as scrollable. Wrap it onto more lines, or end it inside the grid.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "still-page",
+   "width": 1440,
+   "message": "Only 7 element(s) moved while the page loaded and scrolled.",
+   "fix": "Build the motion layer (SKILL.md step 9, references/motion.md): the signature move, an entrance for the parts of every section, feedback on every control, and one moving picture. Transform and opacity only, with a reduced-motion fallback."
+  },
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 768,
+   "message": "2 headline(s) wrap past two lines at 768px: \"We turn spaces into experiences, whether it's a \" → 3 lines (18 words, 36px, a paragraph set above 32px); \"Let's start with a conversation about your space\" → 3 lines (8 words, 46.1px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 32px or less."
+  },
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 390,
+   "message": "6 headline(s) wrap past two lines at 390px: \"Interiors designed, drawn and built by one team.\" → 4 lines (8 words, 44px); \"We turn spaces into experiences, whether it's a \" → 5 lines (18 words, 36px, a paragraph set above 24px); \"Modern spaces shaped with vision and style\" → 3 lines (7 words, 36px); \"Ten stages from first meeting to handover\" → 3 lines (7 words, 40px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 24px or less."
+  },
+  {
+   "level": "WARN",
+   "id": "statement-length",
+   "width": 390,
+   "message": "2 large-set statement(s) run past 4 lines at 390px: \"“Our retail store needed a fresh look an…\" → 5 lines at 22px; \"“I wanted a kitchen that was practical a…\" → 6 lines at 22px",
+   "fix": "A statement set large is about 30 words. Cut it, or set the rest as ordinary body text."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "/Users/vickyyyyy/Desktop/atwood/.taste-skill/before/desktop-fold.jpg",
+   "pages": [
+    "/Users/vickyyyyy/Desktop/atwood/.taste-skill/before/desktop-page-01.jpg",
+    "/Users/vickyyyyy/Desktop/atwood/.taste-skill/before/desktop-page-02.jpg",
+    "/Users/vickyyyyy/Desktop/atwood/.taste-skill/before/desktop-page-03.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "/Users/vickyyyyy/Desktop/atwood/.taste-skill/before/tablet-fold.jpg",
+   "pages": [
+    "/Users/vickyyyyy/Desktop/atwood/.taste-skill/before/tablet-page-01.jpg",
+    "/Users/vickyyyyy/Desktop/atwood/.taste-skill/before/tablet-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "/Users/vickyyyyy/Desktop/atwood/.taste-skill/before/mobile-fold.jpg",
+   "pages": [
+    "/Users/vickyyyyy/Desktop/atwood/.taste-skill/before/mobile-page-01.jpg",
+    "/Users/vickyyyyy/Desktop/atwood/.taste-skill/before/mobile-page-02.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

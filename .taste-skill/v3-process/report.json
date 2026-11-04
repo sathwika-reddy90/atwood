@@ -1,0 +1,1811 @@
+{
+ "url": "process.html",
+ "at": "2026-11-04T07:35:05.640Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 7,
+   "filled": [
+    0.59,
+    1,
+    1,
+    0.94,
+    0.37,
+    0.51,
+    0.87
+   ],
+   "motion": {
+    "elements": 28,
+    "css": 1,
+    "transitions": 27,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 5804,
+     "screens": 6.4,
+     "words": 462,
+     "img": 17,
+     "video": 0,
+     "canvas": 0,
+     "svg": 5,
+     "sections": 5,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 13,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "res-30.jpg",
+      "atwood1-800.jpg",
+      "Interior-design-drawings-floor-plans-800.jpg",
+      "bedroom-design-800.jpg",
+      "company-800.jpg",
+      "res-24-800.jpg",
+      "atwood-800.jpg",
+      "res-30.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 1,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Ten stages, one team",
+     "words": 4,
+     "chars": 20,
+     "lines": 1,
+     "size": 106.6,
+     "vw": 7.4,
+     "font": "Marcellus",
+     "weight": 400,
+     "tracking": -0.035,
+     "leading": 0.95,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.67,
+     "top": 228,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Ten stages, one team",
+     "words": 4,
+     "lines": 1,
+     "size": 106.6,
+     "font": "Marcellus"
+    },
+    "headings": [
+     {
+      "text": "Ten stages, one team",
+      "words": 4,
+      "chars": 20,
+      "lines": 1,
+      "size": 106.6,
+      "vw": 7.4,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.67,
+      "top": 228,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Ten stages, one team",
+      "words": 4,
+      "chars": 20,
+      "lines": 1,
+      "size": 106.6,
+      "vw": 7.4,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 1277,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Drawn first, then built",
+      "words": 4,
+      "chars": 23,
+      "lines": 1,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.29,
+      "top": 2744,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Why one team matters",
+      "words": 4,
+      "chars": 20,
+      "lines": 1,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.36,
+      "top": 3562,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Tell us about your home, your office or the one room that isn't working, and we'll plan it with you.",
+      "words": 20,
+      "chars": 100,
+      "lines": 3,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.44,
+      "top": 4700,
+      "tag": "p",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 5,
+     "maxLines": 3,
+     "over2Lines": 0,
+     "statements": 1,
+     "centered": 0,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Manrope",
+       "share": 0.93,
+       "mono": false
+      },
+      {
+       "family": "Marcellus",
+       "share": 0.07,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      15,
+      17,
+      20,
+      36,
+      107
+     ],
+     "sizeCount": 5,
+     "notLoaded": [],
+     "body": {
+      "font": "Manrope",
+      "size": 17,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.2
+     },
+     "measureChars": 62,
+     "max": {
+      "size": 106.6,
+      "vw": 7.4,
+      "font": "Marcellus",
+      "text": "Ten stages, one team"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#edede9",
+     "bodyBgHsl": {
+      "h": 60,
+      "s": 0.1,
+      "l": 0.92
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#edede9",
+       "top": 0,
+       "hsl": {
+        "h": 60,
+        "s": 0.1,
+        "l": 0.92
+       }
+      },
+      {
+       "color": "#1c1612",
+       "top": 1075,
+       "hsl": {
+        "h": 24,
+        "s": 0.22,
+        "l": 0.09
+       }
+      },
+      {
+       "color": "#f3f4f2",
+       "top": 2399,
+       "hsl": {
+        "h": 90,
+        "s": 0.08,
+        "l": 0.95
+       }
+      },
+      {
+       "color": "#e2e1db",
+       "top": 2601,
+       "hsl": {
+        "h": 51,
+        "s": 0.11,
+        "l": 0.87
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#b9aea3",
+       "share": 0.53
+      },
+      {
+       "color": "#231a14",
+       "share": 0.32
+      },
+      {
+       "color": "#ecebe8",
+       "share": 0.1
+      },
+      {
+       "color": "#564d46",
+       "share": 0.02
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#e2e1db",
+      "hsl": {
+       "h": 51,
+       "s": 0.11,
+       "l": 0.87
+      },
+      "fg": "#231a14"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 7,
+     "inHero": 2,
+     "radius": 0,
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to content",
+      "Book a free consultation"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 15,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.45
+     },
+     {
+      "type": "svg",
+      "ratio": 0.17
+     }
+    ],
+    "nav": {
+     "links": 8,
+     "fixed": true,
+     "height": 84,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "manrope",
+     "marcellus"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 5804,
+    "margins": {
+     "left": 72,
+     "right": 72
+    },
+    "sections": [
+     {
+      "sel": "section.page-head.frame",
+      "tag": "section",
+      "top": 0,
+      "height": 417,
+      "words": 21,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Ten stages, one team",
+       "size": 107,
+       "tag": "h1"
+      },
+      "left": 72,
+      "right": 431,
+      "textLeft": 72,
+      "textRight": 431,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.head-pic",
+      "tag": "div",
+      "top": 517,
+      "height": 558,
+      "words": 0,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": null,
+      "right": null,
+      "textLeft": null,
+      "textRight": null,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.moments.on-dark",
+      "tag": "section",
+      "top": 1075,
+      "height": 1324,
+      "words": 107,
+      "media": 10,
+      "middle": 1620,
+      "heading": {
+       "text": "Ten stages, one team",
+       "size": 107,
+       "tag": "h2"
+      },
+      "left": 72,
+      "right": 0,
+      "textLeft": 72,
+      "textRight": 72,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.drawn.on-paper",
+      "tag": "section",
+      "top": 2399,
+      "height": 961,
+      "words": 36,
+      "media": 2,
+      "middle": 170,
+      "heading": {
+       "text": "Drawn first, then built",
+       "size": 36,
+       "tag": "h2"
+      },
+      "left": 72,
+      "right": 72,
+      "textLeft": 72,
+      "textRight": 100,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.sec.frame",
+      "tag": "section",
+      "top": 3361,
+      "height": 1167,
+      "words": 58,
+      "media": 2,
+      "middle": 138,
+      "heading": {
+       "text": "Why one team matters",
+       "size": 36,
+       "tag": "h2"
+      },
+      "left": 72,
+      "right": 73,
+      "textLeft": 844,
+      "textRight": 73,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.close.frame",
+      "tag": "section",
+      "top": 4528,
+      "height": 485,
+      "words": 41,
+      "media": 1,
+      "middle": 86,
+      "heading": {
+       "text": "Tell us about your home, your office or the one ro",
+       "size": 36,
+       "tag": "p"
+      },
+      "left": 72,
+      "right": 116,
+      "textLeft": 72,
+      "textRight": 116,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.site-footer",
+      "tag": "footer",
+      "top": 108,
+      "height": 792,
+      "words": 62,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Studio",
+       "size": 15,
+       "tag": "h2"
+      },
+      "left": 72,
+      "right": 72,
+      "textLeft": 72,
+      "textRight": 72,
+      "fullBleed": false,
+      "footer": true,
+      "hero": true,
+      "continues": false,
+      "pinned": true
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Ten stages, one team",
+      "size": 107,
+      "top": 228,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 72,
+      "n": 7
+     },
+     {
+      "x": 844,
+      "n": 3
+     },
+     {
+      "x": 955,
+      "n": 2
+     }
+    ],
+    "leftBlocks": 12,
+    "bodySize": 17,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0.07,
+    "voidBox": {
+     "x": 660,
+     "y": 360,
+     "w": 780,
+     "h": 120
+    }
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 6,
+   "filled": [
+    0.76,
+    1,
+    1,
+    0.34,
+    0.54,
+    0.87
+   ],
+   "motion": {
+    "elements": 28,
+    "css": 1,
+    "transitions": 27,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 5734,
+     "screens": 5.6,
+     "words": 451,
+     "img": 17,
+     "video": 0,
+     "canvas": 0,
+     "svg": 5,
+     "sections": 5,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 11,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "res-30-800.jpg",
+      "atwood1-800.jpg",
+      "Interior-design-drawings-floor-plans-800.jpg",
+      "bedroom-design-800.jpg",
+      "company-800.jpg",
+      "res-24-800.jpg",
+      "res-30-800.jpg",
+      "res-04-800.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 1,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Ten stages, one team",
+     "words": 4,
+     "chars": 20,
+     "lines": 1,
+     "size": 56.8,
+     "vw": 7.4,
+     "font": "Marcellus",
+     "weight": 400,
+     "tracking": -0.035,
+     "leading": 0.95,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.65,
+     "top": 161,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Ten stages, one team",
+     "words": 4,
+     "lines": 1,
+     "size": 56.8,
+     "font": "Marcellus"
+    },
+    "headings": [
+     {
+      "text": "Ten stages, one team",
+      "words": 4,
+      "chars": 20,
+      "lines": 1,
+      "size": 56.8,
+      "vw": 7.4,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.65,
+      "top": 161,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Ten stages, one team",
+      "words": 4,
+      "chars": 20,
+      "lines": 1,
+      "size": 56.8,
+      "vw": 7.4,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 1052,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Drawn first, then built",
+      "words": 4,
+      "chars": 23,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 2212,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Why one team matters",
+      "words": 4,
+      "chars": 20,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 3219,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 4,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Manrope",
+       "share": 0.93,
+       "mono": false
+      },
+      {
+       "family": "Marcellus",
+       "share": 0.07,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      15,
+      17,
+      20,
+      24,
+      28,
+      57
+     ],
+     "sizeCount": 6,
+     "notLoaded": [],
+     "body": {
+      "font": "Manrope",
+      "size": 17,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.2
+     },
+     "measureChars": 81,
+     "max": {
+      "size": 56.8,
+      "vw": 7.4,
+      "font": "Marcellus",
+      "text": "Ten stages, one team"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.02,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#edede9",
+     "bodyBgHsl": {
+      "h": 60,
+      "s": 0.1,
+      "l": 0.92
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#edede9",
+       "top": 0,
+       "hsl": {
+        "h": 60,
+        "s": 0.1,
+        "l": 0.92
+       }
+      },
+      {
+       "color": "#1c1612",
+       "top": 932,
+       "hsl": {
+        "h": 24,
+        "s": 0.22,
+        "l": 0.09
+       }
+      },
+      {
+       "color": "#f3f4f2",
+       "top": 2092,
+       "hsl": {
+        "h": 90,
+        "s": 0.08,
+        "l": 0.95
+       }
+      },
+      {
+       "color": "#e2e1db",
+       "top": 2461,
+       "hsl": {
+        "h": 51,
+        "s": 0.11,
+        "l": 0.87
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#b9aea3",
+       "share": 0.54
+      },
+      {
+       "color": "#231a14",
+       "share": 0.31
+      },
+      {
+       "color": "#ecebe8",
+       "share": 0.11
+      },
+      {
+       "color": "#564d46",
+       "share": 0.02
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#e2e1db",
+      "hsl": {
+       "h": 51,
+       "s": 0.11,
+       "l": 0.87
+      },
+      "fg": "#231a14"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 6,
+     "inHero": 1,
+     "radius": 0,
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to content"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 15,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.61
+     },
+     {
+      "type": "svg",
+      "ratio": 0.08
+     }
+    ],
+    "nav": {
+     "links": 1,
+     "fixed": true,
+     "height": 84,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "manrope",
+     "marcellus"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 5734,
+    "margins": {
+     "left": 38,
+     "right": 38
+    },
+    "sections": [
+     {
+      "sel": "section.page-head.frame",
+      "tag": "section",
+      "top": 0,
+      "height": 303,
+      "words": 21,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Ten stages, one team",
+       "size": 57,
+       "tag": "h1"
+      },
+      "left": 38,
+      "right": 86,
+      "textLeft": 38,
+      "textRight": 86,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.head-pic",
+      "tag": "div",
+      "top": 359,
+      "height": 573,
+      "words": 0,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": null,
+      "right": null,
+      "textLeft": null,
+      "textRight": null,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.moments.on-dark",
+      "tag": "section",
+      "top": 932,
+      "height": 1160,
+      "words": 89,
+      "media": 10,
+      "middle": 2258,
+      "heading": {
+       "text": "Ten stages, one team",
+       "size": 57,
+       "tag": "h2"
+      },
+      "left": 38,
+      "right": 0,
+      "textLeft": 38,
+      "textRight": 38,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.drawn.on-paper",
+      "tag": "section",
+      "top": 2092,
+      "height": 1007,
+      "words": 36,
+      "media": 2,
+      "middle": 0,
+      "heading": {
+       "text": "Drawn first, then built",
+       "size": 28,
+       "tag": "h2"
+      },
+      "left": 38,
+      "right": 38,
+      "textLeft": 38,
+      "textRight": 66,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.sec.frame",
+      "tag": "section",
+      "top": 3099,
+      "height": 1353,
+      "words": 58,
+      "media": 2,
+      "middle": 0,
+      "heading": {
+       "text": "Why one team matters",
+       "size": 28,
+       "tag": "h2"
+      },
+      "left": 38,
+      "right": 38,
+      "textLeft": 38,
+      "textRight": 49,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.close.frame",
+      "tag": "section",
+      "top": 4452,
+      "height": 463,
+      "words": 41,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Tell us about your home, your office or the one ro",
+       "size": 24,
+       "tag": "p"
+      },
+      "left": 38,
+      "right": 48,
+      "textLeft": 38,
+      "textRight": 48,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.site-footer",
+      "tag": "footer",
+      "top": 205,
+      "height": 819,
+      "words": 62,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Studio",
+       "size": 15,
+       "tag": "h2"
+      },
+      "left": 38,
+      "right": 38,
+      "textLeft": 38,
+      "textRight": 38,
+      "fullBleed": false,
+      "footer": true,
+      "hero": true,
+      "continues": false,
+      "pinned": true
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Ten stages, one team",
+      "size": 57,
+      "top": 161,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 38,
+      "n": 10
+     },
+     {
+      "x": 274,
+      "n": 2
+     }
+    ],
+    "leftBlocks": 12,
+    "bodySize": 17,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 7,
+   "filled": [
+    0.82,
+    1,
+    1,
+    0.78,
+    0.53,
+    0.79,
+    0.84
+   ],
+   "motion": {
+    "elements": 30,
+    "css": 1,
+    "transitions": 29,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 5126,
+     "screens": 6.1,
+     "words": 449,
+     "img": 17,
+     "video": 0,
+     "canvas": 0,
+     "svg": 5,
+     "sections": 5,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 11,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "res-30-800.jpg",
+      "atwood1-800.jpg",
+      "Interior-design-drawings-floor-plans-800.jpg",
+      "bedroom-design-800.jpg",
+      "company-800.jpg",
+      "res-24-800.jpg",
+      "res-30-800.jpg",
+      "res-04-800.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 1,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Ten stages, one team",
+     "words": 4,
+     "chars": 20,
+     "lines": 2,
+     "size": 52,
+     "vw": 13.3,
+     "font": "Marcellus",
+     "weight": 400,
+     "tracking": -0.035,
+     "leading": 0.95,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.85,
+     "top": 148,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Ten stages, one team",
+     "words": 4,
+     "lines": 2,
+     "size": 52,
+     "font": "Marcellus"
+    },
+    "headings": [
+     {
+      "text": "Ten stages, one team",
+      "words": 4,
+      "chars": 20,
+      "lines": 2,
+      "size": 52,
+      "vw": 13.3,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.85,
+      "top": 148,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Ten stages, one team",
+      "words": 4,
+      "chars": 20,
+      "lines": 2,
+      "size": 52,
+      "vw": 13.3,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 1013,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Drawn first, then built",
+      "words": 4,
+      "chars": 23,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 2118,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Why one team matters",
+      "words": 4,
+      "chars": 20,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": -0.02,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 2951,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Tell us about your home, your office or the one room that isn't working, and we'll plan it with you.",
+      "words": 20,
+      "chars": 100,
+      "lines": 4,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Marcellus",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 4007,
+      "tag": "p",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 5,
+     "maxLines": 4,
+     "over2Lines": 0,
+     "statements": 1,
+     "centered": 0,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Manrope",
+       "share": 0.93,
+       "mono": false
+      },
+      {
+       "family": "Marcellus",
+       "share": 0.07,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      15,
+      17,
+      20,
+      24,
+      28,
+      52
+     ],
+     "sizeCount": 6,
+     "notLoaded": [],
+     "body": {
+      "font": "Manrope",
+      "size": 17,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.2
+     },
+     "measureChars": 41,
+     "max": {
+      "size": 52,
+      "vw": 13.3,
+      "font": "Marcellus",
+      "text": "Ten stages, one"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.02,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#edede9",
+     "bodyBgHsl": {
+      "h": 60,
+      "s": 0.1,
+      "l": 0.92
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#edede9",
+       "top": 0,
+       "hsl": {
+        "h": 60,
+        "s": 0.1,
+        "l": 0.92
+       }
+      },
+      {
+       "color": "#1c1612",
+       "top": 893,
+       "hsl": {
+        "h": 24,
+        "s": 0.22,
+        "l": 0.09
+       }
+      },
+      {
+       "color": "#f3f4f2",
+       "top": 1998,
+       "hsl": {
+        "h": 90,
+        "s": 0.08,
+        "l": 0.95
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#b9aea3",
+       "share": 0.54
+      },
+      {
+       "color": "#231a14",
+       "share": 0.31
+      },
+      {
+       "color": "#ecebe8",
+       "share": 0.1
+      },
+      {
+       "color": "#564d46",
+       "share": 0.02
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#e2e1db",
+      "hsl": {
+       "h": 51,
+       "s": 0.11,
+       "l": 0.87
+      },
+      "fg": "#231a14"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 6,
+     "inHero": 1,
+     "radius": 0,
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to content"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 14,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.53
+     }
+    ],
+    "nav": {
+     "links": 1,
+     "fixed": true,
+     "height": 84,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "manrope",
+     "marcellus"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 5126,
+    "margins": {
+     "left": 20,
+     "right": 20
+    },
+    "sections": [
+     {
+      "sel": "section.page-head.frame",
+      "tag": "section",
+      "top": 0,
+      "height": 365,
+      "words": 21,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Ten stages, one",
+       "size": 52,
+       "tag": "h1"
+      },
+      "left": 20,
+      "right": 34,
+      "textLeft": 20,
+      "textRight": 34,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.head-pic",
+      "tag": "div",
+      "top": 421,
+      "height": 473,
+      "words": 0,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": null,
+      "right": null,
+      "textLeft": null,
+      "textRight": null,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.moments.on-dark",
+      "tag": "section",
+      "top": 893,
+      "height": 1105,
+      "words": 66,
+      "media": 10,
+      "middle": 2301,
+      "heading": {
+       "text": "Ten stages, one",
+       "size": 52,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 0,
+      "textLeft": 20,
+      "textRight": 20,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.drawn.on-paper",
+      "tag": "section",
+      "top": 1998,
+      "height": 833,
+      "words": 36,
+      "media": 2,
+      "middle": 0,
+      "heading": {
+       "text": "Drawn first, then built",
+       "size": 28,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 41,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.sec.frame",
+      "tag": "section",
+      "top": 2831,
+      "height": 1056,
+      "words": 58,
+      "media": 2,
+      "middle": 0,
+      "heading": {
+       "text": "Why one team matters",
+       "size": 28,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 26,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.close.frame",
+      "tag": "section",
+      "top": 3887,
+      "height": 564,
+      "words": 41,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Tell us about your home, your office or the one ro",
+       "size": 24,
+       "tag": "p"
+      },
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 20,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.site-footer",
+      "tag": "footer",
+      "top": 169,
+      "height": 675,
+      "words": 62,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Studio",
+       "size": 15,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 20,
+      "fullBleed": false,
+      "footer": true,
+      "hero": true,
+      "continues": false,
+      "pinned": true
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Ten stages, one team",
+      "size": 52,
+      "top": 148,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 20,
+      "n": 12
+     },
+     {
+      "x": 142,
+      "n": 2
+     }
+    ],
+    "leftBlocks": 14,
+    "bodySize": 17,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "WARN",
+   "id": "side-scroll",
+   "width": 1440,
+   "message": "1 row(s) scroll sideways with content past their edge.",
+   "fix": "Jurors and most visitors read a row cut at the edge as clipped, not as scrollable. Wrap it onto more lines, or end it inside the grid.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "empty-middle",
+   "width": 1440,
+   "message": "1 section(s) have content at both edges and 1620px of nothing between: \"Ten stages, one team\"",
+   "fix": "Bring the two parts together on the grid, or put the picture or figure of the section in the middle. An empty middle third reads as a hole, the same as an empty half.",
+   "alsoAt": [
+    768
+   ]
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "/Users/vickyyyyy/Desktop/atwood/.taste-skill/v3-process/desktop-fold.jpg",
+   "pages": [
+    "/Users/vickyyyyy/Desktop/atwood/.taste-skill/v3-process/desktop-page-01.jpg",
+    "/Users/vickyyyyy/Desktop/atwood/.taste-skill/v3-process/desktop-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "/Users/vickyyyyy/Desktop/atwood/.taste-skill/v3-process/tablet-fold.jpg",
+   "pages": [
+    "/Users/vickyyyyy/Desktop/atwood/.taste-skill/v3-process/tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "/Users/vickyyyyy/Desktop/atwood/.taste-skill/v3-process/mobile-fold.jpg",
+   "pages": [
+    "/Users/vickyyyyy/Desktop/atwood/.taste-skill/v3-process/mobile-page-01.jpg"
+   ],
+   "film": []
+  }
+ ]
+}
