@@ -220,7 +220,7 @@
     const imgs = $$('.hero__big img', sec);
     const caption = $('.hero__room span', sec);
     const toggle = $('.slide-toggle', sec);
-    const label = toggle && $('.label', toggle);
+    const label = toggle && $('.tlabel', toggle);
 
     // The shutter waits for the type and the first picture, so it never opens on an empty frame.
     const open = () => {
@@ -374,6 +374,7 @@
     const row = $('.row', wrap);
     const items = $$('.moment', row);
     const bar = $('.progress span', wrap);
+    const ticks = $$('.rail [data-goto]', wrap);
     const count = $('.moments__count b', wrap);
     const status = $('[data-row-status]', wrap);
     const prev = $('[data-dir="prev"]', wrap);
@@ -387,11 +388,18 @@
     const update = () => {
       const max = row.scrollWidth - row.clientWidth;
       const p = max > 0 ? row.scrollLeft / max : 1;
-      bar.style.transform = `scaleX(${Math.max(0.06, p).toFixed(4)})`;
+      if (bar) bar.style.transform = `scaleX(${Math.max(0.06, p).toFixed(4)})`;
       if (prev) prev.disabled = row.scrollLeft < 4;
       if (next) next.disabled = row.scrollLeft > max - 4;
       const [a, b] = range();
       count.textContent = a === b ? `${a}` : `${a} to ${b}`;
+      // the stages in view are active: full strength in the row, bronze on the rail
+      items.forEach((it, i) => it.classList.toggle('is-active', i >= a - 1 && i <= b - 1));
+      ticks.forEach((t, i) => {
+        const on = i >= a - 1 && i <= b - 1;
+        t.classList.toggle('is-active', on);
+        if (i === a - 1) t.setAttribute('aria-current', 'step'); else t.removeAttribute('aria-current');
+      });
     };
     let queued = false;
     row.addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; update(); }); } }, { passive: true });
@@ -404,6 +412,7 @@
       announce();
     };
     const page = (dir) => { const [a, b] = range(); goTo(a - 1 + dir * Math.max(1, b - a + 1)); };
+    ticks.forEach((t) => t.addEventListener('click', () => goTo(+t.dataset.goto)));
     prev && prev.addEventListener('click', () => page(-1));
     next && next.addEventListener('click', () => page(1));
     row.addEventListener('keydown', (e) => {
@@ -655,6 +664,8 @@
       items.forEach((it, k) => it.classList.toggle('is-active', k === i));
       imgs.forEach((im, k) => im.classList.toggle('is-on', k === i));
       caption.textContent = imgs[i].dataset.caption;
+      const idx = $('[data-preview-index]');
+      if (idx) idx.textContent = imgs[i].dataset.index;
     };
     items.forEach((it, i) => { it.addEventListener('pointerenter', () => set(i)); it.addEventListener('focus', () => set(i)); });
     idle(() => imgs.forEach((im) => { im.loading = 'eager'; }));

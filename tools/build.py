@@ -122,7 +122,8 @@ def ph(key, ratio="r-32", sizes="(max-width: 860px) 100vw, 50vw", lazy=True, whe
     tag = img_tag(src, desc if alt is None else alt, sizes, lazy, img_extra)
     if inner_link:
         tag = f'<a href="{inner_link}">{tag}</a>'
-    return f'<div class="ph {ratio} {cls}" style="--pos: {pos}"{attrs}>{tag}</div>'
+    drawing = " is-drawing" if kind == "drawing" else ""
+    return f'<div class="ph {ratio} {cls}{drawing}" style="--pos: {pos}"{attrs}>{tag}</div>'
 
 
 # ------------------------------------------------------------------------------------------------ chrome
@@ -142,11 +143,11 @@ ARR = '<span class="arr" aria-hidden="true">&rarr;</span>'
 
 def header(current):
     links = "".join(f'<a href="{h}"{CUR if h == current else ""}>{t}</a>' for h, t in NAV)
-    menu = "".join(f'<li><a href="{h}"{CUR if h == current else ""}>{t}</a></li>' for h, t in MENU)
+    menu = "".join(f'<li><a href="{h}" data-n="{i + 1:02d}"{CUR if h == current else ""}>{t}</a></li>' for i, (h, t) in enumerate(MENU))
     return f'''<a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="index.html" aria-label="Atwood Dsigns, home"><img src="{I}logo-web-new-2.png" alt="Atwood Dsigns" width="255" height="97"></a>
+    <a class="brand" href="index.html" aria-label="Atwood Dsigns, home"><img src="{I}logo-web-new-2.png" alt="Atwood Dsigns" width="255" height="97"><span class="brand__line" aria-hidden="true">Interior design<br>and build studio</span></a>
     <nav class="nav" aria-label="Main">{links}</nav>
     <a class="btn header-cta" href="contact.html">Book a consultation</a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-panel">Menu</button>
@@ -162,7 +163,8 @@ FOOTER = f'''<footer class="site-footer">
   <div class="wrap">
     <div class="foot">
       <div class="foot__brand">
-        <img src="{I}logo-web-new-2.png" alt="Atwood Dsigns" width="255" height="97" loading="lazy">
+        <img src="{I}logo-web-new-2.png" alt="" width="255" height="97" loading="lazy">
+        <p class="foot__word">Atwood Dsigns</p>
         <p>An interior design and build studio in Kokapet, Hyderabad, creating homes, offices and shops from the first sketch to handover.</p>
       </div>
       <div class="foot__col"><h2>Studio</h2><ul>{"".join(f'<li><a href="{h}">{t}</a></li>' for h, t in MENU[1:])}</ul></div>
@@ -175,22 +177,28 @@ FOOTER = f'''<footer class="site-footer">
         <ul style="margin-top:16px"><li><a href="{TEL}">{PHONE}</a></li><li><a href="mailto:{EMAIL}">{EMAIL}</a></li><li><a href="{WA}" target="_blank" rel="noopener">WhatsApp</a></li></ul>
       </div>
     </div>
-    <div class="legal"><span>&copy; <span id="year">2026</span> Atwood Dsigns LLP. All rights reserved.</span><span>Interior design and build, Kokapet, Hyderabad</span></div>
+    <div class="legal"><span>&copy; <span id="year">2026</span> Atwood Dsigns LLP. All rights reserved.</span><span>Kokapet, Hyderabad</span></div>
   </div>
 </footer>
 <a class="wa-float" href="{WA}" target="_blank" rel="noopener" aria-label="Chat with Atwood Dsigns on WhatsApp">{ICON_WA}</a>'''
 
 
 def cta():
-    return f'''<section class="cta sec dark" aria-labelledby="cta-h">
-  <div class="wrap grid">
-    <div class="cta__text">
-      <h2 id="cta-h" data-lines>Start with a conversation</h2>
-      <p class="lead" data-rise>Tell us about your home, your office or the one room that isn't working. The first consultation is free, at our studio in Kokapet or at your site.</p>
-      <div class="actions" data-rise><a class="btn btn--light" href="contact.html">Book a free consultation {ARR}</a><a class="btn btn--line-light" href="{WA}" target="_blank" rel="noopener">Message on WhatsApp</a></div>
-      <div class="cta__contacts" data-rise><a href="{TEL}">{PHONE}</a><a href="mailto:{EMAIL}">{EMAIL}</a><span>{ADDR_SHORT}</span></div>
+    return f'''<section class="cta" aria-labelledby="cta-h">
+  <figure class="cta__pic">
+    {ph("res-40", "", "(max-width: 960px) 100vw, 50vw", where="consultation band", attrs=" data-open")}
+    <figcaption><span class="meta">Mint modular kitchen, a room we finished</span></figcaption>
+  </figure>
+  <div class="cta__text">
+    <p class="label" data-rise>Free first consultation</p>
+    <h2 id="cta-h" data-lines>Start with a conversation</h2>
+    <p class="lead" data-rise>Tell us about your home, your office or the one room that isn't working. We'll meet you at our studio in Kokapet or at your site.</p>
+    <div class="actions" data-rise><a class="btn btn--light" href="contact.html">Book a consultation {ARR}</a><a class="btn btn--line-light" href="{WA}" target="_blank" rel="noopener">Message on WhatsApp</a></div>
+    <div class="cta__contacts" data-stagger>
+      <div><span class="meta">Call</span><a href="{TEL}">{PHONE}</a></div>
+      <div><span class="meta">Email</span><a href="mailto:{EMAIL}">{EMAIL}</a></div>
+      <div><span class="meta">Studio</span><span>Kokapet, Hyderabad</span></div>
     </div>
-    <figure class="cta__pic" style="margin:0">{ph("res-09", "r-45", "(max-width: 860px) 100vw, 30vw", where="consultation band", attrs=" data-open")}<figcaption class="cap"><span class="meta">Lit feature wall</span></figcaption></figure>
   </div>
 </section>'''
 
@@ -211,11 +219,11 @@ def page(fname, title, desc, body, closing=True):
 <meta property="og:description" content="{desc}">
 <meta property="og:image" content="{P}res-11.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#f5f2ec">
+<meta name="theme-color" content="#f3f0e9">
 <link rel="icon" href="{I}cropped-favicon-192x192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Mono:wght@400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css">
 <script>(function (d) {{ d.classList.add('js'); if ('onpagereveal' in window) d.classList.add('vt'); setTimeout(function () {{ if (!d.classList.contains('ready')) d.classList.remove('js'); }}, 4000); }})(document.documentElement)</script>
 <script type="speculationrules">{{"prefetch": [{{"where": {{"selector_matches": "a[href$='.html']"}}, "eagerness": "moderate"}}]}}</script>
@@ -235,9 +243,14 @@ def page(fname, title, desc, body, closing=True):
         f.write(html)
 
 
+LABELS = {"services.html": "01 / Services", "portfolio.html": "02 / Portfolio", "process.html": "03 / Process", "ideas.html": "04 / Ideas",
+          "journal.html": "05 / Journal", "about.html": "06 / About", "contact.html": "07 / Contact"}
+
+
 def page_head(h1, lead, aside=""):
     return f'''<section class="page-head">
   <div class="wrap grid">
+    <p class="label" data-rise>{LABELS.get(PAGE, "")}</p>
     <h1 data-lines>{h1}</h1>
     <p class="lead" data-rise>{lead}</p>
     {f'<div class="page-head__aside" data-rise>{aside}</div>' if aside else ""}
@@ -322,7 +335,8 @@ def stage_row(h2_id):
       <h2 id="{h2_id}" data-lines>Ten stages, one team</h2>
       <p data-rise>Five stages of design and five of execution. The people who draw your space are the people who build it.</p>
     </div>
-    <div class="progress-row"><div class="progress" aria-hidden="true"><span></span></div><p class="moments__count" aria-hidden="true">Stages <b>1 to 4</b> of 10</p>
+    <p class="moments__count" aria-hidden="true">Stages <b>1 to 4</b> of 10</p>
+    <div class="rail">{"".join(f'<button type="button" data-goto="{i}" aria-label="Go to stage {i + 1}, {t}">{i + 1:02d}</button>' for i, (_p, t, _d, _k) in enumerate(STAGES))}
       <div class="moments__nav"><button class="icon-btn" type="button" data-dir="prev" aria-label="Earlier stages">{ARROW_L}</button><button class="icon-btn" type="button" data-dir="next" aria-label="Later stages">{ARROW_R}</button></div></div>
     <p class="sr-only" role="status" data-row-status></p>
     <ol class="row" aria-label="The ten stages, in order. Use the arrow keys to move between stages." tabindex="0">{cols}</ol>
@@ -358,7 +372,7 @@ def drawn_section(h2_id="drawn-h"):
         <span class="compare__tag compare__tag--r" aria-hidden="true">Built</span>
       </div>
       <div class="drawn__side">
-        <p class="meta">Choose a room</p>
+        <p class="label">Choose a room</p>
         <div class="rooms" role="group" aria-label="Choose a room" data-stagger>{buttons}</div>
         <p class="drawn__hint">Drag, tap or use the arrow keys on the slider.</p>
       </div>
@@ -368,7 +382,7 @@ def drawn_section(h2_id="drawn-h"):
 
 
 def voices():
-    figs = "".join(f'<figure class="{"is-on" if i == 0 else ""}"><blockquote>&ldquo;{q}&rdquo;</blockquote><figcaption><b>{n}</b> <span>&nbsp;{p}</span></figcaption></figure>' for i, (q, n, p) in enumerate(QUOTES))
+    figs = "".join(f'<figure class="{"is-on" if i == 0 else ""}"><blockquote>{q}</blockquote><figcaption><b>{n}</b> <span>&nbsp;{p}</span></figcaption></figure>' for i, (q, n, p) in enumerate(QUOTES))
     return f'''<section class="voices sec quote-sec" aria-labelledby="voices-h">
   <div class="wrap grid">
     <div class="voices__head"><h2 id="voices-h" class="h3" data-lines>What clients say</h2></div>
@@ -409,8 +423,8 @@ SERVICES = [  # (anchor, title, description, picture, caption)
 ]
 svc_items = "".join(f'''<a class="svc-item" href="services.html#{a}" data-preview="{i}">
       {ph(k, "r-32", "100vw", where="services list (phone)", alt="")}
-      <h3>{t}</h3><span class="arr" aria-hidden="true">&rarr;</span><p>{d}</p></a>''' for i, (a, t, d, k, c) in enumerate(SERVICES))
-svc_preview = "".join(img_tag(PHOTOS[k][0], PHOTOS[k][1], "(max-width: 860px) 0px, 40vw", extra=f' data-caption="{c}" style="--pos: {PHOTOS[k][3]}"' + (' class="is-on"' if i == 0 else "")) for i, (a, t, d, k, c) in enumerate(SERVICES))
+      <span class="idx">{i + 1:02d}</span><h3>{t}</h3><span class="arr" aria-hidden="true">&rarr;</span><p>{d}</p></a>''' for i, (a, t, d, k, c) in enumerate(SERVICES))
+svc_preview = "".join(img_tag(PHOTOS[k][0], PHOTOS[k][1], "(max-width: 860px) 0px, 40vw", extra=f' data-caption="{c}" data-index="{i + 1:02d} / 04" style="--pos: {PHOTOS[k][3]}"' + (' class="is-on"' if i == 0 else "")) for i, (a, t, d, k, c) in enumerate(SERVICES))
 
 FEATURED = [  # (picture, title, meta)
     ("res-11", "Dining, bar and display unit", "Living and dining"),
@@ -422,11 +436,11 @@ FEATURED = [  # (picture, title, meta)
 ]
 
 
-def fig(k, title, meta, ratio, sizes, cls=""):
-    return f'''<figure class="{cls}">
-        {ph(k, ratio, sizes, where="featured work", inner_link="portfolio.html", attrs=" data-open")}
-        <figcaption class="cap"><h3>{title}</h3><span class="meta">{meta}</span></figcaption>
-      </figure>'''
+def wk(n, k, title, meta, ratio, sizes):
+    return f'''<a class="wk wk--{n}" href="portfolio.html">
+        {ph(k, ratio, sizes, where="selected rooms", attrs=" data-open")}
+        <span class="wk__cap"><span class="idx">{n:02d}</span><h3>{title}</h3><span class="meta"><span>{meta}</span><em>View in portfolio &rarr;</em></span></span>
+      </a>'''
 
 
 f = FEATURED
@@ -434,12 +448,13 @@ home = f'''<section class="hero" aria-labelledby="hero-h">
   <div class="wrap">
     <div class="hero__inner">
       <div class="hero__text">
+        <p class="label">Design and build studio, Hyderabad</p>
         <h1 id="hero-h" data-lines>Interiors designed, drawn and built</h1>
         <p class="hero__lead" data-rise>Atwood Dsigns is an interior design and build studio in Kokapet, Hyderabad, for homes, offices and shops.</p>
         <div class="actions" data-rise><a class="btn" href="contact.html">Book a free consultation {ARR}</a><a class="btn btn--ghost" href="portfolio.html">See our work</a></div>
         <div class="hero__meta">
           <p class="hero__room"><span>{HERO[0][1]}</span>, a room we finished</p>
-          <button class="slide-toggle" type="button" aria-pressed="false">{PAUSE_PLAY}<span class="label">Pause</span><span class="sr-only"> the slideshow</span></button>
+          <button class="slide-toggle" type="button" aria-pressed="false">{PAUSE_PLAY}<span class="tlabel">Pause</span><span class="sr-only"> the slideshow</span></button>
         </div>
       </div>
       <div class="hero__big">{hero_imgs}</div>
@@ -472,7 +487,7 @@ home = f'''<section class="hero" aria-labelledby="hero-h">
     </div>
     <div class="grid">
       <div class="svc-list" data-stagger>{svc_items}</div>
-      <div class="svc-preview" aria-hidden="true"><div class="ph r-45">{svc_preview}</div><p class="cap"><span class="meta" data-preview-caption>{SERVICES[0][4]}</span></p></div>
+      <div class="svc-preview" aria-hidden="true"><div class="ph r-45">{svc_preview}</div><p class="cap"><span class="meta" data-preview-caption>{SERVICES[0][4]}</span><span class="idx" data-preview-index>01 / 04</span></p></div>
     </div>
   </div>
 </section>
@@ -483,19 +498,13 @@ home = f'''<section class="hero" aria-labelledby="hero-h">
       <h2 id="work-h" data-lines>Selected rooms</h2>
       <a class="tlink" href="portfolio.html" data-rise>View the portfolio {ARR}</a>
     </div>
-    <div class="work-rows">
-      <div class="work-row work-row--lead">
-        {fig(f[0][0], f[0][1], f[0][2], "r-32", "(max-width: 860px) 100vw, 66vw", "w-8")}
-        {fig(f[1][0], f[1][1], f[1][2], "fill", "(max-width: 860px) 100vw, 33vw", "w-4")}
-      </div>
-      <div class="work-row">
-        {fig(f[2][0], f[2][1], f[2][2], "r-45", "(max-width: 860px) 100vw, 33vw", "w-4")}
-        {fig(f[3][0], f[3][1], f[3][2], "r-45", "(max-width: 860px) 100vw, 33vw", "w-4")}
-        {fig(f[4][0], f[4][1], f[4][2], "r-45", "(max-width: 860px) 100vw, 33vw", "w-4")}
-      </div>
-      <div class="work-row">
-        {fig(f[5][0], f[5][1], f[5][2], "r-219", "(max-width: 1320px) 100vw, 1320px", "w-12")}
-      </div>
+    <div class="works">
+      {wk(1, f[0][0], f[0][1], f[0][2], "r-32", "(max-width: 860px) 100vw, 58vw")}
+      {wk(2, f[1][0], f[1][1], f[1][2], "r-45", "(max-width: 860px) 50vw, 33vw")}
+      {wk(3, f[2][0], f[2][1], f[2][2], "r-45", "(max-width: 860px) 50vw, 33vw")}
+      {wk(4, f[3][0], f[3][1], f[3][2], "r-32", "(max-width: 860px) 100vw, 50vw")}
+      {wk(5, f[4][0], f[4][1], f[4][2], "r-45", "(max-width: 860px) 50vw, 33vw")}
+      {wk(6, f[5][0], f[5][1], f[5][2], "r-169", "(max-width: 860px) 100vw, 58vw")}
     </div>
   </div>
 </section>
@@ -739,7 +748,7 @@ HELD_BACK = {"res-41": "sofa still in its plastic wrapping (used only for the si
 counts = {c: sum(1 for _, cc, _ in CARDS if cc == c) for c, _ in CATS}
 counts["all"] = len(CARDS)
 cards = ""
-for title, cat, keys in CARDS:
+for n, (title, cat, keys) in enumerate(CARDS, 1):
     lead = keys[0]
     photos = "|".join(f"{PHOTOS[k][0]}::{PHOTOS[k][1]}" for k in keys)
     for k in keys[1:]:
@@ -749,7 +758,7 @@ for title, cat, keys in CARDS:
     label = f"{title}, {CAT_ONE[cat].lower()}" + (f", {len(keys)} photographs" if len(keys) > 1 else "")
     cards += f'''<a class="card" href="{PHOTOS[lead][0]}" data-cat="{cat}" data-photos="{photos}" aria-label="{label}" data-rise>
       <div class="ph r-45" style="--pos: {PHOTOS[lead][3]}">{img_tag(PHOTOS[lead][0], PHOTOS[lead][1], "(max-width: 520px) 100vw, (max-width: 960px) 50vw, 33vw")}{more}</div>
-      <div class="cap"><h2>{title}</h2><span class="meta">{CAT_ONE[cat]}</span></div>
+      <div class="cap"><span class="idx">{n:02d}</span><h2>{title}</h2><span class="meta">{CAT_ONE[cat]}</span></div>
     </a>'''
 chips = "".join(f'<button type="button" data-filter="{c}" aria-pressed="{"true" if c == "all" else "false"}">{n}<small>{counts[c]}</small></button>' for c, n in CATS)
 portfolio = page_head("Rooms we have designed and built", "Kitchens, bedrooms, kids' rooms, living spaces and entrances across Hyderabad. Choose a room to see it full size, with every photograph of that space.") + f'''
