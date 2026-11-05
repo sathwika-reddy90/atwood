@@ -260,112 +260,87 @@
     sync();
   };
 
-  /* ---------- drawn, then built: comparison slider and room selector ---------- */
-  const compare = () => {
-    const box = $('.compare');
-    if (!box) return;
-    const range = $('input', box);
-    const name = $('.compare__name', box);
-    let built = $('.compare__built', box);
-    let drawn = $('.compare__drawn', box);
-    let pos = 50, anim = 0;
-
-    const set = (v) => {
-      pos = clamp(v, 0, 100);
-      box.style.setProperty('--pos', `${pos}%`);
-      box.style.setProperty('--p', pos);
-      range.value = Math.round(pos);
-      range.setAttribute('aria-valuetext', `${Math.round(pos)}% drawing, ${100 - Math.round(pos)}% built`);
-    };
-    const animateTo = (to, dur = 600) => {
-      cancelAnimationFrame(anim);
-      if (motion.reduced) { set(to); return; }
-      const from = pos, t0 = performance.now();
-      const step = (t) => {
-        const k = Math.min(1, (t - t0) / dur);
-        set(from + (to - from) * (1 - Math.pow(1 - k, 4)));
-        if (k < 1) anim = requestAnimationFrame(step);
-      };
-      anim = requestAnimationFrame(step);
-    };
-    range.addEventListener('input', () => { cancelAnimationFrame(anim); set(+range.value); });
-
-    // Pointer: grab anywhere on the picture. A touch only takes over once it is clearly horizontal,
-    // so a vertical swipe over the picture still scrolls the page.
-    const at = (e) => { const r = box.getBoundingClientRect(); return ((e.clientX - r.left) / r.width) * 100; };
-    let drag = null;
-    box.addEventListener('pointerdown', (e) => {
-      if (e.button !== 0) return;
-      cancelAnimationFrame(anim);
-      drag = { x: e.clientX, y: e.clientY, id: e.pointerId, live: e.pointerType === 'mouse' };
-      if (drag.live) { box.setPointerCapture(e.pointerId); box.classList.add('is-dragging'); set(at(e)); }
+  /* ---------- room by room: the studio's photographs, one room type at a time ---------- */
+  const viewer = () => {
+    const root = $('[data-viewer]');
+    if (!root) return;
+    const frame = $('.viewer__frame', root);
+    const altEl = $('.viewer__alt', root);
+    const countEl = $('.viewer__count', root);
+    const thumbsEl = $('.viewer__thumbs', root);
+    const more = $('.viewer__more', root);
+    const rooms = $$('.viewer__rooms button', root);
+    const pad = (n) => String(n).padStart(2, '0');
+    let photos = [], idx = 0, ticket = 0;
+    const parse = (b) => b.dataset.photos.split('|').map((p) => {
+      const [src, alt, small, w] = p.split('::');
+      return { src, alt, srcset: small ? `${small} 800w, ${src} ${w}w` : '' };
     });
-    box.addEventListener('pointermove', (e) => {
-      if (!drag || e.pointerId !== drag.id) return;
-      if (!drag.live) {
-        const dx = Math.abs(e.clientX - drag.x), dy = Math.abs(e.clientY - drag.y);
-        if (dy > 10 && dy > dx) { drag = null; return; }
-        if (dx < 8) return;
-        drag.live = true;
-        box.setPointerCapture(e.pointerId);
-        box.classList.add('is-dragging');
-      }
-      set(at(e));
-    });
-    const end = (e) => {
-      if (!drag) return;
-      if (!drag.live && e.type === 'pointerup') animateTo(at(e), 500); // a tap moves the divider there
-      drag = null;
-      box.classList.remove('is-dragging');
-    };
-    box.addEventListener('pointerup', end);
-    box.addEventListener('pointercancel', end);
 
-    // The first time it is seen, the divider sweeps across once to show that it moves.
-    set(motion.reduced ? 50 : 96);
-    new IntersectionObserver(([e], o) => {
-      if (!e.isIntersecting) return;
-      o.disconnect();
-      animateTo(50, 1800);
-      idle(() => $$('.rooms button').forEach((b) => ['built', 'drawn'].forEach((k) => {
-        const im = new Image();
-        im.sizes = built.sizes; im.srcset = srcsetFor(b.dataset[k]); im.src = b.dataset[k];
-      })));
-    }, { threshold: 0.4 }).observe(box.parentElement);
-
-    // Rooms crossfade on a second layer instead of blanking the frame, and keep the divider where it is.
-    const buttons = $$('.rooms button');
-    let token = 0;
-    const swap = async (b) => {
-      const mine = ++token;
-      const nb = built.cloneNode(), nd = drawn.cloneNode();
-      [[nb, b.dataset.built], [nd, b.dataset.drawn]].forEach(([im, src]) => {
-        im.removeAttribute('fetchpriority'); im.loading = 'eager';
-        im.srcset = srcsetFor(src); im.src = src; im.classList.add('is-entering');
-        im.style.objectPosition = b.dataset.pos || '50% 50%';
-      });
-      nb.alt = b.dataset.alt;
-      await Promise.all([decoded(nb), decoded(nd)]);
-      if (mine !== token) return;
-      built.after(nb); drawn.after(nd);
-      requestAnimationFrame(() => requestAnimationFrame(() => { nb.classList.remove('is-entering'); nd.classList.remove('is-entering'); }));
-      const oldB = built, oldD = drawn;
-      built = nb; drawn = nd;
-      name.textContent = b.textContent;
-      setTimeout(() => { oldB.remove(); oldD.remove(); }, motion.reduced ? 0 : 650);
+    const show = async (n) => {
+      idx = (n + photos.length) % photos.length;
+      const { src, alt, srcset } = photos[idx], mine = ++ticket;
+      countEl.textContent = `${pad(idx + 1)} / ${pad(photos.length)}`;
+      $$('button', thumbsEl).forEach((t, i) => t.setAttribute('aria-pressed', String(i === idx)));
+      const im = new Image();
+      im.alt = alt; im.sizes = '(max-width: 960px) 100vw, 66vw';
+      if (srcset) im.srcset = srcset;
+      im.src = src;
+      await decoded(im); // crossfade only to a photograph that has arrived
+      if (mine !== ticket) return;
+      const old = $('img.is-on', frame);
+      frame.appendChild(im);
+      requestAnimationFrame(() => requestAnimationFrame(() => { im.classList.add('is-on'); if (old) old.classList.remove('is-on'); }));
+      setTimeout(() => { $$('img', frame).forEach((x) => { if (x !== im) x.remove(); }); }, motion.reduced ? 0 : 650);
+      altEl.textContent = alt;
+      const next = photos[(idx + 1) % photos.length];
+      idle(() => { const p = new Image(); p.sizes = im.sizes; if (next.srcset) p.srcset = next.srcset; p.src = next.src; });
     };
-    buttons.forEach((b, i) => {
-      b.addEventListener('click', () => {
-        if (b.getAttribute('aria-pressed') === 'true') return;
-        buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
-        swap(b);
+    const choose = (b) => {
+      rooms.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      photos = parse(b);
+      const name = $('span', b).textContent;
+      thumbsEl.textContent = '';
+      photos.forEach((ph, i) => {
+        const t = document.createElement('button');
+        t.type = 'button';
+        t.setAttribute('aria-label', `Photograph ${i + 1}: ${ph.alt}`);
+        const ti = document.createElement('img');
+        ti.alt = ''; ti.loading = 'lazy'; ti.decoding = 'async'; ti.sizes = '120px';
+        if (ph.srcset) ti.srcset = ph.srcset;
+        ti.src = ph.src;
+        t.appendChild(ti);
+        t.addEventListener('click', () => show(i));
+        thumbsEl.appendChild(t);
       });
+      more.href = `portfolio.html#${b.dataset.cat}`;
+      more.setAttribute('aria-label', `See ${name.toLowerCase()} in the portfolio`);
+      show(0);
+    };
+    // the first room is already in the page; wire its thumbnails rather than rebuilding them
+    photos = parse(rooms[0]);
+    $$('button', thumbsEl).forEach((t, i) => t.addEventListener('click', () => show(i)));
+    rooms.forEach((b, i) => {
+      b.addEventListener('click', () => { if (b.getAttribute('aria-pressed') !== 'true') choose(b); });
       b.addEventListener('keydown', (e) => {
-        const to = { ArrowRight: i + 1, ArrowDown: i + 1, ArrowLeft: i - 1, ArrowUp: i - 1, Home: 0, End: buttons.length - 1 }[e.key];
+        const to = { ArrowDown: i + 1, ArrowRight: i + 1, ArrowUp: i - 1, ArrowLeft: i - 1, Home: 0, End: rooms.length - 1 }[e.key];
         if (to === undefined) return;
         e.preventDefault();
-        buttons[(to + buttons.length) % buttons.length].focus();
+        rooms[(to + rooms.length) % rooms.length].focus();
       });
+    });
+    $('.viewer__prev', root).addEventListener('click', () => show(idx - 1));
+    $('.viewer__next', root).addEventListener('click', () => show(idx + 1));
+    $('.viewer__stage', root).addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); show(idx + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(idx - 1); }
+    });
+    let sx = null;
+    frame.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') sx = e.clientX; });
+    frame.addEventListener('pointerup', (e) => {
+      if (sx === null) return;
+      const dx = e.clientX - sx; sx = null;
+      if (Math.abs(dx) > 50) show(idx + (dx < 0 ? 1 : -1));
     });
   };
 
@@ -790,7 +765,7 @@
     reveal.init();
     hero();
   });
-  compare();
+  viewer();
   $$('[data-row]').forEach(timeline);
   quotes();
   portfolio();

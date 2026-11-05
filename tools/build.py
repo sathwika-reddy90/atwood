@@ -10,7 +10,6 @@ import os
 OUT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 P = "assets/img/portfolio/"
 I = "assets/img/"
-D = "assets/img/drawn/"
 
 PHONE = "+91 90001 81212"
 TEL = "tel:+919000181212"
@@ -23,7 +22,6 @@ SITE = "https://atwooddsigns.com/"
 # ------------------------------------------------------------------------------------------------ photographs
 # kind: "studio"  = photographs the studio uploaded of its own finished rooms (February 2026)
 #       "library" = older images from the previous website, most likely stock supplied with its theme
-#       "drawing" = a line drawing generated from the studio photograph of the same name
 # pos:  object-position, the focal point kept when a picture is cropped
 PHOTOS = {
     # studio photographs
@@ -74,18 +72,7 @@ PHOTOS = {
     "plan": (I + "Interior-design-drawings-floor-plans.jpg", "Coloured floor plan of an apartment", "library", "50% 50%"),
     "company": (I + "company.jpg", "Hands marking up construction drawings", "library", "50% 50%"),
     "interior4": (I + "interior4.jpg", "Bathroom design illustration, half drawn and half rendered", "library", "50% 50%"),
-    # drawings generated from studio photographs, so drawing and room always correspond
-    "d-res-04": (D + "res-04.jpg", "Line drawing of the entrance foyer", "drawing", "50% 50%"),
-    "d-res-11": (D + "res-11.jpg", "Line drawing of the dining area and display unit", "drawing", "52% 58%"),
-    "d-res-12": (D + "res-12.jpg", "Line drawing of the bedroom with a study desk", "drawing", "64% 60%"),
-    "d-res-21": (D + "res-21.jpg", "Line drawing of the space-themed kids' bedroom", "drawing", "55% 48%"),
-    "d-res-23": (D + "res-23.jpg", "Line drawing of the backlit TV unit", "drawing", "50% 50%"),
-    "d-res-25": (D + "res-25.jpg", "Line drawing of the illustrated wardrobe", "drawing", "50% 45%"),
-    "d-res-30": (D + "res-30.jpg", "Line drawing of the open kitchen", "drawing", "50% 55%"),
-    "d-res-31": (D + "res-31.jpg", "Line drawing of the bedroom wardrobes", "drawing", "50% 45%"),
-    "d-res-37": (D + "res-37.jpg", "Line drawing of the marble TV wall", "drawing", "32% 50%"),
-    "d-res-39": (D + "res-39.jpg", "Line drawing of the navy and white kitchen", "drawing", "62% 55%"),
-    "d-res-40": (D + "res-40.jpg", "Line drawing of the mint kitchen", "drawing", "50% 55%"),
+    "sketch": (I + "bedroom-design.jpg", "Pencil sketch of a bedroom design", "library", "50% 50%"),
 }
 USED = {}  # key -> set of "page: place", collected while building and written to ASSETS.md
 
@@ -122,7 +109,7 @@ def ph(key, ratio="r-32", sizes="(max-width: 860px) 100vw, 50vw", lazy=True, whe
     tag = img_tag(src, desc if alt is None else alt, sizes, lazy, img_extra)
     if inner_link:
         tag = f'<a href="{inner_link}">{tag}</a>'
-    drawing = " is-drawing" if kind == "drawing" else ""
+    drawing = ""
     return f'<div class="ph {ratio} {cls}{drawing}" style="--pos: {pos}"{attrs}>{tag}</div>'
 
 
@@ -136,7 +123,6 @@ ICON_WA = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.4c-.3-.
 ARROW_L = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>'
 ARROW_R = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>'
 CLOSE = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>'
-DRAG = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg>'
 PAUSE_PLAY = '<svg class="i-pause" width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z" fill="currentColor"/></svg><svg class="i-play" width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z" fill="currentColor"/></svg>'
 ARR = '<span class="arr" aria-hidden="true">&rarr;</span>'
 
@@ -267,7 +253,7 @@ def head_photo(key, where="opening photograph"):
 STAGES = [
     ("Design", "Concept design", "A detailed conversation to learn your needs, agree the scope and understand how the space should look and work.", "atwood1"),
     ("Design", "Schematic design", "Spatial planning and 3D visual concepts that set the overall design direction.", "plan"),
-    ("Design", "Detailed design", "The design evolves with you, detail by detail, and we choose the materials together.", "d-res-12"),
+    ("Design", "Detailed design", "The design evolves with you, detail by detail, and we choose the materials together.", "sketch"),
     ("Design", "Construction drawings", "Complete working drawings for every trade: electrical layouts, false ceilings, carpentry and more.", "company"),
     ("Design", "Site supervision", "Our designers visit the site regularly to make sure the design is built as drawn.", "res-24"),
     ("Build", "Quantity surveying", "A detailed cost estimate based on the chosen design and materials.", "atwood"),
@@ -295,8 +281,12 @@ FAQS = [
     ("How do I get started?", "We offer free consultations. Book one through the contact page or call us, and we'll guide you through the first steps."),
 ]
 
-ROOMS = [  # the drawn-and-built slider: each drawing is generated from the photograph it is paired with
-    ("Kitchen", "res-39"), ("Open kitchen", "res-30"), ("Bedroom", "res-31"), ("Kids' room", "res-25"), ("Foyer", "res-04"),
+ROOMS = [  # room-by-room viewer: (name, portfolio filter, studio photographs)
+    ("Kitchens", "kitchen", ["res-40", "res-39", "res-33", "res-30", "res-07"]),
+    ("Bedrooms", "bedroom", ["res-12", "res-43", "res-36", "res-31", "res-24"]),
+    ("Kids' rooms", "kids", ["res-21", "res-42", "res-25", "res-15", "res-14"]),
+    ("Living and dining", "living", ["res-11", "res-08", "res-05", "res-37", "res-23"]),
+    ("Entrances and pooja", "entrance", ["res-32", "res-22", "res-04", "res-18", "res-27", "res-09"]),
 ]
 
 POSTS = [
@@ -344,37 +334,43 @@ def stage_row(h2_id):
 </section>'''
 
 
-def drawn_section(h2_id="drawn-h"):
-    first_name, first = ROOMS[0]
-    src_b, alt_b, _, pos_b = PHOTOS[first]
-    src_d = PHOTOS["d-" + first][0]
-    for _, k in ROOMS:
-        USED.setdefault(k, set()).add(f"{PAGE}: drawn and built slider")
-        USED.setdefault("d-" + k, set()).add(f"{PAGE}: drawn and built slider")
+def room_viewer(h2_id="rooms-h"):
+    """A viewer of the studio's own photographs, one room type at a time; nothing is cropped."""
+    name0, cat0, keys0 = ROOMS[0]
+    for _, _, keys in ROOMS:
+        for k in keys:
+            USED.setdefault(k, set()).add(f"{PAGE}: room-by-room viewer")
+    def small(src):  # the 800px copy, only where one exists
+        s800 = src[:-4] + "-800.jpg"
+        return s800 if os.path.exists(os.path.join(OUT, s800)) else ""
+
+    def data(keys):
+        return "|".join(f"{PHOTOS[k][0]}::{PHOTOS[k][1]}::{small(PHOTOS[k][0])}::{jpeg_width(os.path.join(OUT, PHOTOS[k][0]))}" for k in keys)
     buttons = "".join(
-        f'<button type="button" aria-pressed="{"true" if i == 0 else "false"}" data-built="{PHOTOS[k][0]}" data-drawn="{D}{k}.jpg" data-alt="{PHOTOS[k][1]}" data-pos="{PHOTOS[k][3]}">{name}</button>'
-        for i, (name, k) in enumerate(ROOMS))
-    sizes = "(max-width: 960px) 100vw, 75vw"
-    return f'''<section class="drawn sec stone" aria-labelledby="{h2_id}">
+        f'<button type="button" aria-pressed="{"true" if i == 0 else "false"}" data-cat="{cat}" data-photos="{data(keys)}"><span>{name}</span><span class="idx">{len(keys):02d}</span></button>'
+        for i, (name, cat, keys) in enumerate(ROOMS))
+    thumbs = "".join(
+        f'<button type="button" aria-pressed="{"true" if i == 0 else "false"}" aria-label="Photograph {i + 1}: {PHOTOS[k][1]}">{img_tag(PHOTOS[k][0], "", "120px")}</button>'
+        for i, k in enumerate(keys0))
+    src0, alt0 = PHOTOS[keys0[0]][0], PHOTOS[keys0[0]][1]
+    return f'''<section class="viewer sec stone" aria-labelledby="{h2_id}" data-viewer>
   <div class="wrap">
     <div class="sec-head">
-      <h2 id="{h2_id}" data-lines>Drawn first, then built</h2>
-      <p data-rise>Five rooms we have finished, each with a drawing made from the same photograph. Drag across the picture to compare the plan on paper with the room as it stands.</p>
+      <h2 id="{h2_id}" data-lines>Room by room</h2>
+      <p data-rise>Choose a room to look through the photographs of spaces we have designed and built in Hyderabad homes.</p>
     </div>
     <div class="grid">
-      <div class="compare" style="--fp: {pos_b}" data-open>
-        {img_tag(src_b, alt_b, sizes, extra=' class="compare__built"')}
-        {img_tag(src_d, "", sizes, extra=' class="compare__drawn"')}
-        <label class="sr-only" for="compare-range">Show more of the drawing or of the finished <span class="compare__name">{first_name}</span></label>
-        <input id="compare-range" type="range" min="0" max="100" value="50" step="1">
-        <div class="compare__handle" aria-hidden="true"><span class="compare__knob">{DRAG}</span></div>
-        <span class="compare__tag compare__tag--l" aria-hidden="true">Drawn</span>
-        <span class="compare__tag compare__tag--r" aria-hidden="true">Built</span>
-      </div>
-      <div class="drawn__side">
+      <figure class="viewer__stage" data-open>
+        <div class="viewer__frame">{img_tag(src0, alt0, "(max-width: 960px) 100vw, 66vw", extra=' class="is-on"')}</div>
+        <button class="icon-btn viewer__prev" type="button" aria-label="Previous photograph">{ARROW_L}</button>
+        <button class="icon-btn viewer__next" type="button" aria-label="Next photograph">{ARROW_R}</button>
+        <figcaption class="viewer__cap"><span class="meta viewer__alt">{alt0}</span><span class="idx viewer__count" aria-live="polite">01 / {len(keys0):02d}</span></figcaption>
+      </figure>
+      <div class="viewer__side">
         <p class="label">Choose a room</p>
-        <div class="rooms" role="group" aria-label="Choose a room" data-stagger>{buttons}</div>
-        <p class="drawn__hint">Drag, tap or use the arrow keys on the slider.</p>
+        <div class="viewer__rooms" role="group" aria-label="Choose a room">{buttons}</div>
+        <div class="viewer__thumbs" role="group" aria-label="Photographs of this room">{thumbs}</div>
+        <a class="tlink viewer__more" href="portfolio.html#{cat0}">See this room type in the portfolio {ARR}</a>
       </div>
     </div>
   </div>
@@ -418,7 +414,7 @@ for i, (k, name) in enumerate(HERO):
 SERVICES = [  # (anchor, title, description, picture, caption)
     ("residential", "Residential interiors", "Apartments and villas: living rooms, bedrooms, modular kitchens, kids' rooms and complete home makeovers.", "res-12", "Bedroom with a study wall"),
     ("commercial", "Commercial interiors", "Offices, retail and hospitality spaces that work hard and reflect your brand.", "com-45", "Open-plan office"),
-    ("specialized", "Specialized solutions", "Space planning, construction documentation, finish selection and 3D visualisation.", "d-res-11", "Drawing of a dining room"),
+    ("specialized", "Specialized solutions", "Space planning, construction documentation, finish selection and 3D visualisation.", "plan", "Floor plan"),
     ("turnkey", "Turnkey delivery", "Quantity surveying, procurement, site management and quality control through to handover.", "res-30", "Open kitchen"),
 ]
 svc_items = "".join(f'''<a class="svc-item" href="services.html#{a}" data-preview="{i}">
@@ -477,7 +473,7 @@ home = f'''<section class="hero" aria-labelledby="hero-h">
   </div>
 </section>
 
-{drawn_section()}
+{room_viewer()}
 
 <section class="svc-index sec" aria-labelledby="svc-h">
   <div class="wrap">
@@ -611,7 +607,7 @@ services = page_head("Services", "Whether you are refreshing a commercial proper
       <p class="lead" data-rise>Good design comes from communication. Our specialized services focus on commercial tenant improvements, combining creative design with technical knowledge of construction standards.</p>
       {deflist(SPEC, "deflist deflist--2")}
     </div>
-    <figure class="split__pic" style="margin:0">{ph("d-res-30", "r-45", "(max-width: 860px) 100vw, 33vw", where="specialized", attrs=" data-open")}<figcaption class="cap"><span class="meta">Construction drawing of an open kitchen</span></figcaption></figure>
+    <figure class="split__pic" style="margin:0">{ph("company", "r-45", "(max-width: 860px) 100vw, 33vw", where="specialized", attrs=" data-open")}<figcaption class="cap"><span class="meta">Marking up construction drawings</span></figcaption></figure>
   </div>
 </section>
 <section class="sec dark" id="turnkey" aria-labelledby="turn-h">
@@ -650,48 +646,52 @@ process = page_head("From first conversation to handover", "Our design process c
       <p class="muted" data-rise>Our designers visit the site while work is in progress, and a committed site supervisor manages day-to-day activities, monitors materials and resolves problems as they arise.</p>
     </div>
   </div>
-</section>
-{drawn_section("proc-drawn-h")}'''
+</section>'''
 page("process.html", "Our Design and Build Process | Atwood Dsigns", "The ten stages of the Atwood Dsigns design and execution process, from concept design to quality control.", process)
 
 # ================================================================================================ IDEAS
 PAGE = "ideas.html"
 IDEAS = [  # (anchor, title, built photo, drawing, portfolio filter, contact type, paragraphs)
-    ("living-room", "Living room", "res-37", "d-res-37", "living", "Living+room",
+    ("living-room", "Living room", "res-37", "res-08", "living", "Living+room",
      ["Your living room sets the tone for the entire home. It's the first space guests see and the corner where the family gathers to relax, talk, watch TV and celebrate, so its design should reflect your home's personality.",
       "We offer fully customised designs that bring out your individuality with comfort and elegance, and as a complete interior solutions provider we handle everything from civil work and electricals to painting and décor."]),
-    ("tv-unit", "TV unit", "res-23", "d-res-23", "living", "Living+room",
+    ("tv-unit", "TV unit", "res-23", None, "living", "Living+room",
      ["A TV unit is more than a piece of furniture. It shapes viewing comfort and the whole feel of the living room, which is often where the family gathers to unwind.",
       "We design it as a focal point that complements your interiors and reflects your lifestyle, not just a place for a screen."]),
-    ("kids-bedroom", "Kids' bedroom", "res-21", "d-res-21", "kids", "Bedroom+or+kids%27+room",
+    ("kids-bedroom", "Kids' bedroom", "res-21", "res-42", "kids", "Bedroom+or+kids%27+room",
      ["A child's room should be lively and personal, supporting play, learning and growth as well as rest.",
       "Choosing colours, furniture and décor can feel overwhelming. We bring thoughtful, affordable ideas tailored to your space and your child's imagination, delivered on time."]),
-    ("modular-kitchen", "Modular kitchen", "res-40", "d-res-40", "kitchen", "Kitchen",
+    ("modular-kitchen", "Modular kitchen", "res-40", "res-39", "kitchen", "Kitchen",
      ["The kitchen is the heart of every home. Every choice, from layout to finishes, should reflect your taste and make daily routines easier, in a space that feels bright, organised and clutter-free.",
       "We design modern, elegant and customised modular kitchens around the way you cook. Ask us for designs and a personalised quote."]),
-    ("bedroom", "Bedroom", "res-12", "d-res-12", "bedroom", "Bedroom+or+kids%27+room",
+    ("bedroom", "Bedroom", "res-12", "res-43", "bedroom", "Bedroom+or+kids%27+room",
      ["Our bedrooms are modern, stylish and space-efficient, with elegance and function in every detail.",
       "A few ideas that make a real difference: make the ceiling feel taller, balance light and dark shades, keep one colour palette, add texture, and finish with a statement piece of wall art."]),
-    ("bathroom", "Bathroom", None, "interior4", None, "Bathroom",
+    ("bathroom", "Bathroom", "interior4", None, None, "Bathroom",
      ["A bathroom is one of the most used rooms in any home, so it should be planned with care. It must balance function with hygiene, which makes detailing especially important.",
       "Our end-to-end approach keeps you involved at every stage. By understanding the space and visualising how each element comes together, we create bathrooms that are practical, stylish and complete."]),
 ]
-tiles = "".join(f'''<a href="#{a}">{ph(b or d, "r-45", "(max-width: 520px) 50vw, (max-width: 960px) 50vw, 33vw", where="room index", alt="")}<div class="cap"><h2>{t}</h2><span class="meta">{"Drawn and built" if b else "Illustration"}</span></div></a>''' for a, t, b, d, pf, ty, ps in IDEAS)
-ideas = page_head("Ideas, room by room", "How we think about the rooms people ask us about most. Each one is shown as a drawing and as the room we built from it.") + f'''
+tiles = "".join(f'''<a href="#{a}">{ph(b, "r-45", "(max-width: 520px) 50vw, (max-width: 960px) 50vw, 33vw", where="room index", alt="")}<div class="cap"><h2>{t}</h2><span class="meta">{"Design illustration" if pf is None else "A room we built"}</span></div></a>''' for a, t, b, d, pf, ty, ps in IDEAS)
+ideas = page_head("Ideas, room by room", "How we think about the rooms people ask us about most, shown with rooms we have designed and built.") + f'''
 <section class="sec sec--flush-top" aria-label="Rooms"><div class="wrap"><div class="rooms-index" data-stagger>{tiles}</div></div></section>'''
 for n, (a, t, b, d, pf, ty, ps) in enumerate(IDEAS):
     rev = " idea--rev" if n % 2 else ""
-    if b:
+    if pf is None:  # no studio photograph of this room type: the illustration from the previous website
+        pair = f'''<div class="idea__pair idea__pair--one">
+        <figure style="margin:0">{ph(b, "r-32", "(max-width: 860px) 100vw, 58vw", where=f"{t} illustration", attrs=" data-open")}<figcaption><span class="meta">Design illustration</span></figcaption></figure>
+      </div>'''
+        more = ""
+    elif d:
         pair = f'''<div class="idea__pair">
-        <figure style="margin:0">{ph(d, "r-45", "(max-width: 860px) 50vw, 29vw", where=f"{t} drawing", attrs=" data-open")}<figcaption><span class="meta">Drawn</span></figcaption></figure>
-        <figure style="margin:0">{ph(b, "r-45", "(max-width: 860px) 50vw, 29vw", where=f"{t} built", attrs=" data-open")}<figcaption><span class="meta">Built</span></figcaption></figure>
+        <figure style="margin:0">{ph(b, "r-45", "(max-width: 860px) 50vw, 29vw", where=t, attrs=" data-open")}<figcaption><span class="meta">{PHOTOS[b][1]}</span></figcaption></figure>
+        <figure style="margin:0" class="idea__second">{ph(d, "r-45", "(max-width: 860px) 50vw, 29vw", where=t, attrs=" data-open")}<figcaption><span class="meta">{PHOTOS[d][1]}</span></figcaption></figure>
       </div>'''
         more = f'<a class="tlink" href="portfolio.html#{pf}">See more in the portfolio {ARR}</a>'
     else:
         pair = f'''<div class="idea__pair idea__pair--one">
-        <figure style="margin:0">{ph(d, "r-32", "(max-width: 860px) 100vw, 58vw", where=f"{t} illustration", attrs=" data-open")}<figcaption><span class="meta">Design illustration</span></figcaption></figure>
+        <figure style="margin:0">{ph(b, "r-32", "(max-width: 860px) 100vw, 58vw", where=t, attrs=" data-open")}<figcaption><span class="meta">{PHOTOS[b][1]}</span></figcaption></figure>
       </div>'''
-        more = ""
+        more = f'<a class="tlink" href="portfolio.html#{pf}">See more in the portfolio {ARR}</a>'
     ideas += f'''
 <section class="idea sec{rev}" id="{a}" aria-labelledby="{a}-h">
   <div class="wrap grid">
@@ -829,7 +829,7 @@ contact = page_head("Start with a conversation", "Whether you have a question, n
 page("contact.html", "Contact and Free Consultation | Atwood Dsigns", "Book a free interior design consultation with Atwood Dsigns in Kokapet, Hyderabad. Call +91 90001 81212 or message us on WhatsApp.", contact, closing=False)
 
 # ================================================================================================ manifest
-KIND = {"studio": "Studio photograph", "library": "Library image (previous website)", "drawing": "Drawing generated from a studio photograph"}
+KIND = {"studio": "Studio photograph", "library": "Library image (previous website)"}
 lines = ["# Photograph manifest", "",
          "Generated by `tools/build.py` from its `PHOTOS` table. To replace a picture, change its entry there and rebuild.", "",
          "Studio photographs are the ones the studio uploaded of its own finished rooms (February 2026). Library images came with the",
