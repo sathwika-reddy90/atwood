@@ -217,8 +217,11 @@
   const hero = () => {
     const sec = $('.hero');
     if (!sec) return;
-    const imgs = $$('.hero__big img', sec);
-    const caption = $('.hero__room span', sec);
+    const imgs = $$('.hero__media img', sec);
+    const caption = $('.hero__room span:last-child', sec);
+    const roomLink = $('.hero__room', sec);
+    const count = $('.hero__count', sec);
+    const bars = $$('.hero__bars i', sec);
     const toggle = $('.slide-toggle', sec);
     const label = toggle && $('.tlabel', toggle);
 
@@ -234,6 +237,7 @@
 
     if (imgs.length < 2 || !toggle) return;
     let i = 0, timer = 0, paused = motion.reduced, inView = true;
+    if (bars[0]) bars[0].classList.add('is-on');
     const playing = () => !paused && inView && !document.hidden;
     const go = async (n) => {
       const next = imgs[n];
@@ -244,6 +248,9 @@
       i = n;
       caption.classList.add('is-swapping');
       setTimeout(() => { caption.textContent = next.dataset.name; caption.classList.remove('is-swapping'); }, 300);
+      if (roomLink && next.dataset.href) roomLink.href = next.dataset.href;
+      if (count) count.textContent = `${String(n + 1).padStart(2, '0')} / ${String(imgs.length).padStart(2, '0')}`;
+      bars.forEach((b, k) => b.classList.toggle('is-on', k === n));
       const after = imgs[(n + 1) % imgs.length];
       idle(() => { after.loading = 'eager'; });
     };
@@ -666,7 +673,7 @@
     const form = $('#enquiry');
     if (!form) return;
     const KEY = 'atwood-enquiry';
-    const fields = ['name', 'phone', 'email', 'type', 'message'];
+    const fields = ['name', 'phone', 'email', 'type', 'area', 'message'];
     const required = ['name', 'phone', 'email', 'message'];
     const statusBox = $('.form-status', form);
     const store = {
@@ -707,7 +714,7 @@
       return !first;
     };
     const v = (n) => form.elements[n].value.trim();
-    const body = () => `Name: ${v('name')}\nPhone: ${v('phone')}\nEmail: ${v('email')}\nProject: ${v('type')}\n\n${v('message')}`;
+    const body = () => `Name: ${v('name')}\nPhone: ${v('phone')}\nEmail: ${v('email')}\nProject: ${v('type')}${v('area') ? `\nLocality: ${v('area')}` : ''}\n\n${v('message')}`;
 
     // After sending, say what should have happened and offer a way out if it did not.
     const report = (channel) => {

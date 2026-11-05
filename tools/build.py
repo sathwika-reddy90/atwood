@@ -127,11 +127,11 @@ PAUSE_PLAY = '<svg class="i-pause" width="12" height="12" viewBox="0 0 24 24" ar
 ARR = '<span class="arr" aria-hidden="true">&rarr;</span>'
 
 
-def header(current):
+def header(current, over=False):
     links = "".join(f'<a href="{h}"{CUR if h == current else ""}>{t}</a>' for h, t in NAV)
     menu = "".join(f'<li><a href="{h}" data-n="{i + 1:02d}"{CUR if h == current else ""}>{t}</a></li>' for i, (h, t) in enumerate(MENU))
     return f'''<a class="skip" href="#main">Skip to content</a>
-<header class="site-header">
+<header class="site-header{' site-header--over' if over else ''}">
   <div class="wrap">
     <a class="brand" href="index.html" aria-label="Atwood Dsigns, home"><img src="{I}logo-web-new-2.png" alt="Atwood Dsigns" width="255" height="97"><span class="brand__line" aria-hidden="true">Interior design<br>and build studio</span></a>
     <nav class="nav" aria-label="Main">{links}</nav>
@@ -166,7 +166,8 @@ FOOTER = f'''<footer class="site-footer">
     <div class="legal"><span>&copy; <span id="year">2026</span> Atwood Dsigns LLP. All rights reserved.</span><span>Kokapet, Hyderabad</span></div>
   </div>
 </footer>
-<a class="wa-float" href="{WA}" target="_blank" rel="noopener" aria-label="Chat with Atwood Dsigns on WhatsApp">{ICON_WA}</a>'''
+<a class="wa-float" href="{WA}" target="_blank" rel="noopener" aria-label="Chat with Atwood Dsigns on WhatsApp">{ICON_WA}</a>
+<nav class="mbar" aria-label="Quick contact"><a href="{TEL}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 013 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>Call the studio</a><a href="{WA}" target="_blank" rel="noopener">{ICON_WA}WhatsApp</a></nav>'''
 
 
 def cta():
@@ -189,7 +190,7 @@ def cta():
 </section>'''
 
 
-def page(fname, title, desc, body, closing=True):
+def page(fname, title, desc, body, closing=True, over=False):
     canonical = SITE + ("" if fname == "index.html" else fname.replace(".html", "/"))
     html = f'''<!doctype html>
 <html lang="en">
@@ -209,13 +210,13 @@ def page(fname, title, desc, body, closing=True):
 <link rel="icon" href="{I}cropped-favicon-192x192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Mono:wght@400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400&family=Instrument+Serif&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css">
 <script>(function (d) {{ d.classList.add('js'); if ('onpagereveal' in window) d.classList.add('vt'); setTimeout(function () {{ if (!d.classList.contains('ready')) d.classList.remove('js'); }}, 4000); }})(document.documentElement)</script>
 <script type="speculationrules">{{"prefetch": [{{"where": {{"selector_matches": "a[href$='.html']"}}, "eagerness": "moderate"}}]}}</script>
 </head>
 <body>
-{header(fname)}
+{header(fname, over)}
 <main id="main">
 {body}
 {cta() if closing else ""}
@@ -315,7 +316,7 @@ POSTS = [
 def stage_row(h2_id):
     cols = "".join(f'''<li class="moment">
         {ph(key, "r-45", "(max-width: 760px) 78vw, (max-width: 1100px) 31vw, 300px", where="ten stages")}
-        <p class="moment__n"><b>{i + 1:02d}</b><span class="meta">{phase}</span></p>
+        <p class="moment__n moment__n--{"design" if phase == "Design" else "build"}"><b>{i + 1:02d}</b><span class="meta">{"Design" if phase == "Design" else "Execution"}</span></p>
         <h3>{t}</h3>
         <p>{d}</p>
       </li>''' for i, (phase, t, d, key) in enumerate(STAGES))
@@ -326,7 +327,7 @@ def stage_row(h2_id):
       <p data-rise>Five stages of design and five of execution. The people who draw your space are the people who build it.</p>
     </div>
     <p class="moments__count" aria-hidden="true">Stages <b>1 to 4</b> of 10</p>
-    <div class="rail">{"".join(f'<button type="button" data-goto="{i}" aria-label="Go to stage {i + 1}, {t}">{i + 1:02d}</button>' for i, (_p, t, _d, _k) in enumerate(STAGES))}
+    <div class="rail"><div class="rail__group rail__group--design"><p class="rail__name">Design</p><div class="rail__ticks">{"".join(f'<button type="button" data-goto="{i}" aria-label="Go to stage {i + 1}, {t}">{i + 1:02d}</button>' for i, (_p, t, _d, _k) in enumerate(STAGES) if i < 5)}</div></div><div class="rail__group rail__group--build"><p class="rail__name">Execution</p><div class="rail__ticks">{"".join(f'<button type="button" data-goto="{i}" aria-label="Go to stage {i + 1}, {t}">{i + 1:02d}</button>' for i, (_p, t, _d, _k) in enumerate(STAGES) if i >= 5)}</div></div>
       <div class="moments__nav"><button class="icon-btn" type="button" data-dir="prev" aria-label="Earlier stages">{ARROW_L}</button><button class="icon-btn" type="button" data-dir="next" aria-label="Later stages">{ARROW_R}</button></div></div>
     <p class="sr-only" role="status" data-row-status></p>
     <ol class="row" aria-label="The ten stages, in order. Use the arrow keys to move between stages." tabindex="0">{cols}</ol>
@@ -353,7 +354,7 @@ def room_viewer(h2_id="rooms-h"):
         f'<button type="button" aria-pressed="{"true" if i == 0 else "false"}" aria-label="Photograph {i + 1}: {PHOTOS[k][1]}">{img_tag(PHOTOS[k][0], "", "120px")}</button>'
         for i, k in enumerate(keys0))
     src0, alt0 = PHOTOS[keys0[0]][0], PHOTOS[keys0[0]][1]
-    return f'''<section class="viewer sec stone" aria-labelledby="{h2_id}" data-viewer>
+    return f'''<section class="viewer sec dark" aria-labelledby="{h2_id}" data-viewer>
   <div class="wrap">
     <div class="sec-head">
       <h2 id="{h2_id}" data-lines>Room by room</h2>
@@ -401,70 +402,142 @@ def faq_block(h2_id="faq-h"):
 </section>'''
 
 
+# ---------------------------------------------------------------- projects
+# Only rooms photographed several times are projects. Everything written about them describes what is visible
+# in the photographs: no client, location, year, brief or budget is stated, because none has been supplied.
+PROJECTS = [
+    dict(slug="project-space-kids-bedroom", title="Space-themed kids' bedroom", cat="Kids' room", filter="kids", contact="Bedroom+or+kids%27+room",
+         lead="res-44", card="res-21", card_pos="30% 50%",
+         overview="A child's bedroom organised around one idea: the night sky. Illustrated glass doors, a scalloped headboard and a lit mirror turn storage and furniture into the theme, while the study corner keeps it a room to grow up in.",
+         seen=[("Sliding wardrobe", "Three full-height doors in sky-blue glass, printed with astronauts and set in slim black frames."),
+               ("Headboard", "Deep-blue upholstered panels with rounded tops, fixed to the wall like a row of standing stones."),
+               ("Storage bed", "A white bed base with storage, matched to the low drawers beneath the wardrobe."),
+               ("Lit mirror", "A full-length mirror with a playful cut-out outline and a warm glow behind its edge."),
+               ("Study corner", "A desk with a white drawer unit and a world map covering the wall above it."),
+               ("Lighting", "Recessed downlights with a warm strip of light along the wardrobe wall.")],
+         seq=[("res-21", "wide"), ("res-25", "half"), ("res-20", "half-tall"), ("res-14", "wide"), ("res-35", "half"), ("res-29", "half-tall")]),
+    dict(slug="project-dining-bar", title="Dining, bar and display unit", cat="Living and dining", filter="living", contact="Living+room",
+         lead="res-11", card="res-11", card_pos="52% 58%",
+         overview="A dining space that opens onto a bar counter, framed by lit display cabinets and a wall of teal drapes. The ceiling, the joinery and the lighting are designed together, so the room reads as one composition from the table and from the bar.",
+         seen=[("Display units", "Tall cabinets with glass shelves, black frames and warm vertical lighting."),
+               ("Drapes", "Floor-to-ceiling teal curtains that soften the whole wall."),
+               ("Dining set", "A white-topped table on a gold base, with upholstered chairs on gold-tipped black legs."),
+               ("Bar counter", "A counter faced in black marble-effect stone, with high stools."),
+               ("Pendants", "Open hexagonal pendant lights over the bar, with plants hung above them."),
+               ("Ceiling", "A dropped ceiling with a reflective inset panel, a chandelier and linear lighting.")],
+         seq=[("res-11", "wide"), ("res-08", "wide")]),
+    dict(slug="project-open-kitchen", title="Open kitchen and hall", cat="Kitchen", filter="kitchen", contact="Kitchen",
+         lead="res-30", card="res-30", card_pos="50% 55%",
+         overview="An L-shaped kitchen open to the hall, with carved doors and an arched niche giving the space its character. A cove ceiling with warm light ties the kitchen and the hall together.",
+         seen=[("Base cabinets", "An L-shaped run in deep blue, under a black countertop."),
+               ("Wall cabinets", "Black-framed glass shutters above a marble-effect backsplash."),
+               ("Doors", "Dark doors with carved floral motifs and slim horizontal inlays."),
+               ("Arched niche", "A soft arch cut into the wall beside the doors."),
+               ("Panelling", "A fluted white wall panel edged in brass at the entrance to the hall."),
+               ("Ceiling", "A cove ceiling with a warm strip light, downlights and a ceiling fan.")],
+         seq=[("res-30", "wide"), ("res-07", "wide")]),
+]
+PROJECT_BY_SLUG = {pr["slug"]: pr for pr in PROJECTS}
+for pr in PROJECTS:  # every photograph of the space, lead first
+    pr["photos"] = list(dict.fromkeys([pr["lead"]] + [k for k, _ in pr["seq"]]))
+
+
 # ================================================================================================ HOME
 PAGE = "index.html"
-HERO = [("res-22", "Pooja unit"), ("res-05", "Dining room"), ("res-40", "Modular kitchen")]
+HERO = [  # (picture, room, where its caption leads)
+    ("res-11", "Dining, bar and display unit", "project-dining-bar.html"),
+    ("res-39", "Navy and white kitchen", "portfolio.html#kitchen"),
+    ("res-12", "Bedroom with a study wall", "portfolio.html#bedroom"),
+    ("res-43", "Pink arched wardrobe", "portfolio.html#bedroom"),
+]
 hero_imgs = ""
-for i, (k, name) in enumerate(HERO):
+for i, (k, name, href) in enumerate(HERO):
     src, alt, _, pos = PHOTOS[k]
-    USED.setdefault(k, set()).add("index.html: hero slideshow")
-    hero_imgs += img_tag(src, alt, "(max-width: 960px) 100vw, 50vw", lazy=i > 0,
-                         extra=f' data-name="{name}" style="--pos: {pos}"' + (' class="is-on" fetchpriority="high"' if i == 0 else ""))
+    USED.setdefault(k, set()).add("index.html: hero")
+    hero_imgs += img_tag(src, alt, "100vw", lazy=i > 0,
+                         extra=f' data-name="{name}" data-href="{href}" style="--pos: {pos}"' + (' class="is-on" fetchpriority="high"' if i == 0 else ""))
 
 SERVICES = [  # (anchor, title, description, picture, caption)
     ("residential", "Residential interiors", "Apartments and villas: living rooms, bedrooms, modular kitchens, kids' rooms and complete home makeovers.", "res-12", "Bedroom with a study wall"),
     ("commercial", "Commercial interiors", "Offices, retail and hospitality spaces that work hard and reflect your brand.", "com-45", "Open-plan office"),
     ("specialized", "Specialized solutions", "Space planning, construction documentation, finish selection and 3D visualisation.", "plan", "Floor plan"),
-    ("turnkey", "Turnkey delivery", "Quantity surveying, procurement, site management and quality control through to handover.", "res-30", "Open kitchen"),
+    ("turnkey", "Turnkey execution", "Quantity surveying, procurement, site management and quality control through to handover.", "res-30", "Open kitchen"),
 ]
 svc_items = "".join(f'''<a class="svc-item" href="services.html#{a}" data-preview="{i}">
       {ph(k, "r-32", "100vw", where="services list (phone)", alt="")}
       <span class="idx">{i + 1:02d}</span><h3>{t}</h3><span class="arr" aria-hidden="true">&rarr;</span><p>{d}</p></a>''' for i, (a, t, d, k, c) in enumerate(SERVICES))
 svc_preview = "".join(img_tag(PHOTOS[k][0], PHOTOS[k][1], "(max-width: 860px) 0px, 40vw", extra=f' data-caption="{c}" data-index="{i + 1:02d} / 04" style="--pos: {PHOTOS[k][3]}"' + (' class="is-on"' if i == 0 else "")) for i, (a, t, d, k, c) in enumerate(SERVICES))
 
-FEATURED = [  # (picture, title, meta)
-    ("res-11", "Dining, bar and display unit", "Living and dining"),
-    ("res-33", "Grey modular kitchen", "Kitchen"),
-    ("res-42", "Kids' study and wardrobe", "Kids' room"),
-    ("res-43", "Pink arched wardrobe", "Bedroom"),
-    ("res-18", "Glazed timber door", "Entrance"),
-    ("res-27", "Foyer, dressed for the housewarming", "Entrance"),
-]
+MORE_ROOMS = [("res-40", "Mint modular kitchen", "kitchen"), ("res-22", "Pooja unit", "entrance"), ("res-43", "Pink arched wardrobe", "bedroom"), ("res-32", "Warm-lit entrance lobby", "entrance")]
 
 
-def wk(n, k, title, meta, ratio, sizes):
-    return f'''<a class="wk wk--{n}" href="portfolio.html">
-        {ph(k, ratio, sizes, where="selected rooms", attrs=" data-open")}
-        <span class="wk__cap"><span class="idx">{n:02d}</span><h3>{title}</h3><span class="meta"><span>{meta}</span><em>View in portfolio &rarr;</em></span></span>
+def project_feature(pr, n, ratio, sizes, cls):
+    return f'''<a class="pj {cls}" href="{pr["slug"]}.html">
+        <div class="ph {ratio}" style="--pos: {pr["card_pos"]}" data-open>{img_tag(PHOTOS[pr["card"]][0], PHOTOS[pr["card"]][1], sizes)}</div>
+        <span class="pj__cap"><span class="idx">{n:02d}</span><span class="pj__title">{pr["title"]}</span><span class="meta">{pr["cat"]}, {len(pr["photos"])} photographs</span><em class="pj__go">View project &rarr;</em></span>
       </a>'''
 
 
-f = FEATURED
+pf = PROJECTS
+more = "".join(f'''<a class="mr" href="portfolio.html#{c}">{ph(k, "r-45", "(max-width: 600px) 50vw, 25vw", where="more rooms", alt="")}<span class="meta">{t}</span></a>''' for k, t, c in MORE_ROOMS)
 home = f'''<section class="hero" aria-labelledby="hero-h">
-  <div class="wrap">
-    <div class="hero__inner">
-      <div class="hero__text">
-        <p class="label">Design and build studio, Hyderabad</p>
-        <h1 id="hero-h" data-lines>Interiors designed, drawn and built</h1>
-        <p class="hero__lead" data-rise>Atwood Dsigns is an interior design and build studio in Kokapet, Hyderabad, for homes, offices and shops.</p>
-        <div class="actions" data-rise><a class="btn" href="contact.html">Book a free consultation {ARR}</a><a class="btn btn--ghost" href="portfolio.html">See our work</a></div>
-        <div class="hero__meta">
-          <p class="hero__room"><span>{HERO[0][1]}</span>, a room we finished</p>
-          <button class="slide-toggle" type="button" aria-pressed="false">{PAUSE_PLAY}<span class="tlabel">Pause</span><span class="sr-only"> the slideshow</span></button>
-        </div>
+  <div class="hero__media">{hero_imgs}</div>
+  <div class="hero__shade" aria-hidden="true"></div>
+  <div class="wrap hero__inner">
+    <div class="hero__text">
+      <p class="label">Design and build studio, Kokapet, Hyderabad</p>
+      <h1 id="hero-h" data-lines>Interiors designed, drawn and built</h1>
+      <p class="hero__lead" data-rise>Homes, offices and shops, taken from the first conversation to handover by one studio.</p>
+      <div class="actions" data-rise><a class="btn btn--light" href="contact.html">Book a free consultation {ARR}</a><a class="btn btn--line-light" href="portfolio.html">See our work</a></div>
+    </div>
+    <div class="hero__foot">
+      <ol class="hero__caps">
+        <li><span class="idx">01</span><b>Design</b><span>Concept to construction drawings</span></li>
+        <li><span class="idx">02</span><b>Build</b><span>Procurement, site and quality control</span></li>
+        <li><span class="idx">03</span><b>One team</b><span>From first sketch to handover</span></li>
+      </ol>
+      <div class="hero__meta">
+        <a class="hero__room" href="{HERO[0][2]}"><span class="meta">Now showing</span><span>{HERO[0][1]}</span></a>
+        <div class="hero__ctl"><span class="idx hero__count">01 / {len(HERO):02d}</span><span class="hero__bars" aria-hidden="true">{"".join("<i></i>" for _ in HERO)}</span><button class="slide-toggle" type="button" aria-pressed="false">{PAUSE_PLAY}<span class="tlabel">Pause</span><span class="sr-only"> the slideshow</span></button></div>
       </div>
-      <div class="hero__big">{hero_imgs}</div>
     </div>
   </div>
 </section>
 
-<section class="intro sec" aria-labelledby="intro-h">
+<section class="work sec" aria-labelledby="work-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="work-h" data-lines>Selected projects</h2>
+      <p data-rise>Rooms we have designed and built, with every photograph of each space and notes on what went into it.</p>
+    </div>
+    <div class="pjs">
+      {project_feature(pf[0], 1, "r-45", "(max-width: 860px) 100vw, 50vw", "pj--feature")}
+      <div class="pj__note">
+        <p class="statement">{pf[0]["overview"]}</p>
+        <ul class="pj__seen">{"".join(f"<li><span class='meta'>{a}</span>{b}</li>" for a, b in pf[0]["seen"][:3])}</ul>
+        <a class="tlink" href="{pf[0]["slug"]}.html">Read the project {ARR}</a>
+      </div>
+      {project_feature(pf[1], 2, "r-32", "(max-width: 860px) 100vw, 58vw", "pj--wide")}
+      {project_feature(pf[2], 3, "r-45", "(max-width: 860px) 100vw, 33vw", "pj--tall")}
+    </div>
+    <div class="more-rooms">
+      <div class="more-rooms__head"><p class="label">More rooms</p><a class="tlink" href="portfolio.html">View all 27 rooms {ARR}</a></div>
+      <div class="more-rooms__row">{more}</div>
+    </div>
+  </div>
+</section>
+
+<section class="intro sec sec--flush-top" aria-labelledby="intro-h">
   <div class="wrap grid">
     <div class="intro__text">
+      <p class="label" data-rise>The studio</p>
       <h2 class="sr-only" id="intro-h">About the studio</h2>
-      <p class="statement" data-rise>We turn spaces into experiences. Whether it's a cosy home, a sharp office or a lively shop floor, we combine creativity, function and fine craftsmanship to bring your vision to life.</p>
-      <p class="muted" data-rise>Our designs blend timeless style with modern ideas, so every detail feels personal and purposeful. From concept to completion we work closely with you, and the same team that draws your space builds it.</p>
-      <a class="tlink" href="about.html" data-rise>About the studio {ARR}</a>
+      <p class="statement" data-rise>We design and build homes, offices and commercial interiors in Hyderabad, and the team that draws your space is the team that builds it.</p>
+      <div class="intro__cols" data-rise>
+        <p class="muted">We combine creativity, function and fine craftsmanship to bring your vision to life, with designs that blend timeless style and modern ideas so every detail feels personal and purposeful.</p>
+        <p class="muted">Five stages of design are followed by five of execution: quantity surveying, procurement, project planning, a dedicated site supervisor and a final quality review before handover.</p>
+      </div>
+      <div class="actions" data-rise><a class="tlink" href="about.html">About the studio {ARR}</a><a class="tlink" href="process.html">How we work {ARR}</a></div>
     </div>
     <figure class="intro__pic" style="margin:0">
       {ph("res-08", "r-45", "(max-width: 860px) 100vw, 40vw", where="studio introduction", attrs=" data-open")}
@@ -478,7 +551,7 @@ home = f'''<section class="hero" aria-labelledby="hero-h">
 <section class="svc-index sec" aria-labelledby="svc-h">
   <div class="wrap">
     <div class="sec-head">
-      <h2 id="svc-h" data-lines>What we design</h2>
+      <h2 id="svc-h" data-lines>What we design and build</h2>
       <p data-rise>Four kinds of work, delivered by one team from the first drawing to the final check.</p>
     </div>
     <div class="grid">
@@ -488,28 +561,11 @@ home = f'''<section class="hero" aria-labelledby="hero-h">
   </div>
 </section>
 
-<section class="work sec sec--flush-top" aria-labelledby="work-h">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2 id="work-h" data-lines>Selected rooms</h2>
-      <a class="tlink" href="portfolio.html" data-rise>View the portfolio {ARR}</a>
-    </div>
-    <div class="works">
-      {wk(1, f[0][0], f[0][1], f[0][2], "r-32", "(max-width: 860px) 100vw, 58vw")}
-      {wk(2, f[1][0], f[1][1], f[1][2], "r-45", "(max-width: 860px) 50vw, 33vw")}
-      {wk(3, f[2][0], f[2][1], f[2][2], "r-45", "(max-width: 860px) 50vw, 33vw")}
-      {wk(4, f[3][0], f[3][1], f[3][2], "r-32", "(max-width: 860px) 100vw, 50vw")}
-      {wk(5, f[4][0], f[4][1], f[4][2], "r-45", "(max-width: 860px) 50vw, 33vw")}
-      {wk(6, f[5][0], f[5][1], f[5][2], "r-169", "(max-width: 860px) 100vw, 58vw")}
-    </div>
-  </div>
-</section>
-
 {stage_row("moments-h")}
 
 {voices()}'''
 page("index.html", "Atwood Dsigns | Interior Design and Build Studio in Kokapet, Hyderabad",
-     "Atwood Dsigns designs, draws and builds residential and commercial interiors in Hyderabad, from the first consultation to handover. Book a free consultation.", home)
+     "Atwood Dsigns designs, draws and builds residential and commercial interiors in Hyderabad, from the first consultation to handover. Book a free consultation.", home, over=True)
 
 # ================================================================================================ ABOUT
 PAGE = "about.html"
@@ -538,6 +594,17 @@ about = page_head("Design shaped around how you live", "Atwood Dsigns is an inte
       <div><h3>Functionality</h3><p>Layouts, storage and lighting planned for how the space is really used.</p></div>
       <div><h3>Sustainability</h3><p>Choices that respect both beauty and the environment.</p></div>
       <div><h3>Integrity</h3><p>Timeless quality as the goal, with integrity at the core of every project.</p></div>
+    </div>
+  </div>
+</section>
+<section class="sec" aria-labelledby="visit-h">
+  <div class="wrap split split--rev">
+    <figure class="split__pic" style="margin:0">{ph("res-32", "r-32", "(max-width: 860px) 100vw, 58vw", where="visit the studio", attrs=" data-open")}<figcaption class="cap"><span class="meta">Warm-lit entrance lobby, a room we finished</span></figcaption></figure>
+    <div class="split__text">
+      <p class="label" data-rise>Visit</p>
+      <h2 id="visit-h" data-lines>The studio in Kokapet</h2>
+      <p class="lead" data-rise>{ADDR}</p>
+      <div class="actions" data-rise><a class="btn" href="contact.html">Book a visit {ARR}</a><a class="tlink" href="https://maps.google.com/?q=E-Infra+Tower+Brindavan+Colony+Kokapet+Hyderabad" target="_blank" rel="noopener">Open in Maps {ARR}</a></div>
     </div>
   </div>
 </section>
@@ -712,7 +779,7 @@ CAT_NAME = dict(CATS)
 CAT_ONE = {"kitchen": "Kitchen", "bedroom": "Bedroom", "kids": "Kids' room", "living": "Living and dining", "entrance": "Entrance and pooja", "commercial": "Commercial"}
 CARDS = [  # (title, category, photographs: the first leads)
     ("Space-themed kids' bedroom", "kids", ["res-21", "res-25", "res-14", "res-35", "res-44", "res-29", "res-20"]),
-    ("Dining, bar and display unit", "living", ["res-11", "res-08", "res-05"]),
+    ("Dining, bar and display unit", "living", ["res-11", "res-08"]),
     ("Warm-lit entrance lobby", "entrance", ["res-32"]),
     ("Mint modular kitchen", "kitchen", ["res-40"]),
     ("Bedroom with a study wall", "bedroom", ["res-12"]),
@@ -722,12 +789,14 @@ CARDS = [  # (title, category, photographs: the first leads)
     ("Grey modular kitchen", "kitchen", ["res-33"]),
     ("Marble TV wall", "living", ["res-37"]),
     ("Pink arched wardrobe", "bedroom", ["res-43"]),
-    ("Foyer, dressed for the housewarming", "entrance", ["res-04", "res-27"]),
+    ("Foyer with backlit niches", "entrance", ["res-04"]),
+    ("Dining table by the window", "living", ["res-05"]),
     ("Loft bed for a child", "kids", ["res-15", "res-06"]),
     ("Open kitchen and hall", "kitchen", ["res-30", "res-07"]),
     ("Glazed timber door", "entrance", ["res-18"]),
     ("Grey sliding wardrobe", "bedroom", ["res-36"]),
     ("Lit feature wall", "entrance", ["res-09"]),
+    ("Entrance with a brass screen", "entrance", ["res-27"]),
     ("Wardrobe and window seat", "bedroom", ["res-24"]),
     ("Fitted wardrobes", "bedroom", ["res-31"]),
     ("Backlit TV unit", "living", ["res-23"]),
@@ -736,15 +805,15 @@ CARDS = [  # (title, category, photographs: the first leads)
     ("Conference room", "commercial", ["com-28"]),
     ("Reception lounge", "commercial", ["com-38"]),
     ("Office lounge", "commercial", ["com-10"]),
-    ("Breakout area", "commercial", ["com-02"]),
-    ("Open-plan workspace", "commercial", ["com-47"]),
 ]
 HELD_BACK = {"res-41": "sofa still in its plastic wrapping (used only for the site management stage)", "res-46": "dark and cluttered",
              "res-13": "duplicate of com-38", "com-16": "duplicate of com-10",
              "com-19": "residential library image filed under commercial", "com-26": "library image of uncertain use",
              "com-34": "library image of a kitchen with a person in frame",
              "com-17": "library image; held back so the portfolio grid closes on full rows",
-             "com-03": "library image; held back so the portfolio grid closes on full rows"}
+             "com-03": "library image; held back so the portfolio grid closes on full rows",
+             "com-02": "library image; held back so the portfolio grid closes on full rows",
+             "com-47": "library image; held back so the portfolio grid closes on full rows"}
 counts = {c: sum(1 for _, cc, _ in CARDS if cc == c) for c, _ in CATS}
 counts["all"] = len(CARDS)
 cards = ""
@@ -761,7 +830,14 @@ for n, (title, cat, keys) in enumerate(CARDS, 1):
       <div class="cap"><span class="idx">{n:02d}</span><h2>{title}</h2><span class="meta">{CAT_ONE[cat]}</span></div>
     </a>'''
 chips = "".join(f'<button type="button" data-filter="{c}" aria-pressed="{"true" if c == "all" else "false"}">{n}<small>{counts[c]}</small></button>' for c, n in CATS)
+pf_row = "".join(f'''<a class="pj" href="{pr["slug"]}.html">{ph(pr["card"], "r-45", "(max-width: 860px) 100vw, 33vw", where="portfolio projects", alt="", attrs=" data-open")}<span class="pj__cap"><span class="idx">{n:02d}</span><span class="pj__title">{pr["title"]}</span><span class="meta">{pr["cat"]}, {len(pr["photos"])} photographs</span><em class="pj__go">View project &rarr;</em></span></a>''' for n, pr in enumerate(PROJECTS, 1))
 portfolio = page_head("Rooms we have designed and built", "Kitchens, bedrooms, kids' rooms, living spaces and entrances across Hyderabad. Choose a room to see it full size, with every photograph of that space.") + f'''
+<section class="sec sec--flush-top pf-projects" aria-labelledby="pfp-h">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="pfp-h" data-lines>Projects</h2><p data-rise>Spaces photographed in depth, with notes on what went into each.</p></div>
+    <div class="pf-projects__row">{pf_row}</div>
+  </div>
+</section>
 <div class="filterbar"><div class="wrap"><div class="chips" role="group" aria-label="Filter by room">{chips}</div><p class="count" aria-hidden="true"><b data-count>{len(CARDS)}</b> rooms</p></div></div>
 <section class="sec sec--flush-top" aria-labelledby="pf-h">
   <div class="wrap">
@@ -779,6 +855,54 @@ portfolio = page_head("Rooms we have designed and built", "Kitchens, bedrooms, k
 </div>'''
 page("portfolio.html", "Portfolio | Atwood Dsigns", "Kitchens, bedrooms, kids' rooms, living spaces and entrances designed and built by Atwood Dsigns in Hyderabad.", portfolio)
 
+# ================================================================================================ PROJECT PAGES
+for n, pr in enumerate(PROJECTS):
+    PAGE = pr["slug"] + ".html"
+    nxt = PROJECTS[(n + 1) % len(PROJECTS)]
+    seq = ""
+    for k, kind in pr["seq"]:
+        cls = {"wide": "ps--wide", "half": "ps--half", "half-tall": "ps--half"}[kind]
+        ratio = {"wide": "r-32", "half": "r-45", "half-tall": "r-45"}[kind]  # paired photographs share one proportion
+        seq += f'''<figure class="ps {cls}">{ph(k, ratio, "(max-width: 860px) 100vw, " + ("100vw" if kind == "wide" else "50vw"), where="project sequence", attrs=" data-open")}<figcaption class="meta">{PHOTOS[k][1]}</figcaption></figure>'''
+    body = f'''<section class="project-hero" aria-labelledby="pr-h">
+  <div class="project-hero__media">{img_tag(PHOTOS[pr["lead"]][0], PHOTOS[pr["lead"]][1], "100vw", lazy=False, extra=f' fetchpriority="high" data-scale style="--pos: {PHOTOS[pr["lead"]][3]}"')}</div>
+  <div class="hero__shade" aria-hidden="true"></div>
+  <div class="wrap project-hero__text">
+    <p class="label"><a href="portfolio.html">Portfolio</a> / Project {n + 1:02d}</p>
+    <h1 data-lines>{pr["title"]}</h1>
+    <dl class="project-facts">
+      <div><dt class="meta">Room</dt><dd>{pr["cat"]}</dd></div>
+      <div><dt class="meta">Photographs</dt><dd>{len(pr["photos"])}</dd></div>
+      <div><dt class="meta">Studio</dt><dd>Atwood Dsigns, design and build</dd></div>
+    </dl>
+  </div>
+</section>
+<section class="sec" aria-labelledby="ov-h">
+  <div class="wrap grid">
+    <div class="project-side"><h2 class="label" id="ov-h">Overview</h2></div>
+    <div class="project-main">
+      <p class="statement" data-rise>{pr["overview"]}</p>
+      <h3 class="label project-sub" data-rise>In the room</h3>
+      <ul class="deflist deflist--2 project-seen" data-stagger>{"".join(f"<li><strong>{a}</strong><span>{b}</span></li>" for a, b in pr["seen"])}</ul>
+      <p class="note" data-rise>Notes describe what is visible in the photographs.</p>
+    </div>
+  </div>
+</section>
+<section class="sec sec--flush-top" aria-label="Photographs">
+  <div class="wrap pseq">{seq}</div>
+</section>
+<section class="sec stone project-next" aria-labelledby="nx-h">
+  <div class="wrap grid">
+    <div class="project-next__text">
+      <h2 class="h2" id="nx-h" data-lines>Planning a room like this?</h2>
+      <p class="lead muted" data-rise>Tell us about your space and we will walk you through how we would design and build it.</p>
+      <div class="actions" data-rise><a class="btn" href="contact.html?type={pr["contact"]}">Plan a similar room {ARR}</a><a class="btn btn--ghost" href="portfolio.html#{pr["filter"]}">More {CAT_NAME[pr["filter"]].lower()}</a></div>
+    </div>
+    <a class="pj project-next__card" href="{nxt["slug"]}.html">{ph(nxt["card"], "r-32", "(max-width: 860px) 100vw, 40vw", where="next project", alt="")}<span class="pj__cap"><span class="idx">Next</span><span class="pj__title">{nxt["title"]}</span><span class="meta">{nxt["cat"]}</span><em class="pj__go">View project &rarr;</em></span></a>
+  </div>
+</section>'''
+    page(PAGE, f"{pr['title']} | Atwood Dsigns", f"{pr['title']} by Atwood Dsigns, an interior design and build studio in Hyderabad: photographs and notes on the materials, joinery and lighting.", body, closing=False, over=True)
+
 # ================================================================================================ JOURNAL
 PAGE = "journal.html"
 toc = "".join(f'''<a class="toc-item" href="#{s}">{ph(k, "r-32", "(max-width: 520px) 100vw, 25vw", where="article list", alt="")}<div><p class="meta">24 December 2025</p><h2>{t}: {sub.lower()}</h2><p>{intro}</p></div></a>''' for s, k, t, sub, intro, _ in POSTS)
@@ -795,15 +919,21 @@ page("journal.html", "Journal | Atwood Dsigns", "Articles from Atwood Dsigns on 
 # ================================================================================================ CONTACT
 PAGE = "contact.html"
 contact = page_head("Start with a conversation", "Whether you have a question, need expert advice or are ready to transform your space, we're here to help. The first consultation is free.") + f'''
-<section class="contact sec sec--flush-top" aria-labelledby="studio-h">
+<section class="quick sec--flush-top" aria-label="Quickest ways to reach us">
+  <div class="wrap quick__row">
+    <a class="quick__a" href="{TEL}"><span class="meta">Call</span><span class="quick__v">{PHONE}</span><span class="arr" aria-hidden="true">&rarr;</span></a>
+    <a class="quick__a" href="{WA}" target="_blank" rel="noopener"><span class="meta">WhatsApp</span><span class="quick__v">Message the studio</span><span class="arr" aria-hidden="true">&rarr;</span></a>
+    <a class="quick__a" href="mailto:{EMAIL}"><span class="meta">Email</span><span class="quick__v">{EMAIL}</span><span class="arr" aria-hidden="true">&rarr;</span></a>
+  </div>
+</section>
+<section class="contact sec" aria-labelledby="studio-h">
   <div class="wrap grid">
     <div class="contact-info">
       <h2 class="sr-only" id="studio-h">Contact details</h2>
       <dl data-stagger>
-        <div><dt class="meta">Call</dt><dd><a href="{TEL}">{PHONE}</a></dd></div>
-        <div><dt class="meta">WhatsApp</dt><dd><a href="{WA}" target="_blank" rel="noopener">Message us on WhatsApp</a></dd></div>
-        <div><dt class="meta">Email</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd></div>
         <div><dt class="meta">Studio</dt><dd>{ADDR}</dd></div>
+        <div><dt class="meta">Directions</dt><dd><a href="https://maps.google.com/?q=E-Infra+Tower+Brindavan+Colony+Kokapet+Hyderabad" target="_blank" rel="noopener">Open in Maps</a></dd></div>
+        <div><dt class="meta">Consultation</dt><dd>Free, at our studio or your site</dd></div>
       </dl>
     </div>
     <form class="form" id="enquiry" novalidate data-rise>
@@ -818,6 +948,7 @@ contact = page_head("Start with a conversation", "Whether you have a question, n
         <div class="field"><label for="f-type">Project type</label>
           <select id="f-type" name="type"><option>Full home interiors</option><option>Kitchen</option><option>Bedroom or kids' room</option><option>Living room</option><option>Bathroom</option><option>Office interiors</option><option>Retail or hospitality</option><option>Something else</option></select></div>
       </div>
+      <div class="field"><label for="f-area">Locality <span class="opt">(optional)</span></label><input id="f-area" name="area" autocomplete="address-level2" placeholder="For example Kokapet, Gachibowli, Narsingi"></div>
       <div class="field"><label for="f-msg">About your project</label><textarea id="f-msg" name="message" required aria-describedby="e-msg" placeholder="Location, size of the space, timeline, anything you have in mind"></textarea><span class="err" id="e-msg">Tell us a little about your project.</span></div>
       <div class="actions"><button class="btn" type="submit">Send by email</button><button class="btn btn--ghost" type="button" data-whatsapp>Send on WhatsApp</button></div>
       <p class="form-note">Both open your email or WhatsApp app with your details filled in, ready to send. What you type is kept on this device until you send it.</p>
