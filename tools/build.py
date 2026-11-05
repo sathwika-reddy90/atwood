@@ -173,7 +173,7 @@ FOOTER = f'''<footer class="site-footer">
 def cta():
     return f'''<section class="cta" aria-labelledby="cta-h">
   <figure class="cta__pic">
-    {ph("res-40", "", "(max-width: 960px) 100vw, 50vw", where="consultation band", attrs=" data-open")}
+    {ph("res-40", "", "(max-width: 960px) 100vw, 50vw", where="consultation band", attrs="")}
     <figcaption><span class="meta">Mint modular kitchen, a room we finished</span></figcaption>
   </figure>
   <div class="cta__text">
@@ -246,7 +246,7 @@ def page_head(h1, lead, aside=""):
 
 
 def head_photo(key, where="opening photograph"):
-    pic = ph(key, "r-219 head-ph", "(max-width: 1320px) 100vw, 1320px", lazy=False, where=where, img_extra=' data-scale fetchpriority="high"')
+    pic = ph(key, "r-219 head-ph", "(max-width: 1320px) 100vw, 1320px", lazy=False, where=where, img_extra=' fetchpriority="high"')
     return f'<div class="wrap">{pic}</div>'
 
 
@@ -361,7 +361,7 @@ def room_viewer(h2_id="rooms-h"):
       <p data-rise>Choose a room to look through the photographs of spaces we have designed and built in Hyderabad homes.</p>
     </div>
     <div class="grid">
-      <figure class="viewer__stage" data-open>
+      <figure class="viewer__stage">
         <div class="viewer__frame">{img_tag(src0, alt0, "(max-width: 960px) 100vw, 66vw", extra=' class="is-on"')}</div>
         <button class="icon-btn viewer__prev" type="button" aria-label="Previous photograph">{ARROW_L}</button>
         <button class="icon-btn viewer__next" type="button" aria-label="Next photograph">{ARROW_R}</button>
@@ -473,7 +473,7 @@ MORE_ROOMS = [("res-40", "Mint modular kitchen", "kitchen"), ("res-22", "Pooja u
 
 def project_feature(pr, n, ratio, sizes, cls):
     return f'''<a class="pj {cls}" href="{pr["slug"]}.html">
-        <div class="ph {ratio}" style="--pos: {pr["card_pos"]}" data-open>{img_tag(PHOTOS[pr["card"]][0], PHOTOS[pr["card"]][1], sizes)}</div>
+        <div class="ph {ratio}" style="--pos: {pr["card_pos"]}">{img_tag(PHOTOS[pr["card"]][0], PHOTOS[pr["card"]][1], sizes)}</div>
         <span class="pj__cap"><span class="idx">{n:02d}</span><span class="pj__title">{pr["title"]}</span><span class="meta">{pr["cat"]}, {len(pr["photos"])} photographs</span><em class="pj__go">View project &rarr;</em></span>
       </a>'''
 
@@ -540,7 +540,7 @@ home = f'''<section class="hero" aria-labelledby="hero-h">
       <div class="actions" data-rise><a class="tlink" href="about.html">About the studio {ARR}</a><a class="tlink" href="process.html">How we work {ARR}</a></div>
     </div>
     <figure class="intro__pic" style="margin:0">
-      {ph("res-08", "r-45", "(max-width: 860px) 100vw, 40vw", where="studio introduction", attrs=" data-open")}
+      {ph("res-08", "r-45", "(max-width: 860px) 100vw, 40vw", where="studio introduction", attrs="")}
       <figcaption class="cap"><span class="meta">Dining area with a bar counter</span></figcaption>
     </figure>
   </div>
@@ -581,8 +581,8 @@ about = page_head("Design shaped around how you live", "Atwood Dsigns is an inte
       </div>
     </div>
     <div class="pair-row">
-      <figure style="margin:0">{ph("res-08", "r-32", "(max-width: 860px) 100vw, 58vw", where="story pair", attrs=" data-open")}<figcaption class="cap"><span class="meta">Dining area with a bar counter</span></figcaption></figure>
-      <figure style="margin:0">{ph("res-22", "r-45", "(max-width: 860px) 100vw, 33vw", where="story pair", attrs=" data-open")}<figcaption class="cap"><span class="meta">Backlit pooja unit</span></figcaption></figure>
+      <figure style="margin:0">{ph("res-08", "r-32", "(max-width: 860px) 100vw, 58vw", where="story pair", attrs="")}<figcaption class="cap"><span class="meta">Dining area with a bar counter</span></figcaption></figure>
+      <figure style="margin:0">{ph("res-22", "r-45", "(max-width: 860px) 100vw, 33vw", where="story pair", attrs="")}<figcaption class="cap"><span class="meta">Backlit pooja unit</span></figcaption></figure>
     </div>
   </div>
 </section>
@@ -599,7 +599,7 @@ about = page_head("Design shaped around how you live", "Atwood Dsigns is an inte
 </section>
 <section class="sec" aria-labelledby="visit-h">
   <div class="wrap split split--rev">
-    <figure class="split__pic" style="margin:0">{ph("res-32", "r-32", "(max-width: 860px) 100vw, 58vw", where="visit the studio", attrs=" data-open")}<figcaption class="cap"><span class="meta">Warm-lit entrance lobby, a room we finished</span></figcaption></figure>
+    <figure class="split__pic" style="margin:0">{ph("res-32", "r-32", "(max-width: 860px) 100vw, 58vw", where="visit the studio", attrs="")}<figcaption class="cap"><span class="meta">Warm-lit entrance lobby, a room we finished</span></figcaption></figure>
     <div class="split__text">
       <p class="label" data-rise>Visit</p>
       <h2 id="visit-h" data-lines>The studio in Kokapet</h2>
@@ -648,9 +648,9 @@ services = page_head("Services", "Whether you are refreshing a commercial proper
   <div class="wrap">
     <div class="sec-head"><h2 id="res-h" data-lines>Residential interiors</h2><p data-rise>Your home should reflect your personality, lifestyle and comfort. From modern apartments to luxury villas, we design timeless spaces with warmth, elegance and practicality in every corner.</p></div>
     <div class="trio">
-      <figure style="margin:0">{ph("res-12", "r-45", "(max-width: 860px) 100vw, 33vw", where="residential", attrs=" data-open")}<figcaption class="cap"><span class="meta">Bedroom</span></figcaption></figure>
-      <figure style="margin:0">{ph("res-40", "r-45", "(max-width: 860px) 50vw, 33vw", where="residential", attrs=" data-open")}<figcaption class="cap"><span class="meta">Modular kitchen</span></figcaption></figure>
-      <figure style="margin:0">{ph("res-42", "r-45", "(max-width: 860px) 50vw, 33vw", where="residential", attrs=" data-open")}<figcaption class="cap"><span class="meta">Kids' room</span></figcaption></figure>
+      <figure style="margin:0">{ph("res-12", "r-45", "(max-width: 860px) 100vw, 33vw", where="residential", attrs="")}<figcaption class="cap"><span class="meta">Bedroom</span></figcaption></figure>
+      <figure style="margin:0">{ph("res-40", "r-45", "(max-width: 860px) 50vw, 33vw", where="residential", attrs="")}<figcaption class="cap"><span class="meta">Modular kitchen</span></figcaption></figure>
+      <figure style="margin:0">{ph("res-42", "r-45", "(max-width: 860px) 50vw, 33vw", where="residential", attrs="")}<figcaption class="cap"><span class="meta">Kids' room</span></figcaption></figure>
     </div>
     {deflist(RES)}
     <p style="margin-top:40px"><a class="tlink tlink--bronze" href="contact.html?type=Full+home+interiors">Plan your home with us {ARR}</a></p>
@@ -658,7 +658,7 @@ services = page_head("Services", "Whether you are refreshing a commercial proper
 </section>
 <section class="sec stone" id="commercial" aria-labelledby="com-h">
   <div class="wrap split">
-    <figure class="split__pic" style="margin:0">{ph("com-45", "r-32", "(max-width: 860px) 100vw, 58vw", where="commercial", attrs=" data-open")}<figcaption class="cap"><span class="meta">Open-plan office</span></figcaption></figure>
+    <figure class="split__pic" style="margin:0">{ph("com-45", "r-32", "(max-width: 860px) 100vw, 58vw", where="commercial", attrs="")}<figcaption class="cap"><span class="meta">Open-plan office</span></figcaption></figure>
     <div class="split__text">
       <h2 data-lines>Commercial interiors</h2>
       <p class="lead" data-rise>Every workplace, retail space or hospitality venue should look impressive and also improve productivity, customer engagement and the overall experience.</p>
@@ -674,12 +674,12 @@ services = page_head("Services", "Whether you are refreshing a commercial proper
       <p class="lead" data-rise>Good design comes from communication. Our specialized services focus on commercial tenant improvements, combining creative design with technical knowledge of construction standards.</p>
       {deflist(SPEC, "deflist deflist--2")}
     </div>
-    <figure class="split__pic" style="margin:0">{ph("company", "r-45", "(max-width: 860px) 100vw, 33vw", where="specialized", attrs=" data-open")}<figcaption class="cap"><span class="meta">Marking up construction drawings</span></figcaption></figure>
+    <figure class="split__pic" style="margin:0">{ph("company", "r-45", "(max-width: 860px) 100vw, 33vw", where="specialized", attrs="")}<figcaption class="cap"><span class="meta">Marking up construction drawings</span></figcaption></figure>
   </div>
 </section>
 <section class="sec dark" id="turnkey" aria-labelledby="turn-h">
   <div class="wrap split split--rev">
-    <figure class="split__pic" style="margin:0">{ph("res-33", "r-32", "(max-width: 860px) 100vw, 58vw", where="turnkey", attrs=" data-open")}<figcaption class="cap"><span class="meta">Grey modular kitchen</span></figcaption></figure>
+    <figure class="split__pic" style="margin:0">{ph("res-33", "r-32", "(max-width: 860px) 100vw, 58vw", where="turnkey", attrs="")}<figcaption class="cap"><span class="meta">Grey modular kitchen</span></figcaption></figure>
     <div class="split__text">
       <h2 data-lines>Turnkey delivery</h2>
       <p class="lead" data-rise>We don't hand over drawings and walk away. Quantity surveying, procurement, project planning, site management and quality control are all ours, so one studio answers for the result.</p>
@@ -706,7 +706,7 @@ process = page_head("From first conversation to handover", "Our design process c
 {stage_row("proc-h")}
 <section class="sec" aria-labelledby="why-h">
   <div class="wrap split">
-    <figure class="split__pic" style="margin:0">{ph("res-24", "r-32", "(max-width: 860px) 100vw, 58vw", where="why one team", attrs=" data-open")}<figcaption class="cap"><span class="meta">Wardrobe and window seat on site</span></figcaption></figure>
+    <figure class="split__pic" style="margin:0">{ph("res-24", "r-32", "(max-width: 860px) 100vw, 58vw", where="why one team", attrs="")}<figcaption class="cap"><span class="meta">Wardrobe and window seat on site</span></figcaption></figure>
     <div class="split__text">
       <h2 data-lines>Why one team matters</h2>
       <p class="lead" data-rise>When the people who design your space also manage its construction, nothing gets lost between the drawing and the site.</p>
@@ -745,18 +745,18 @@ for n, (a, t, b, d, pf, ty, ps) in enumerate(IDEAS):
     rev = " idea--rev" if n % 2 else ""
     if pf is None:  # no studio photograph of this room type: the illustration from the previous website
         pair = f'''<div class="idea__pair idea__pair--one">
-        <figure style="margin:0">{ph(b, "r-32", "(max-width: 860px) 100vw, 58vw", where=f"{t} illustration", attrs=" data-open")}<figcaption><span class="meta">Design illustration</span></figcaption></figure>
+        <figure style="margin:0">{ph(b, "r-32", "(max-width: 860px) 100vw, 58vw", where=f"{t} illustration", attrs="")}<figcaption><span class="meta">Design illustration</span></figcaption></figure>
       </div>'''
         more = ""
     elif d:
         pair = f'''<div class="idea__pair">
-        <figure style="margin:0">{ph(b, "r-45", "(max-width: 860px) 50vw, 29vw", where=t, attrs=" data-open")}<figcaption><span class="meta">{PHOTOS[b][1]}</span></figcaption></figure>
-        <figure style="margin:0" class="idea__second">{ph(d, "r-45", "(max-width: 860px) 50vw, 29vw", where=t, attrs=" data-open")}<figcaption><span class="meta">{PHOTOS[d][1]}</span></figcaption></figure>
+        <figure style="margin:0">{ph(b, "r-45", "(max-width: 860px) 50vw, 29vw", where=t, attrs="")}<figcaption><span class="meta">{PHOTOS[b][1]}</span></figcaption></figure>
+        <figure style="margin:0" class="idea__second">{ph(d, "r-45", "(max-width: 860px) 50vw, 29vw", where=t, attrs="")}<figcaption><span class="meta">{PHOTOS[d][1]}</span></figcaption></figure>
       </div>'''
         more = f'<a class="tlink" href="portfolio.html#{pf}">See more in the portfolio {ARR}</a>'
     else:
         pair = f'''<div class="idea__pair idea__pair--one">
-        <figure style="margin:0">{ph(b, "r-32", "(max-width: 860px) 100vw, 58vw", where=t, attrs=" data-open")}<figcaption><span class="meta">{PHOTOS[b][1]}</span></figcaption></figure>
+        <figure style="margin:0">{ph(b, "r-32", "(max-width: 860px) 100vw, 58vw", where=t, attrs="")}<figcaption><span class="meta">{PHOTOS[b][1]}</span></figcaption></figure>
       </div>'''
         more = f'<a class="tlink" href="portfolio.html#{pf}">See more in the portfolio {ARR}</a>'
     ideas += f'''
@@ -825,12 +825,12 @@ for n, (title, cat, keys) in enumerate(CARDS, 1):
     USED.setdefault(lead, set()).add("portfolio.html: card")
     more = f'<span class="more" aria-hidden="true">{len(keys)} photographs</span>' if len(keys) > 1 else ""
     label = f"{title}, {CAT_ONE[cat].lower()}" + (f", {len(keys)} photographs" if len(keys) > 1 else "")
-    cards += f'''<a class="card" href="{PHOTOS[lead][0]}" data-cat="{cat}" data-photos="{photos}" aria-label="{label}" data-rise>
+    cards += f'''<a class="card" href="{PHOTOS[lead][0]}" data-cat="{cat}" data-photos="{photos}" aria-label="{label}">
       <div class="ph r-45" style="--pos: {PHOTOS[lead][3]}">{img_tag(PHOTOS[lead][0], PHOTOS[lead][1], "(max-width: 520px) 100vw, (max-width: 960px) 50vw, 33vw")}{more}</div>
       <div class="cap"><span class="idx">{n:02d}</span><h2>{title}</h2><span class="meta">{CAT_ONE[cat]}</span></div>
     </a>'''
 chips = "".join(f'<button type="button" data-filter="{c}" aria-pressed="{"true" if c == "all" else "false"}">{n}<small>{counts[c]}</small></button>' for c, n in CATS)
-pf_row = "".join(f'''<a class="pj" href="{pr["slug"]}.html">{ph(pr["card"], "r-45", "(max-width: 860px) 100vw, 33vw", where="portfolio projects", alt="", attrs=" data-open")}<span class="pj__cap"><span class="idx">{n:02d}</span><span class="pj__title">{pr["title"]}</span><span class="meta">{pr["cat"]}, {len(pr["photos"])} photographs</span><em class="pj__go">View project &rarr;</em></span></a>''' for n, pr in enumerate(PROJECTS, 1))
+pf_row = "".join(f'''<a class="pj" href="{pr["slug"]}.html">{ph(pr["card"], "r-45", "(max-width: 860px) 100vw, 33vw", where="portfolio projects", alt="", attrs="")}<span class="pj__cap"><span class="idx">{n:02d}</span><span class="pj__title">{pr["title"]}</span><span class="meta">{pr["cat"]}, {len(pr["photos"])} photographs</span><em class="pj__go">View project &rarr;</em></span></a>''' for n, pr in enumerate(PROJECTS, 1))
 portfolio = page_head("Rooms we have designed and built", "Kitchens, bedrooms, kids' rooms, living spaces and entrances across Hyderabad. Choose a room to see it full size, with every photograph of that space.") + f'''
 <section class="sec sec--flush-top pf-projects" aria-labelledby="pfp-h">
   <div class="wrap">
@@ -863,9 +863,9 @@ for n, pr in enumerate(PROJECTS):
     for k, kind in pr["seq"]:
         cls = {"wide": "ps--wide", "half": "ps--half", "half-tall": "ps--half"}[kind]
         ratio = {"wide": "r-32", "half": "r-45", "half-tall": "r-45"}[kind]  # paired photographs share one proportion
-        seq += f'''<figure class="ps {cls}">{ph(k, ratio, "(max-width: 860px) 100vw, " + ("100vw" if kind == "wide" else "50vw"), where="project sequence", attrs=" data-open")}<figcaption class="meta">{PHOTOS[k][1]}</figcaption></figure>'''
+        seq += f'''<figure class="ps {cls}">{ph(k, ratio, "(max-width: 860px) 100vw, " + ("100vw" if kind == "wide" else "50vw"), where="project sequence", attrs="")}<figcaption class="meta">{PHOTOS[k][1]}</figcaption></figure>'''
     body = f'''<section class="project-hero" aria-labelledby="pr-h">
-  <div class="project-hero__media">{img_tag(PHOTOS[pr["lead"]][0], PHOTOS[pr["lead"]][1], "100vw", lazy=False, extra=f' fetchpriority="high" data-scale style="--pos: {PHOTOS[pr["lead"]][3]}"')}</div>
+  <div class="project-hero__media">{img_tag(PHOTOS[pr["lead"]][0], PHOTOS[pr["lead"]][1], "100vw", lazy=False, extra=f' fetchpriority="high" style="--pos: {PHOTOS[pr["lead"]][3]}"')}</div>
   <div class="hero__shade" aria-hidden="true"></div>
   <div class="wrap project-hero__text">
     <p class="label"><a href="portfolio.html">Portfolio</a> / Project {n + 1:02d}</p>
@@ -908,7 +908,7 @@ PAGE = "journal.html"
 toc = "".join(f'''<a class="toc-item" href="#{s}">{ph(k, "r-32", "(max-width: 520px) 100vw, 25vw", where="article list", alt="")}<div><p class="meta">24 December 2025</p><h2>{t}: {sub.lower()}</h2><p>{intro}</p></div></a>''' for s, k, t, sub, intro, _ in POSTS)
 arts = "".join(f'''<article class="article" id="{s}" aria-labelledby="{s}-h">
   <header class="article__head"><p class="meta">Journal, 24 December 2025</p><h2 id="{s}-h" data-lines>{t}</h2><p class="sub" data-rise>{sub}</p></header>
-  {ph(k, "r-219", "(max-width: 1320px) 100vw, 1320px", where="article", attrs=" data-open")}
+  {ph(k, "r-219", "(max-width: 1320px) 100vw, 1320px", where="article", attrs="")}
   <div class="article__body"><p class="intro">{intro}</p>{"".join(f"<h3>{h}</h3>" + "".join(f"<p>{p}</p>" for p in ps) for h, ps in secs)}</div>
 </article>''' for s, k, t, sub, intro, secs in POSTS)
 journal = page_head("Journal", "Notes from the studio on designing homes and workplaces that work.") + f'''

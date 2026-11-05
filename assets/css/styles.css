@@ -948,3 +948,13 @@ body.menu-open .brand__line { color: var(--on-dark-muted); border-color: var(--l
   .hero, .hero__inner { min-height: calc(max(600px, 100svh) - 56px); }
   body { padding-bottom: 56px; }
 }
+
+/* ============================================================ 28. photographs appear plainly: no load, scroll or hover animation */
+.hero__media img.is-on { animation: none; }
+.js .hero__media { opacity: 1; }
+.js .hero.is-ready .hero__media { transition: none; }
+a.ph img, .ph a img, .card .ph img, .wk .ph img, .pj .ph img, .mr .ph img, .moment .pic img, .panel img, .trio img, .gallery img, .post__img img, .svc-preview .ph img {
+  transition: none !important; transform: none !important;
+}
+a.ph:hover img, .ph a:hover img, .card:hover .ph img, .wk:hover .ph img, .pj:hover .ph img, .mr:hover .ph img { transform: none !important; filter: var(--grade); }
+.svc-preview .ph img { transition: opacity 300ms ease !important; }
