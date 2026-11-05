@@ -172,7 +172,7 @@
   const header = () => {
     const h = $('.site-header');
     if (!h) return;
-    const light = h.classList.contains('site-header--light');
+    const light = !h.classList.contains('site-header--over'); // no photograph behind it: solid as soon as the page moves
     let last = window.scrollY;
     scroll.add((y) => {
       h.classList.toggle('is-solid', light ? y > 10 : y > window.innerHeight * 0.6);
@@ -213,11 +213,11 @@
     window.matchMedia('(min-width: 1101px)').addEventListener('change', (e) => e.matches && set(false));
   };
 
-  /* ---------- home hero: an opening sequence, then light shifting across the main print ---------- */
+  /* ---------- home hero: the type follows once the photograph has decoded ---------- */
   const hero = () => {
     const sec = $('.hero');
     if (!sec) return;
-    const imgs = $$('.hero__media img', sec);
+    const imgs = $$('.hero__pic img', sec);
     const caption = $('.hero__room span:last-child', sec);
     const roomLink = $('.hero__room', sec);
     const count = $('.hero__count', sec);

@@ -210,7 +210,7 @@ def page(fname, title, desc, body, closing=True, over=False):
 <link rel="icon" href="{I}cropped-favicon-192x192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400&family=Instrument+Serif&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css">
 <script>(function (d) {{ d.classList.add('js'); if ('onpagereveal' in window) d.classList.add('vt'); setTimeout(function () {{ if (!d.classList.contains('ready')) d.classList.remove('js'); }}, 4000); }})(document.documentElement)</script>
 <script type="speculationrules">{{"prefetch": [{{"where": {{"selector_matches": "a[href$='.html']"}}, "eagerness": "moderate"}}]}}</script>
@@ -444,18 +444,10 @@ for pr in PROJECTS:  # every photograph of the space, lead first
 
 # ================================================================================================ HOME
 PAGE = "index.html"
-HERO = [  # (picture, room, where its caption leads)
-    ("res-11", "Dining, bar and display unit", "project-dining-bar.html"),
-    ("res-39", "Navy and white kitchen", "portfolio.html#kitchen"),
-    ("res-12", "Bedroom with a study wall", "portfolio.html#bedroom"),
-    ("res-43", "Pink arched wardrobe", "portfolio.html#bedroom"),
-]
-hero_imgs = ""
-for i, (k, name, href) in enumerate(HERO):
-    src, alt, _, pos = PHOTOS[k]
-    USED.setdefault(k, set()).add("index.html: hero")
-    hero_imgs += img_tag(src, alt, "100vw", lazy=i > 0,
-                         extra=f' data-name="{name}" data-href="{href}" style="--pos: {pos}"' + (' class="is-on" fetchpriority="high"' if i == 0 else ""))
+HERO = ("res-11", "Dining, bar and display unit", "project-dining-bar.html")  # (picture, room, where its caption leads)
+USED.setdefault(HERO[0], set()).add("index.html: hero")
+hero_img = img_tag(PHOTOS[HERO[0]][0], PHOTOS[HERO[0]][1], "(max-width: 860px) 100vw, 56vw",
+                   extra=f' fetchpriority="high" style="--pos: {PHOTOS[HERO[0]][3]}"')
 
 SERVICES = [  # (anchor, title, description, picture, caption)
     ("residential", "Residential interiors", "Apartments and villas: living rooms, bedrooms, modular kitchens, kids' rooms and complete home makeovers.", "res-12", "Bedroom with a study wall"),
@@ -481,27 +473,16 @@ def project_feature(pr, n, ratio, sizes, cls):
 pf = PROJECTS
 more = "".join(f'''<a class="mr" href="portfolio.html#{c}">{ph(k, "r-45", "(max-width: 600px) 50vw, 25vw", where="more rooms", alt="")}<span class="meta">{t}</span></a>''' for k, t, c in MORE_ROOMS)
 home = f'''<section class="hero" aria-labelledby="hero-h">
-  <div class="hero__media">{hero_imgs}</div>
-  <div class="hero__shade" aria-hidden="true"></div>
-  <div class="wrap hero__inner">
-    <div class="hero__text">
-      <p class="label">Design and build studio, Kokapet, Hyderabad</p>
-      <h1 id="hero-h" data-lines>Interiors designed, drawn and built</h1>
-      <p class="hero__lead" data-rise>Homes, offices and shops, taken from the first conversation to handover by one studio.</p>
-      <div class="actions" data-rise><a class="btn btn--light" href="contact.html">Book a free consultation {ARR}</a><a class="btn btn--line-light" href="portfolio.html">See our work</a></div>
-    </div>
-    <div class="hero__foot">
-      <ol class="hero__caps">
-        <li><span class="idx">01</span><b>Design</b><span>Concept to construction drawings</span></li>
-        <li><span class="idx">02</span><b>Build</b><span>Procurement, site and quality control</span></li>
-        <li><span class="idx">03</span><b>One team</b><span>From first sketch to handover</span></li>
-      </ol>
-      <div class="hero__meta">
-        <a class="hero__room" href="{HERO[0][2]}"><span class="meta">Now showing</span><span>{HERO[0][1]}</span></a>
-        <div class="hero__ctl"><span class="idx hero__count">01 / {len(HERO):02d}</span><span class="hero__bars" aria-hidden="true">{"".join("<i></i>" for _ in HERO)}</span><button class="slide-toggle" type="button" aria-pressed="false">{PAUSE_PLAY}<span class="tlabel">Pause</span><span class="sr-only"> the slideshow</span></button></div>
-      </div>
-    </div>
+  <div class="hero__text">
+    <p class="label">Kokapet, Hyderabad</p>
+    <h1 id="hero-h" data-lines>Interiors designed, drawn and built</h1>
+    <p class="hero__lead" data-rise>Homes, offices and shops, taken from the first conversation to handover by one studio.</p>
+    <div class="actions" data-rise><a class="btn" href="contact.html">Book a free consultation {ARR}</a><a class="btn btn--ghost" href="portfolio.html">See our work</a></div>
   </div>
+  <figure class="hero__pic">
+    {hero_img}
+    <figcaption><a href="{HERO[2]}"><span>{HERO[1]}</span><span class="meta">View the project {ARR}</span></a></figcaption>
+  </figure>
 </section>
 
 <section class="work sec" aria-labelledby="work-h">
@@ -565,7 +546,7 @@ home = f'''<section class="hero" aria-labelledby="hero-h">
 
 {voices()}'''
 page("index.html", "Atwood Dsigns | Interior Design and Build Studio in Kokapet, Hyderabad",
-     "Atwood Dsigns designs, draws and builds residential and commercial interiors in Hyderabad, from the first consultation to handover. Book a free consultation.", home, over=True)
+     "Atwood Dsigns designs, draws and builds residential and commercial interiors in Hyderabad, from the first consultation to handover. Book a free consultation.", home)
 
 # ================================================================================================ ABOUT
 PAGE = "about.html"
