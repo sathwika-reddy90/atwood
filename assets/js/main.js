@@ -1,40 +1,15 @@
-// Atwood Dsigns — behaviour and motion.
-// Plain JavaScript, no dependencies. Each feature is a small function at the bottom of the file; the
-// shared services above them (motion preference, scroll loop, overlays, reveals) are used by several.
+// Atwood Dsigns — behaviour. Plain JavaScript, no dependencies.
+// Content is never hidden waiting for a script: the only motion is the home hero's one fade, which waits at most
+// 1.2s for the web fonts. Each feature below is a small function, started at the bottom of the file.
 (() => {
   'use strict';
 
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const root = document.documentElement;
-  const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
-  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
-  const docOrder = (a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1);
-  const fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+  const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const decoded = (img) => (img.decode ? img.decode().catch(() => {}) : Promise.resolve());
   const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 400));
-  const srcsetFor = (src) => `${src.replace(/\.jpg$/, '-800.jpg')} 800w, ${src} 1500w`;
-
-  /* ---------- motion preference, followed live ---------- */
-  // Read once at load was not enough: people switch the setting while a page is open.
-  const motion = (() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const subs = new Set();
-    const api = { reduced: mq.matches, on: (fn) => subs.add(fn) };
-    mq.addEventListener('change', (e) => { api.reduced = e.matches; subs.forEach((fn) => fn(e.matches)); });
-    return api;
-  })();
-
-  /* ---------- one scroll loop for every scroll-driven feature ---------- */
-  const scroll = (() => {
-    const subs = new Set();
-    let queued = false;
-    const run = () => { queued = false; const y = window.scrollY; subs.forEach((fn) => fn(y)); };
-    const queue = () => { if (!queued) { queued = true; requestAnimationFrame(run); } };
-    window.addEventListener('scroll', queue, { passive: true });
-    window.addEventListener('resize', queue);
-    return { add: (fn) => { subs.add(fn); fn(window.scrollY); } };
-  })();
 
   /* ---------- overlays: focus stays inside, the page behind is inert, scrolling is locked ---------- */
   const overlay = (() => {
@@ -68,134 +43,39 @@
     };
   })();
 
-  /* ---------- headings split into lines that rise out of a mask ---------- */
-  // Built with text nodes (never innerHTML), and re-split when the heading's width changes so the
-  // masked lines always match the real line breaks after a resize or a phone rotation.
-  const splitLines = (el) => {
-    const text = el.dataset.text || (el.dataset.text = el.textContent.trim().replace(/\s+/g, ' '));
-    el.setAttribute('aria-label', text);
-    el.textContent = '';
-    const words = text.split(' ').map((w, i, all) => {
-      const s = document.createElement('span');
-      s.textContent = w;
-      el.append(s);
-      if (i < all.length - 1) el.append(' ');
-      return s;
-    });
-    const lines = [];
-    let top = null;
-    words.forEach((w) => { if (w.offsetTop !== top) { lines.push([]); top = w.offsetTop; } lines[lines.length - 1].push(w.textContent); });
-    el.textContent = '';
-    lines.forEach((words, i) => {
-      const line = document.createElement('span');
-      line.className = 'line';
-      line.setAttribute('aria-hidden', 'true');
-      line.style.setProperty('--l', i);
-      const inner = document.createElement('span');
-      inner.textContent = words.join(' ');
-      line.append(inner);
-      el.append(line);
-    });
-    el.dataset.w = el.clientWidth;
-  };
-
-  /* ---------- reveals: once, in reading order, choreographed per section ---------- */
-  const reveal = (() => {
-    const groups = new Map();
-    let io = null;
-    const show = (el, delay = 0) => {
-      el.style.setProperty('--d', `${delay}ms`);
-      if (el.hasAttribute('data-stagger')) [...el.children].forEach((c, i) => c.style.setProperty('--i', i));
-      el.classList.add('is-in');
-    };
-    const onEnter = (entries) => {
-      // Delays restart in every section, and cap at 450ms, so a late arrival never waits on another section.
-      const bySection = new Map();
-      entries.forEach((e) => {
-        if (!e.isIntersecting) return;
-        io.unobserve(e.target);
-        (groups.get(e.target) || []).forEach((el) => {
-          const sec = el.closest('section, article, figure, .head-pic, .pano') || document.body;
-          if (!bySection.has(sec)) bySection.set(sec, []);
-          bySection.get(sec).push(el);
-        });
-      });
-      bySection.forEach((list) => list.sort(docOrder).forEach((el, i) => show(el, Math.min(i * 90, 450))));
-    };
-    const init = () => {
-      const all = $$('[data-rise], [data-open], [data-lines], [data-stagger]').filter((el) => !el.closest('.hero'));
-      if (!('IntersectionObserver' in window) || motion.reduced) { all.forEach((el) => show(el)); return; }
-      io = new IntersectionObserver(onEnter, { rootMargin: '0px 0px -8% 0px' });
-      all.forEach((el) => {
-        // A picture that opens from a clip-path is fully clipped at rest, and Chrome then never reports it
-        // as intersecting, so pictures are watched through their parent.
-        const t = el.hasAttribute('data-open') ? el.parentElement : el;
-        if (!groups.has(t)) { groups.set(t, []); io.observe(t); }
-        groups.get(t).push(el);
-      });
-      motion.on((reduced) => { if (reduced) all.forEach((el) => show(el)); });
-    };
-    return { init, show };
-  })();
-
-  /* ---------- scroll-linked pictures: slow scale and drift ---------- */
-  // Browsers with scroll-driven animations run these in CSS, off the main thread. Elsewhere one rAF
-  // loop updates only the pictures that are on screen.
-  const parallax = () => {
-    const els = $$('[data-scale], [data-drift]');
-    if (!els.length) return;
-    els.forEach((el) => { if (el.dataset.drift) el.style.setProperty('--drift', el.dataset.drift); });
-    if (window.CSS && CSS.supports('animation-timeline: view()')) { root.classList.add('sda'); return; }
-    const target = new Map(els.map((el) => [el.hasAttribute('data-scale') ? el.parentElement : el, el]));
-    const visible = new Set();
-    const io = new IntersectionObserver((es) => es.forEach((e) => (e.isIntersecting ? visible.add(e.target) : visible.delete(e.target))), { rootMargin: '120px 0px' });
-    target.forEach((_, t) => io.observe(t));
-    const reset = () => els.forEach((el) => { el.style.transform = ''; el.style.translate = ''; });
-    motion.on((r) => r && reset());
-    scroll.add((y) => {
-      if (motion.reduced) return;
-      const vh = window.innerHeight;
-      visible.forEach((t) => {
-        const el = target.get(t);
-        if (el.hasAttribute('data-scale')) {
-          const r = t.getBoundingClientRect();
-          const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
-          el.style.transform = `scale(${(1.08 - p * 0.08).toFixed(4)})`;
-        } else {
-          el.style.translate = `0 ${(Math.min(y, vh) * parseFloat(el.dataset.drift)).toFixed(1)}px`;
-        }
-      });
-    });
-  };
-
-  /* ---------- header: solid after the first screen, hides on the way down ---------- */
+  /* ---------- header: solid once the page moves (or past a dark opening), hidden on the way down ---------- */
   const header = () => {
     const h = $('.site-header');
     if (!h) return;
-    const light = !h.classList.contains('site-header--over'); // no photograph behind it: solid as soon as the page moves
-    let last = window.scrollY;
-    scroll.add((y) => {
-      h.classList.toggle('is-solid', light ? y > 10 : y > window.innerHeight * 0.6);
+    const over = h.classList.contains('site-header--over');
+    let last = window.scrollY, queued = false;
+    const update = () => {
+      queued = false;
+      const y = window.scrollY;
+      h.classList.toggle('is-solid', over ? y > window.innerHeight * 0.6 : y > 10);
       if (!root.classList.contains('is-locked')) {
         if (y > 500 && y > last + 4) h.classList.add('is-hidden');
         else if (y < last - 4 || y < 500) h.classList.remove('is-hidden');
       }
       last = y;
-    });
+    };
+    window.addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
     h.addEventListener('focusin', () => h.classList.remove('is-hidden'));
+    update();
   };
 
-  /* ---------- full-screen menu ---------- */
+  /* ---------- full-screen menu below 1000px ---------- */
   const menu = () => {
     const toggle = $('.menu-toggle');
     const panel = $('#menu-panel');
     const h = $('.site-header');
     if (!toggle || !panel) return;
+    const label = $('.menu-toggle__label', toggle) || toggle;
     panel.inert = true;
     const set = (open) => {
       if (open === panel.classList.contains('is-open')) return;
       toggle.setAttribute('aria-expanded', String(open));
-      toggle.textContent = open ? 'Close' : 'Menu';
+      label.textContent = open ? 'Close' : 'Menu';
       panel.classList.toggle('is-open', open);
       panel.setAttribute('aria-hidden', String(!open));
       document.body.classList.toggle('menu-open', open);
@@ -210,321 +90,140 @@
       }
     };
     toggle.addEventListener('click', () => set(!panel.classList.contains('is-open')));
-    window.matchMedia('(min-width: 1101px)').addEventListener('change', (e) => e.matches && set(false));
+    window.matchMedia('(min-width: 1000px)').addEventListener('change', (e) => e.matches && set(false));
   };
 
-  /* ---------- home hero: the type follows once the photograph has decoded ---------- */
-  const hero = () => {
-    const sec = $('.hero');
-    if (!sec) return;
-    const imgs = $$('.hero__pic img', sec);
-    const caption = $('.hero__room span:last-child', sec);
-    const roomLink = $('.hero__room', sec);
-    const count = $('.hero__count', sec);
-    const bars = $$('.hero__bars i', sec);
-    const toggle = $('.slide-toggle', sec);
-    const label = toggle && $('.tlabel', toggle);
+  /* ---------- the ten stages: a dotted path through the stage markers, drawn as the section is read ---------- */
+  // The path is measured from where the markers really are, so it meets them at every width. Scrolling down draws it
+  // (it never undraws), a marker travels along it, and each stage appears as the path reaches it. With reduced motion
+  // the path is drawn in full and every stage is shown.
+  const journey = () => {
+    $$('[data-journey]').forEach((sec) => {
+      const map = $('.journey__map', sec);
+      const svg = $('.journey__svg', sec);
+      const list = $('.journey__stages', sec);
+      const track = $('.journey__track', sec);
+      const path = $('.journey__path', sec);
+      const reveal = $('.journey__reveal', sec);
+      const mask = $('mask', sec);
+      const dot = $('.journey__dot', sec);
+      const stages = $$('.jstage', sec);
+      const marks = stages.map((st) => $('.jstage__mark', st));
+      if (!map || !svg || marks.some((m) => !m)) return;
+      let total = 0, at = [], table = [], frac = 0, queued = false, current = -1;
 
-    // The shutter waits for the type and the first picture, so it never opens on an empty frame.
-    const open = () => {
-      if (sec.classList.contains('is-ready')) return;
-      sec.classList.add('is-ready');
-      $$('[data-lines]', sec).forEach((el) => reveal.show(el, motion.reduced ? 0 : 450));
-      $$('[data-rise]', sec).forEach((el) => reveal.show(el, motion.reduced ? 0 : 800));
-    };
-    Promise.all([fontsReady, decoded(imgs[0])]).then(() => requestAnimationFrame(open));
-    setTimeout(open, 2500);
-
-    if (imgs.length < 2 || !toggle) return;
-    let i = 0, timer = 0, paused = motion.reduced, inView = true;
-    if (bars[0]) bars[0].classList.add('is-on');
-    const playing = () => !paused && inView && !document.hidden;
-    const go = async (n) => {
-      const next = imgs[n];
-      next.loading = 'eager';
-      await decoded(next); // never fade to a picture that has not arrived
-      imgs[i].classList.remove('is-on');
-      next.classList.add('is-on');
-      i = n;
-      caption.classList.add('is-swapping');
-      setTimeout(() => { caption.textContent = next.dataset.name; caption.classList.remove('is-swapping'); }, 300);
-      if (roomLink && next.dataset.href) roomLink.href = next.dataset.href;
-      if (count) count.textContent = `${String(n + 1).padStart(2, '0')} / ${String(imgs.length).padStart(2, '0')}`;
-      bars.forEach((b, k) => b.classList.toggle('is-on', k === n));
-      const after = imgs[(n + 1) % imgs.length];
-      idle(() => { after.loading = 'eager'; });
-    };
-    const sync = () => {
-      clearInterval(timer);
-      if (playing()) timer = setInterval(() => go((i + 1) % imgs.length), 6000);
-      toggle.setAttribute('aria-pressed', String(paused));
-      label.textContent = paused ? 'Play' : 'Pause';
-    };
-    toggle.addEventListener('click', () => { paused = !paused; sync(); });
-    new IntersectionObserver(([e]) => { inView = e.isIntersecting; sync(); }).observe(sec);
-    document.addEventListener('visibilitychange', sync);
-    motion.on((r) => { if (r) { paused = true; sync(); } });
-    sync();
-  };
-
-  /* ---------- room by room: the studio's photographs, one room type at a time ---------- */
-  const viewer = () => {
-    const root = $('[data-viewer]');
-    if (!root) return;
-    const frame = $('.viewer__frame', root);
-    const altEl = $('.viewer__alt', root);
-    const countEl = $('.viewer__count', root);
-    const thumbsEl = $('.viewer__thumbs', root);
-    const more = $('.viewer__more', root);
-    const rooms = $$('.viewer__rooms button', root);
-    const pad = (n) => String(n).padStart(2, '0');
-    let photos = [], idx = 0, ticket = 0;
-    const parse = (b) => b.dataset.photos.split('|').map((p) => {
-      const [src, alt, small, w] = p.split('::');
-      return { src, alt, srcset: small ? `${small} 800w, ${src} ${w}w` : '' };
-    });
-
-    const show = async (n) => {
-      idx = (n + photos.length) % photos.length;
-      const { src, alt, srcset } = photos[idx], mine = ++ticket;
-      countEl.textContent = `${pad(idx + 1)} / ${pad(photos.length)}`;
-      $$('button', thumbsEl).forEach((t, i) => t.setAttribute('aria-pressed', String(i === idx)));
-      const im = new Image();
-      im.alt = alt; im.sizes = '(max-width: 960px) 100vw, 66vw';
-      if (srcset) im.srcset = srcset;
-      im.src = src;
-      await decoded(im); // crossfade only to a photograph that has arrived
-      if (mine !== ticket) return;
-      const old = $('img.is-on', frame);
-      frame.appendChild(im);
-      requestAnimationFrame(() => requestAnimationFrame(() => { im.classList.add('is-on'); if (old) old.classList.remove('is-on'); }));
-      setTimeout(() => { $$('img', frame).forEach((x) => { if (x !== im) x.remove(); }); }, motion.reduced ? 0 : 650);
-      altEl.textContent = alt;
-      const next = photos[(idx + 1) % photos.length];
-      idle(() => { const p = new Image(); p.sizes = im.sizes; if (next.srcset) p.srcset = next.srcset; p.src = next.src; });
-    };
-    const choose = (b) => {
-      rooms.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
-      photos = parse(b);
-      const name = $('span', b).textContent;
-      thumbsEl.textContent = '';
-      photos.forEach((ph, i) => {
-        const t = document.createElement('button');
-        t.type = 'button';
-        t.setAttribute('aria-label', `Photograph ${i + 1}: ${ph.alt}`);
-        const ti = document.createElement('img');
-        ti.alt = ''; ti.loading = 'lazy'; ti.decoding = 'async'; ti.sizes = '120px';
-        if (ph.srcset) ti.srcset = ph.srcset;
-        ti.src = ph.src;
-        t.appendChild(ti);
-        t.addEventListener('click', () => show(i));
-        thumbsEl.appendChild(t);
-      });
-      more.href = `portfolio.html#${b.dataset.cat}`;
-      more.setAttribute('aria-label', `See ${name.toLowerCase()} in the portfolio`);
-      show(0);
-    };
-    // the first room is already in the page; wire its thumbnails rather than rebuilding them
-    photos = parse(rooms[0]);
-    $$('button', thumbsEl).forEach((t, i) => t.addEventListener('click', () => show(i)));
-    rooms.forEach((b, i) => {
-      b.addEventListener('click', () => { if (b.getAttribute('aria-pressed') !== 'true') choose(b); });
-      b.addEventListener('keydown', (e) => {
-        const to = { ArrowDown: i + 1, ArrowRight: i + 1, ArrowUp: i - 1, ArrowLeft: i - 1, Home: 0, End: rooms.length - 1 }[e.key];
-        if (to === undefined) return;
-        e.preventDefault();
-        rooms[(to + rooms.length) % rooms.length].focus();
-      });
-    });
-    $('.viewer__prev', root).addEventListener('click', () => show(idx - 1));
-    $('.viewer__next', root).addEventListener('click', () => show(idx + 1));
-    $('.viewer__stage', root).addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') { e.preventDefault(); show(idx + 1); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); show(idx - 1); }
-    });
-    let sx = null;
-    frame.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') sx = e.clientX; });
-    frame.addEventListener('pointerup', (e) => {
-      if (sx === null) return;
-      const dx = e.clientX - sx; sx = null;
-      if (Math.abs(dx) > 50) show(idx + (dx < 0 ? 1 : -1));
-    });
-  };
-
-  /* ---------- the ten stages: drag with momentum, buttons, keys, progress ---------- */
-  const timeline = (wrap) => {
-    const row = $('.row', wrap);
-    const items = $$('.moment', row);
-    const bar = $('.progress span', wrap);
-    const ticks = $$('.rail [data-goto]', wrap);
-    const count = $('.moments__count b', wrap);
-    const status = $('[data-row-status]', wrap);
-    const prev = $('[data-dir="prev"]', wrap);
-    const next = $('[data-dir="next"]', wrap);
-    const pitch = () => (items[1] ? items[1].offsetLeft - items[0].offsetLeft : row.clientWidth);
-    const range = () => {
-      const first = clamp(Math.round(row.scrollLeft / pitch()), 0, items.length - 1);
-      const shown = Math.max(1, Math.round(row.clientWidth / pitch()));
-      return [first + 1, Math.min(items.length, first + shown)];
-    };
-    const update = () => {
-      const max = row.scrollWidth - row.clientWidth;
-      const p = max > 0 ? row.scrollLeft / max : 1;
-      if (bar) bar.style.transform = `scaleX(${Math.max(0.06, p).toFixed(4)})`;
-      if (prev) prev.disabled = row.scrollLeft < 4;
-      if (next) next.disabled = row.scrollLeft > max - 4;
-      const [a, b] = range();
-      count.textContent = a === b ? `${a}` : `${a} to ${b}`;
-      // the stages in view are active: full strength in the row, bronze on the rail
-      items.forEach((it, i) => it.classList.toggle('is-active', i >= a - 1 && i <= b - 1));
-      ticks.forEach((t, i) => {
-        const on = i >= a - 1 && i <= b - 1;
-        t.classList.toggle('is-active', on);
-        if (i === a - 1) t.setAttribute('aria-current', 'step'); else t.removeAttribute('aria-current');
-      });
-    };
-    let queued = false;
-    row.addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; update(); }); } }, { passive: true });
-    window.addEventListener('resize', update);
-    update();
-
-    const announce = () => setTimeout(() => { const [a, b] = range(); status.textContent = `Showing stages ${a} to ${b} of ${items.length}: ${$('h3', items[a - 1]).textContent}`; }, 450);
-    const goTo = (index) => {
-      row.scrollTo({ left: clamp(index, 0, items.length - 1) * pitch(), behavior: motion.reduced ? 'auto' : 'smooth' });
-      announce();
-    };
-    const page = (dir) => { const [a, b] = range(); goTo(a - 1 + dir * Math.max(1, b - a + 1)); };
-    ticks.forEach((t) => t.addEventListener('click', () => goTo(+t.dataset.goto)));
-    prev && prev.addEventListener('click', () => page(-1));
-    next && next.addEventListener('click', () => page(1));
-    row.addEventListener('keydown', (e) => {
-      const [a] = range();
-      const to = { ArrowRight: a, ArrowLeft: a - 2, Home: 0, End: items.length - 1 }[e.key];
-      if (to === undefined) return;
-      e.preventDefault();
-      goTo(to);
-    });
-
-    // Mouse drag with momentum; touch keeps the browser's own scrolling and snapping.
-    let drag = null, glide = 0;
-    const settle = () => {
-      row.classList.remove('is-dragging');
-      row.scrollTo({ left: Math.round(row.scrollLeft / pitch()) * pitch(), behavior: motion.reduced ? 'auto' : 'smooth' });
-    };
-    row.addEventListener('pointerdown', (e) => {
-      if (e.pointerType !== 'mouse' || e.button !== 0) return;
-      cancelAnimationFrame(glide);
-      drag = { x: e.clientX, s: row.scrollLeft, v: 0, t: performance.now(), lx: e.clientX, moved: false };
-    });
-    window.addEventListener('pointermove', (e) => {
-      if (!drag) return;
-      const dx = e.clientX - drag.x;
-      if (!drag.moved && Math.abs(dx) > 5) { drag.moved = true; row.classList.add('is-dragging'); }
-      if (!drag.moved) return;
-      const now = performance.now();
-      drag.v = (drag.lx - e.clientX) / Math.max(1, now - drag.t); // px per ms
-      drag.t = now; drag.lx = e.clientX;
-      row.scrollLeft = drag.s - dx;
-    });
-    window.addEventListener('pointerup', () => {
-      if (!drag) return;
-      const { moved } = drag;
-      let v = drag.v * 16; // px per frame
-      drag = null;
-      if (!moved) return;
-      if (motion.reduced || Math.abs(v) < 1) { settle(); return; }
-      const step = () => {
-        row.scrollLeft += v;
-        v *= 0.92;
-        if (Math.abs(v) > 0.6) glide = requestAnimationFrame(step); else settle();
+      const update = () => {
+        queued = false;
+        if (!total) return;
+        const animate = root.classList.contains('motion');
+        if (!animate) frac = 1;
+        else {
+          const r = map.getBoundingClientRect();
+          const vh = window.innerHeight;
+          const start = vh * 0.85, span = r.height + vh * 0.15;   // from the map's top at 85% of the screen to its foot at 70%
+          frac = Math.max(frac, Math.min(1, Math.max(0, (start - r.top) / span)));
+        }
+        const drawn = frac * total;
+        reveal.style.strokeDashoffset = (total - drawn).toFixed(1);
+        let last = -1;
+        stages.forEach((st, i) => { const on = drawn >= at[i] - 1; st.classList.toggle('is-on', on); if (on) last = i; });
+        if (!animate) last = -1;
+        if (last !== current) {
+          if (stages[current]) stages[current].classList.remove('is-current');
+          if (stages[last]) stages[last].classList.add('is-current');
+          current = last;
+        }
+        const moving = animate && drawn > 0 && drawn < total;
+        sec.classList.toggle('is-drawing', moving);
+        if (moving) { // the marker's place on the path, from the sampled table
+          let lo = 0, hi = table.length - 1;
+          while (hi - lo > 1) { const mid = (lo + hi) >> 1; if (table[mid][2] < drawn) lo = mid; else hi = mid; }
+          const [a, b] = [table[lo], table[hi]];
+          const k = (drawn - a[2]) / ((b[2] - a[2]) || 1);
+          dot.setAttribute('cx', (a[0] + (b[0] - a[0]) * k).toFixed(1));
+          dot.setAttribute('cy', (a[1] + (b[1] - a[1]) * k).toFixed(1));
+        }
       };
-      glide = requestAnimationFrame(step);
-    });
-  };
 
-  /* ---------- quotations over a photograph ---------- */
-  const quotes = () => {
-    const qs = $('.quote-sec');
-    if (!qs) return;
-    const box = $('.quotes', qs);
-    const figs = $$('figure', box);
-    const imgs = $$('.slides img', qs);
-    const count = $('.count', qs);
-    const toggle = $('.slide-toggle', qs);
-    const paired = imgs.length === figs.length;
-    let i = 0, timer = 0, paused = motion.reduced, held = false, inView = false;
-    const show = (n, manual) => {
-      figs[i].classList.remove('is-on'); if (paired) imgs[i].classList.remove('is-on');
-      i = (n + figs.length) % figs.length;
-      figs[i].classList.add('is-on'); if (paired) imgs[i].classList.add('is-on');
-      count.textContent = `${i + 1} of ${figs.length}`;
-      // Only a quotation the visitor asked for is read out; automatic changes stay silent.
-      box.setAttribute('aria-live', manual ? 'polite' : 'off');
-    };
-    const sync = () => {
-      clearInterval(timer);
-      if (!paused && !held && inView && !document.hidden) timer = setInterval(() => show(i + 1, false), 7500);
-      toggle.setAttribute('aria-pressed', String(paused));
-      toggle.setAttribute('aria-label', paused ? 'Play quotations' : 'Pause quotations');
-    };
-    $('[data-q="prev"]', qs).addEventListener('click', () => { show(i - 1, true); sync(); });
-    $('[data-q="next"]', qs).addEventListener('click', () => { show(i + 1, true); sync(); });
-    toggle.addEventListener('click', () => { paused = !paused; sync(); });
-    qs.addEventListener('mouseenter', () => { held = true; sync(); });
-    qs.addEventListener('mouseleave', () => { held = false; sync(); });
-    qs.addEventListener('focusin', () => { held = true; sync(); });
-    qs.addEventListener('focusout', (e) => { if (!qs.contains(e.relatedTarget)) { held = false; sync(); } });
-    let sx = null;
-    qs.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') sx = e.clientX; });
-    qs.addEventListener('pointerup', (e) => {
-      if (sx === null) return;
-      const dx = e.clientX - sx; sx = null;
-      if (Math.abs(dx) > 50) { show(i + (dx < 0 ? 1 : -1), true); sync(); }
-    });
-    new IntersectionObserver(([e]) => { inView = e.isIntersecting; sync(); }, { threshold: 0.3 }).observe(qs);
-    document.addEventListener('visibilitychange', sync);
-    motion.on((r) => { if (r) { paused = true; sync(); } });
-    sync();
-  };
-
-  /* ---------- moving between pages ---------- */
-  // Browsers with cross-document view transitions animate the change in CSS and keep the header in place;
-  // the page is prefetched on hover by the speculation rules in the head. Other browsers get a short fade
-  // and a hover prefetch from here.
-  const pageTransitions = () => {
-    const internal = (a) => {
-      if (!a || a.target || a.hasAttribute('download')) return null;
-      const url = new URL(a.href, location.href);
-      if (url.origin !== location.origin || !/\.html$|\/$/.test(url.pathname)) return null;
-      if (url.pathname === location.pathname) return null;
-      return url;
-    };
-    if (!(HTMLScriptElement.supports && HTMLScriptElement.supports('speculationrules')) && location.protocol !== 'file:') {
-      const done = new Set();
-      const prefetch = (e) => {
-        const url = internal(e.target.closest && e.target.closest('a'));
-        if (!url || done.has(url.pathname)) return;
-        done.add(url.pathname);
-        const l = document.createElement('link');
-        l.rel = 'prefetch'; l.href = url.href;
-        document.head.appendChild(l);
+      const measure = () => {
+        const mr = map.getBoundingClientRect();
+        const W = mr.width, H = mr.height;
+        if (!W) return;
+        const vw = document.documentElement.clientWidth;
+        const left = -mr.left, right = vw - mr.left;
+        const pts = marks.map((m) => { const r = m.getBoundingClientRect(); return [r.left + r.width / 2 - mr.left, r.top + r.height / 2 - mr.top]; });
+        const serp = getComputedStyle(list).gridTemplateColumns.split(' ').length > 1;
+        // waypoints [x, y, stage or -1]: in from the page's edge, through every marker (and round the turn), out again
+        const way = [];
+        if (serp) {
+          way.push([left, pts[0][1] + 120, -1]);
+          pts.slice(0, 5).forEach((pt, i) => way.push([pt[0], pt[1], i]));
+          // round the turn in the margin; where the space between the rows allows, the path curls into a loop there
+          const bx = W + Math.max(12, Math.min(64, (right - W) * 0.55));
+          const top = stages[4].getBoundingClientRect().bottom - mr.top + 24, foot = pts[5][1] - 40;
+          const R = Math.min(64, (foot - top) / 2);
+          way.push([bx, pts[4][1] + 40, -1]);
+          if (R >= 40) {
+            const cx = (pts[4][0] + W) / 2, cy = (top + foot) / 2;
+            way.push([bx - 8, cy - R * 0.9, -1], [cx + R * 0.15, cy + R, -1], [cx - R, cy, -1], [cx, cy - R, -1], [cx + R * 1.05, cy + R * 0.25, -1]);
+          }
+          way.push([bx, pts[5][1] - 30, -1]);
+          pts.slice(5).forEach((pt, i) => way.push([pt[0], pt[1], i + 5]));
+          way.push([left, pts[9][1] + 90, -1]);
+        } else {
+          // in from just above the first stage and out just below the last, clear of the text around the list
+          way.push([pts[0][0] + 22, -36, -1]);
+          pts.forEach((pt, i) => way.push([pt[0], pt[1], i]));
+          way.push([pts[9][0] + 16, H + 24, -1]);
+        }
+        // a smooth curve through the waypoints (Catmull-Rom, written as cubic Beziers). Its length is worked out here, by
+        // sampling each curve, rather than asked of the browser, which can report a stale length just after a change.
+        const P = (i) => way[Math.max(0, Math.min(way.length - 1, i))];
+        const f = (n) => n.toFixed(1);
+        let d = `M${f(way[0][0])} ${f(way[0][1])}`;
+        let len = 0;
+        at = new Array(marks.length).fill(0);
+        table = [[way[0][0], way[0][1], 0]];
+        for (let i = 0; i < way.length - 1; i++) {
+          const [p0, p1, p2, p3] = [P(i - 1), P(i), P(i + 1), P(i + 2)];
+          const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+          const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+          d += `C${f(c1[0])} ${f(c1[1])} ${f(c2[0])} ${f(c2[1])} ${f(p2[0])} ${f(p2[1])}`;
+          let [px, py] = p1;
+          for (let s = 1; s <= 24; s++) {
+            const t = s / 24, u = 1 - t;
+            const x = u * u * u * p1[0] + 3 * u * u * t * c1[0] + 3 * u * t * t * c2[0] + t * t * t * p2[0];
+            const y = u * u * u * p1[1] + 3 * u * u * t * c1[1] + 3 * u * t * t * c2[1] + t * t * t * p2[1];
+            len += Math.hypot(x - px, y - py);
+            table.push([x, y, len]);
+            [px, py] = [x, y];
+          }
+          if (p2[2] >= 0) at[p2[2]] = len;
+        }
+        total = len;
+        svg.setAttribute('width', f(W));
+        svg.setAttribute('height', f(H));
+        svg.setAttribute('viewBox', `0 0 ${f(W)} ${f(H)}`);
+        [track, path, reveal].forEach((el) => el.setAttribute('d', d));
+        Object.entries({ x: left - 100, y: -400, width: right - left + 200, height: H + 800 }).forEach(([k, v]) => mask.setAttribute(k, f(v)));
+        reveal.style.strokeDasharray = `${f(total)} ${f(total + 50)}`;
+        update();
       };
-      document.addEventListener('pointerover', prefetch, { passive: true });
-      document.addEventListener('focusin', prefetch);
-    }
-    if (root.classList.contains('vt')) return;
-    document.addEventListener('click', (e) => {
-      const a = e.target.closest('a');
-      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || motion.reduced) return;
-      if (!internal(a) || a.closest('.gallery')) return;
-      e.preventDefault();
-      document.body.classList.add('is-leaving');
-      setTimeout(() => { location.href = a.href; }, 200);
+
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { sec.classList.add('in'); io.disconnect(); } }), { rootMargin: '0px 0px -12% 0px' });
+        io.observe(sec);
+      } else sec.classList.add('in');
+      window.addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
+      if ('ResizeObserver' in window) { let t = 0; new ResizeObserver(() => { clearTimeout(t); t = setTimeout(measure, 100); }).observe(map); }
+      else window.addEventListener('resize', measure);
+      if (document.fonts) document.fonts.ready.then(measure);
+      window.addEventListener('load', measure);
+      measure();
     });
-    window.addEventListener('pageshow', (e) => { if (e.persisted) document.body.classList.remove('is-leaving'); });
   };
 
-  /* ---------- portfolio: animated filtering, kept in the address, and a photograph viewer ---------- */
+  /* ---------- portfolio: filtering, kept in the address, and a photograph viewer ---------- */
   const portfolio = () => {
     const gallery = $('.gallery');
     if (!gallery) return;
@@ -533,44 +232,19 @@
     const status = $('#filter-status');
     const count = $('[data-count]');
     const names = Object.fromEntries(buttons.map((b) => [b.dataset.filter, b.firstChild.textContent.trim()]));
-
-    const apply = async (f, animate) => {
+    const apply = (f) => {
       buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === f)));
-      const keep = new Set(cards.filter((c) => f === 'all' || c.dataset.cat === f));
-      if (!animate || motion.reduced) {
-        cards.forEach((c) => { c.hidden = !keep.has(c); });
-      } else {
-        // FLIP: note where every visible card is, let the leaving ones fade, re-flow, then glide the rest
-        // from their old place to the new one while the newcomers settle in.
-        const before = new Map(cards.filter((c) => !c.hidden).map((c) => [c, c.getBoundingClientRect()]));
-        const leaving = cards.filter((c) => !c.hidden && !keep.has(c));
-        leaving.forEach((c) => c.classList.add('is-leaving'));
-        if (leaving.length) await wait(220);
-        cards.forEach((c) => { c.hidden = !keep.has(c); c.classList.remove('is-leaving'); });
-        const vh = window.innerHeight;
-        let n = 0;
-        keep.forEach((c) => {
-          const now = c.getBoundingClientRect();
-          if (now.bottom < -200 || now.top > vh + 200) return;
-          const was = before.get(c);
-          if (was) {
-            const dx = was.left - now.left, dy = was.top - now.top;
-            if (dx || dy) c.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }], { duration: 650, easing: 'cubic-bezier(.16,1,.3,1)' });
-          } else {
-            c.animate([{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }], { duration: 600, delay: Math.min(n++ * 40, 360), easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
-          }
-        });
-      }
-      if (count) count.textContent = keep.size;
-      status.textContent = `Showing ${keep.size} ${f === 'all' ? 'rooms' : names[f].toLowerCase()}`;
+      let n = 0;
+      cards.forEach((c) => { const on = f === 'all' || c.dataset.cat === f; c.hidden = !on; if (on) n++; });
+      if (count) count.textContent = n;
+      status.textContent = `Showing ${n} ${f === 'all' ? 'rooms' : names[f].toLowerCase()}`;
       history.replaceState(null, '', f === 'all' ? location.pathname : `#${f}`);
     };
-    buttons.forEach((b) => b.addEventListener('click', () => apply(b.dataset.filter, true)));
-    const fromHash = () => { const f = location.hash.slice(1); if (f in names && f !== 'all') apply(f, false); };
+    buttons.forEach((b) => b.addEventListener('click', () => apply(b.dataset.filter)));
+    const fromHash = () => { const f = location.hash.slice(1); if (f in names) apply(f); };
     fromHash();
     window.addEventListener('hashchange', fromHash);
 
-    // Each card carries every photograph of its room; the viewer walks through all of them, room by room.
     const photosOf = (card) => card.dataset.photos.split('|').map((p) => { const [src, alt] = p.split('::'); return { src, alt, card }; });
     const lb = $('.lightbox');
     document.body.appendChild(lb); // a direct child of body, so everything else can be made inert while it is open
@@ -593,7 +267,7 @@
       lbImg.src = item.src;
       lbImg.alt = item.alt;
       lb.classList.remove('is-loading');
-      idle(() => [1, -1].forEach((d) => load(list[(idx + d + list.length) % list.length].src))); // neighbours ready
+      idle(() => [1, -1].forEach((d) => load(list[(idx + d + list.length) % list.length].src)));
     };
     const close = () => {
       if (!lb.classList.contains('is-open')) return;
@@ -603,7 +277,7 @@
       overlay.close();
       const back = list[idx].card;
       back.focus({ preventScroll: true });
-      back.scrollIntoView({ block: 'nearest', behavior: motion.reduced ? 'auto' : 'smooth' }); // the room last viewed
+      back.scrollIntoView({ block: 'nearest', behavior: reduced() ? 'auto' : 'smooth' });
     };
     cards.forEach((card) => card.addEventListener('click', (e) => {
       e.preventDefault();
@@ -632,28 +306,11 @@
       const dx = e.clientX - sx, dy = e.clientY - sy;
       sx = null;
       if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) show(idx + (dx < 0 ? 1 : -1));
-      else if (dy > 90 && Math.abs(dy) > Math.abs(dx)) close(); // swipe down to close
+      else if (dy > 90 && Math.abs(dy) > Math.abs(dx)) close();
     });
   };
 
-  /* ---------- services list: hovering or focusing a service shows its photograph ---------- */
-  const servicePreview = () => {
-    const items = $$('[data-preview]');
-    const imgs = $$('.svc-preview img');
-    const caption = $('[data-preview-caption]');
-    if (!items.length || !imgs.length) return;
-    const set = (i) => {
-      items.forEach((it, k) => it.classList.toggle('is-active', k === i));
-      imgs.forEach((im, k) => im.classList.toggle('is-on', k === i));
-      caption.textContent = imgs[i].dataset.caption;
-      const idx = $('[data-preview-index]');
-      if (idx) idx.textContent = imgs[i].dataset.index;
-    };
-    items.forEach((it, i) => { it.addEventListener('pointerenter', () => set(i)); it.addEventListener('focus', () => set(i)); });
-    idle(() => imgs.forEach((im) => { im.loading = 'eager'; }));
-  };
-
-  /* ---------- in-page section links mark the section being read ---------- */
+  /* ---------- services: the section being read is marked in the jump links ---------- */
   const jumpNav = () => {
     const links = $$('.jump a');
     if (!links.length) return;
@@ -681,8 +338,7 @@
       set(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch { /* storage unavailable */ } },
       clear() { try { localStorage.removeItem(KEY); } catch { /* storage unavailable */ } },
     };
-
-    // Restore an unsent draft, then let a "Plan your kitchen with us" link choose the project type.
+    // Restore an unsent draft, then let a "Plan your kitchen" link choose the project type.
     const draft = store.get();
     fields.forEach((n) => { if (draft[n] && !form.elements[n].value) form.elements[n].value = draft[n]; });
     const wanted = new URLSearchParams(location.search).get('type');
@@ -691,16 +347,14 @@
       if (opt) form.elements.type.value = opt.value;
     }
     let saveT = 0;
+    const phoneOk = (v) => { const d = v.replace(/[^\d+]/g, ''); return /^(\+\d{10,14}|0?\d{10})$/.test(d); };
+    const check = (el) => (el.name === 'phone' ? el.value.trim() !== '' && phoneOk(el.value) : el.checkValidity());
     form.addEventListener('input', (e) => {
       clearTimeout(saveT);
       saveT = setTimeout(() => store.set(Object.fromEntries(fields.map((n) => [n, form.elements[n].value]))), 300);
       const f = e.target.closest('.field');
       if (f && f.classList.contains('invalid') && check(e.target)) { f.classList.remove('invalid'); e.target.setAttribute('aria-invalid', 'false'); }
     });
-
-    // Phone numbers are accepted with spaces, dashes or brackets; 10 digits, or a +country code.
-    const phoneOk = (v) => { const d = v.replace(/[^\d+]/g, ''); return /^(\+\d{10,14}|0?\d{10})$/.test(d); };
-    const check = (el) => (el.name === 'phone' ? el.value.trim() !== '' && phoneOk(el.value) : el.checkValidity());
     const validate = () => {
       let first = null;
       required.forEach((n) => {
@@ -715,8 +369,6 @@
     };
     const v = (n) => form.elements[n].value.trim();
     const body = () => `Name: ${v('name')}\nPhone: ${v('phone')}\nEmail: ${v('email')}\nProject: ${v('type')}${v('area') ? `\nLocality: ${v('area')}` : ''}\n\n${v('message')}`;
-
-    // After sending, say what should have happened and offer a way out if it did not.
     const report = (channel) => {
       statusBox.textContent = '';
       const p = document.createElement('p');
@@ -725,7 +377,6 @@
         : 'WhatsApp should now be open in a new tab with your message ready to send. If it did not open, copy the message and send it to +91 90001 81212.';
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'link link--accent';
       btn.textContent = 'Copy message';
       btn.addEventListener('click', async () => {
         try { await navigator.clipboard.writeText(body()); btn.textContent = 'Message copied'; }
@@ -750,33 +401,239 @@
     });
   };
 
+  /* ================================================================ motion
+     Applied only when motion is allowed: html.motion turns on the hidden start states in the stylesheet, so without
+     this script, or with reduced motion, every element is simply visible. Only transform, opacity and clip-path move. */
+  const motionOK = !reduced() && 'IntersectionObserver' in window;
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  // Which elements reveal, and how. Reading text in articles is left still.
+  const REVEALS = [
+    ['main h1:not(.hero__title), main h2:not(.sr-only), .statement, .reel__end h3, .story-case__text h3, .pnext__text strong', 'words'],
+    ['main .ph', 'img'],
+    ['main .lead, main .shead p, main .kicker, .intro__label, .intro__lead, .intro__links, .intro__pic figcaption, .opener .crumbs, .svc .go, .reel__intro p, .reel__cap, .story-case__text p, .idea__text, .feature-post__text, .post-row__text, .pplan__text, .visit__card, .form, .faq-block__head p', 'up'],
+    ['.pillars, .notes, .posts, .items, .next-steps, .routes, .faq, .chips, .stories, .intro__body', 'stagger'],
+  ];
+  const SKIP = '.hero, .phero, .loader, .menu-panel, .lightbox, .article__body, .journey__head, .journey__map, [data-r]';
+
+  // Each word in its own mask; elements such as <em> keep their words inside them.
+  const splitWords = (el) => {
+    let i = 0;
+    const walk = (node) => [...node.childNodes].forEach((n) => {
+      if (n.nodeType === 3) {
+        const parts = n.textContent.split(/(\s+)/);
+        const frag = document.createDocumentFragment();
+        parts.forEach((t) => {
+          if (!t) return;
+          if (/^\s+$/.test(t)) { frag.append(t); return; }
+          const w = document.createElement('span'); w.className = 'w';
+          const inner = document.createElement('span'); inner.textContent = t; inner.style.setProperty('--i', i++);
+          w.append(inner); frag.append(w);
+        });
+        n.replaceWith(frag);
+      } else if (n.nodeType === 1 && !n.classList.contains('w')) walk(n);
+    });
+    walk(el);
+  };
+
+  // Whole lines in masks, measured from where the words really break; <em> words stay emphasised. Re-measured when
+  // the heading's width changes, so the masks always match the lines on screen.
+  const splitLines = (el) => {
+    if (!el._words) {
+      el._words = [];
+      const walk = (node, em) => [...node.childNodes].forEach((n) => {
+        if (n.nodeType === 3) n.textContent.split(/[ \t\n\r\f]+/).filter(Boolean).forEach((t) => el._words.push({ t, em }));
+        else if (n.nodeType === 1) walk(n, em || n.tagName === 'EM');
+      });
+      walk(el, false);
+      el.setAttribute('aria-label', el.textContent.replace(/\s+/g, ' ').trim());
+    }
+    el.textContent = '';
+    const spans = el._words.map((w, i) => {
+      const sp = document.createElement('span');
+      sp.textContent = w.t;
+      el.append(sp);
+      if (i < el._words.length - 1) el.append(' ');
+      return sp;
+    });
+    const lines = [];
+    let top = null;
+    spans.forEach((sp, i) => { if (sp.offsetTop !== top) { lines.push([]); top = sp.offsetTop; } lines[lines.length - 1].push(el._words[i]); });
+    el.textContent = '';
+    lines.forEach((words, l) => {
+      const ln = document.createElement('span');
+      ln.className = 'ln';
+      ln.setAttribute('aria-hidden', 'true');
+      const inner = document.createElement('span');
+      inner.style.setProperty('--l', l);
+      words.forEach((w, i) => {
+        if (w.em) { const em = document.createElement('em'); em.textContent = w.t; inner.append(em); } else inner.append(w.t);
+        if (i < words.length - 1) inner.append(' ');
+      });
+      ln.append(inner);
+      el.append(ln);
+    });
+    el._w = el.clientWidth;
+  };
+
+  const reveals = () => {
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }), { rootMargin: '0px 0px -4% 0px' });
+    $$('[data-gallery]').forEach((el) => { el.dataset.r = 'gallery'; io.observe(el); });
+    $$('[data-cards]').forEach((el) => { el.dataset.r = 'cards'; io.observe(el); });
+    const lined = $$('[data-lines]');
+    lined.forEach((el) => { el.dataset.r = 'lines'; splitLines(el); io.observe(el); });
+    // the first split may be measured in a fallback face; measure again once the web fonts have arrived
+    if (lined.length && document.fonts) document.fonts.ready.then(() => lined.forEach(splitLines));
+    if (lined.length && 'ResizeObserver' in window) {
+      let t = 0;
+      new ResizeObserver(() => {
+        clearTimeout(t);
+        t = setTimeout(() => lined.forEach((el) => { if (Math.abs(el.clientWidth - el._w) > 2) splitLines(el); }), 150);
+      }).observe(document.body);
+    }
+    REVEALS.forEach(([sel, kind]) => $$(sel).forEach((el) => {
+      if (el.closest(SKIP) && !el.matches('.phero h1')) return;
+      if (el.dataset.r || el.closest('[data-r="stagger"]') && kind !== 'stagger') return;
+      el.dataset.r = kind;
+      if (kind === 'words') splitWords(el);
+      if (kind === 'stagger') [...el.children].forEach((c, n) => c.style.setProperty('--i', Math.min(n, 12)));
+      io.observe(el);
+    }));
+    // Should the visitor turn reduced motion on, everything is shown at once.
+    window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => { if (e.matches) { root.classList.remove('motion'); } });
+  };
+
+  // A few photographs drift with depth as the page scrolls: desktop only, and only while on screen.
+  const depth = () => {
+    if (!window.matchMedia('(min-width: 900px)').matches) return;
+    const items = [];
+    $$('[data-depth]').forEach((el) => items.push({ el, d: +el.dataset.depth, move: el }));
+    $$('.opener__pic .ph, .svc__pic .ph, .why__pic .ph, .ps--wide .ph, .story-case__main, .pnext .ph, .phero .ph').forEach((ph) => {
+      ph.classList.add('px');
+      const img = $('img', ph);
+      if (img) items.push({ el: ph, d: 0.08, move: img });
+    });
+    $$('.g-tile .ph').forEach((ph) => { ph.classList.add('px'); items.push({ el: ph, d: 0.035, move: $('img', ph) }); });
+    if (!items.length) return;
+    const seen = new Set();
+    const io = new IntersectionObserver((es) => es.forEach((e) => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target))), { rootMargin: '100px 0px' });
+    items.forEach((it) => io.observe(it.el));
+    let queued = false;
+    const frame = () => {
+      queued = false;
+      const vh = window.innerHeight;
+      items.forEach((it) => {
+        if (!seen.has(it.el)) return;
+        const r = it.el.getBoundingClientRect();
+        const off = (r.top + r.height / 2 - vh / 2) * -it.d;
+        it.move.style.translate = `0 ${off.toFixed(1)}px`;
+      });
+    };
+    window.addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(frame); } }, { passive: true });
+    frame();
+  };
+
+  // Selected work: from 1000px the section pins and vertical scrolling moves the reel sideways.
+  const reel = () => {
+    const sec = $('[data-reel]');
+    if (!sec) return;
+    const track = $('.reel__track', sec);
+    const bar = $('.reel__progress', sec);
+    const items = $$('.reel__item', sec);
+    const mq = window.matchMedia('(min-width: 1000px)');
+    let dist = 0, top = 0, on = false, queued = false;
+    const measure = () => {
+      on = mq.matches;
+      sec.classList.toggle('is-pinned', on);
+      if (!on) { sec.style.height = ''; track.style.transform = ''; return; }
+      dist = Math.max(0, track.scrollWidth - window.innerWidth);
+      sec.style.height = `${dist + window.innerHeight}px`;
+      top = sec.getBoundingClientRect().top + window.scrollY;
+      frame();
+    };
+    const frame = () => {
+      queued = false;
+      if (!on) return;
+      const p = Math.min(1, Math.max(0, (window.scrollY - top) / (dist || 1)));
+      track.style.transform = `translate3d(${(-p * dist).toFixed(1)}px, 0, 0)`;
+      bar.style.setProperty('--p', p.toFixed(4));
+      const vw = window.innerWidth;
+      items.forEach((it) => { // depth inside each frame: the photograph moves a little against the reel
+        const r = it.getBoundingClientRect();
+        if (r.right < 0 || r.left > vw) return;
+        const img = $('.ph img', it);
+        const room = r.width * 0.065;   // .reel.is-pinned images are scaled 1.14: 7% of the width spare on each side
+        if (img) img.style.translate = `${Math.max(-room, Math.min(room, (r.left + r.width / 2 - vw / 2) * -0.06)).toFixed(1)}px 0`;
+      });
+    };
+    // A keyboard user tabbing into a project off to the side is scrolled to it.
+    sec.addEventListener('focusin', (e) => {
+      if (!on) return;
+      const it = e.target.closest('.reel__item, .reel__end');
+      if (!it) return;
+      const x = it.offsetLeft - (window.innerWidth - it.offsetWidth) / 2;
+      window.scrollTo({ top: top + Math.min(dist, Math.max(0, x)), behavior: 'auto' });
+    });
+    window.addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(frame); } }, { passive: true });
+    window.addEventListener('resize', measure);
+    mq.addEventListener('change', measure);
+    if (document.fonts) document.fonts.ready.then(measure);
+    window.addEventListener('load', measure);
+    measure();
+  };
+
+  // A label that follows the pointer over projects; the real cursor stays.
+  const cursor = () => {
+    if (!finePointer) return;
+    const c = document.createElement('div');
+    c.className = 'cursor'; c.setAttribute('aria-hidden', 'true');
+    document.body.append(c);
+    let x = -200, y = -200, tx = x, ty = y, s = 0, ts = 0, raf = 0;
+    const tick = () => {
+      x += (tx - x) * 0.2; y += (ty - y) * 0.2; s += (ts - s) * 0.18;
+      c.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) scale(${s.toFixed(3)})`;
+      raf = Math.abs(tx - x) + Math.abs(ty - y) + Math.abs(ts - s) > 0.1 ? requestAnimationFrame(tick) : 0;
+    };
+    const go = () => { if (!raf) raf = requestAnimationFrame(tick); };
+    document.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      tx = e.clientX; ty = e.clientY;
+      const t = e.target.closest && e.target.closest('[data-cursor]');
+      ts = t ? 1 : 0;
+      if (t && c.textContent !== t.dataset.cursor) c.textContent = t.dataset.cursor;
+      go();
+    }, { passive: true });
+    document.addEventListener('pointerleave', () => { ts = 0; go(); });
+  };
+
+  // The home hero and project openings start once the fonts are in, after the loader when it shows.
+  const opening = () => {
+    if (!$('.hero, .phero')) return;
+    const loader = $('.loader') && !root.classList.contains('seen');
+    let done = false;
+    const go = () => { if (!done) { done = true; root.classList.add('hero-go'); } };
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(go, loader ? 900 : 60));
+    setTimeout(go, loader ? 1800 : 1200);
+  };
+
   /* ---------- start ---------- */
-  root.classList.add('ready'); // the head script reveals everything if this line never runs
+  root.classList.add('ready'); // the head script shows everything if this line never runs
+  if (motionOK) {
+    root.classList.add('motion');
+    reveals();
+    opening();
+    depth();
+    cursor();
+    reel(); // with reduced motion the projects simply stack, one under another
+  }
   header();
   menu();
-  parallax();
-  pageTransitions();
-  fontsReady.then(() => {
-    const heads = $$('[data-lines]');
-    heads.forEach(splitLines);
-    if ('ResizeObserver' in window) {
-      let t = 0;
-      const pending = new Set();
-      const ro = new ResizeObserver((entries) => {
-        entries.forEach((en) => { if (Math.abs(en.target.clientWidth - en.target.dataset.w) > 2) pending.add(en.target); });
-        clearTimeout(t);
-        t = setTimeout(() => { pending.forEach(splitLines); pending.clear(); }, 150);
-      });
-      heads.forEach((el) => ro.observe(el));
-    }
-    reveal.init();
-    hero();
-  });
-  viewer();
-  $$('[data-row]').forEach(timeline);
-  quotes();
+  journey(); // drawn in full, at once, with reduced motion
   portfolio();
-  servicePreview();
   jumpNav();
   enquiry();
   const y = $('#year');
