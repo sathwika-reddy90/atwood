@@ -4,8 +4,14 @@ Run from anywhere:  python3 tools/build.py
 
 Every photograph is described once, in PHOTOS below: what it shows, where it came from, and its focal point.
 Pages refer to photographs by key, so replacing a picture means changing one entry.
+
+Journal posts are not in this file: they are written in the Sanity Studio (https://atwood-dsigns.sanity.studio,
+code in studio/) and fetched at build time by tools/cms.py, so the build needs the internet.
 """
+import json
 import os
+
+import cms
 
 OUT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 P = "assets/img/portfolio/"
@@ -190,8 +196,9 @@ def cta():
 </section>'''
 
 
-def page(fname, title, desc, body, closing=True, over=False):
+def page(fname, title, desc, body, closing=True, over=False, og_image=None, og_type="website", head_extra="", section=None):
     canonical = SITE + ("" if fname == "index.html" else fname.replace(".html", "/"))
+    og_image = og_image or P + "res-11.jpg"
     html = f'''<!doctype html>
 <html lang="en">
 <head>
@@ -200,11 +207,11 @@ def page(fname, title, desc, body, closing=True, over=False):
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <link rel="canonical" href="{canonical}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="{og_type}">
 <meta property="og:site_name" content="Atwood Dsigns">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="{P}res-11.jpg">
+<meta property="og:image" content="{og_image}">{head_extra}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#f3f0e9">
 <link rel="icon" href="{I}cropped-favicon-192x192.png">
@@ -216,7 +223,7 @@ def page(fname, title, desc, body, closing=True, over=False):
 <script type="speculationrules">{{"prefetch": [{{"where": {{"selector_matches": "a[href$='.html']"}}, "eagerness": "moderate"}}]}}</script>
 </head>
 <body>
-{header(fname, over)}
+{header(section or fname, over)}
 <main id="main">
 {body}
 {cta() if closing else ""}
@@ -288,28 +295,6 @@ ROOMS = [  # room-by-room viewer: (name, portfolio filter, studio photographs)
     ("Kids' rooms", "kids", ["res-21", "res-42", "res-25", "res-15", "res-14"]),
     ("Living and dining", "living", ["res-11", "res-08", "res-05", "res-37", "res-23"]),
     ("Entrances and pooja", "entrance", ["res-32", "res-22", "res-04", "res-18", "res-27", "res-09"]),
-]
-
-POSTS = [
-    ("residential", "res-11", "Residential interior design", "Creating homes that support real life",
-     "A home is more than a physical structure; it's where life unfolds. Residential interior design should enhance comfort, reflect personality and support everyday routines.",
-     [("Designing around lifestyle", ["Every household is different. Some prioritise entertaining, others value quiet relaxation. We shape each design around daily habits, family dynamics and future needs.", "We design kitchens that make cooking effortless, bedrooms that encourage rest and living spaces that bring people together."]),
-      ("Comfort through thoughtful design", ["Comfort goes beyond furniture. It includes lighting levels, ventilation, acoustics and spatial balance. Soft lighting, natural materials and intuitive layouts create calm spaces that support well-being."]),
-      ("Smart storage and functional layouts", ["Clutter-free homes feel more spacious and peaceful. Built-in units, modular furniture and hidden storage keep things organised without spoiling the look."]),
-      ("Timeless design choices", ["Trends change, but good design endures. We favour timeless styles that adapt over time, so homes stay relevant and elegant for years."]),
-      ("In short", ["A thoughtfully designed home improves everyday life. We create residential interiors that feel personal, practical and beautifully livable."])]),
-    ("sustainable", "res-05", "Sustainable interior design", "Responsible design for modern living",
-     "Sustainability is no longer optional. Interior design has the power to reduce environmental impact while improving the quality of life indoors.",
-     [("Sustainable material choices", ["Eco-friendly materials reduce environmental harm while offering durability and health benefits. Low-VOC finishes, responsibly sourced wood and recycled materials improve indoor air quality and longevity."]),
-      ("Energy-efficient design", ["Making the most of natural light, ventilation and spatial planning reduces energy use. Smart layouts reduce the need for artificial lighting and climate control."]),
-      ("Designing for longevity", ["Sustainable design favours durability over trends. Timeless aesthetics and quality craftsmanship help interiors age gracefully, so they need renovating less often."]),
-      ("In short", ["Sustainable interior design combines responsibility with beauty. We create spaces that respect the environment while improving everyday living."])]),
-    ("commercial", "com-10", "Commercial interior design", "Spaces that drive productivity and brand identity",
-     "Commercial interiors shape perception, productivity and performance. We design commercial spaces that support business goals and inspire the people who use them.",
-     [("Reflecting brand identity", ["An office or commercial space communicates a brand's values before a single word is spoken. Colours, materials and layouts all shape how clients and employees see the brand.", "We make sure the interior supports your brand story and professional credibility."]),
-      ("Enhancing productivity through design", ["Design affects how people work. Ergonomic furniture, efficient layouts and proper lighting reduce fatigue and improve focus. Zoning for collaboration and privacy makes teams more efficient."]),
-      ("Creating positive customer experiences", ["Retail and commercial interiors should guide movement, create comfort and encourage engagement. Thoughtful layouts and inviting details improve customer satisfaction and retention."]),
-      ("In short", ["Commercial interior design is a strategic investment. With careful planning and execution, interiors become tools for growth, productivity and brand success."])]),
 ]
 
 
@@ -885,17 +870,91 @@ for n, pr in enumerate(PROJECTS):
     page(PAGE, f"{pr['title']} | Atwood Dsigns", f"{pr['title']} by Atwood Dsigns, an interior design and build studio in Hyderabad: photographs and notes on the materials, joinery and lighting.", body, closing=False, over=True)
 
 # ================================================================================================ JOURNAL
+# Posts are written in the Sanity Studio and fetched by tools/cms.py. Each gets its own page, journal-<slug>.html,
+# next to the project pages; journal.html lists them, featured first and then newest.
 PAGE = "journal.html"
-toc = "".join(f'''<a class="toc-item" href="#{s}">{ph(k, "r-32", "(max-width: 520px) 100vw, 25vw", where="article list", alt="")}<div><p class="meta">24 December 2025</p><h2>{t}: {sub.lower()}</h2><p>{intro}</p></div></a>''' for s, k, t, sub, intro, _ in POSTS)
-arts = "".join(f'''<article class="article" id="{s}" aria-labelledby="{s}-h">
-  <header class="article__head"><p class="meta">Journal, 24 December 2025</p><h2 id="{s}-h" data-lines>{t}</h2><p class="sub" data-rise>{sub}</p></header>
-  {ph(k, "r-219", "(max-width: 1320px) 100vw, 1320px", where="article", attrs="")}
-  <div class="article__body"><p class="intro">{intro}</p>{"".join(f"<h3>{h}</h3>" + "".join(f"<p>{p}</p>" for p in ps) for h, ps in secs)}</div>
-</article>''' for s, k, t, sub, intro, secs in POSTS)
+JOURNAL = cms.load_posts()
+esc = cms.esc
+
+
+def post_href(p):
+    return f"journal-{p['slug']}.html"
+
+
+def post_card(p, h="h2"):
+    pic = cms.ph(p["cover"], "r-32", "(max-width: 520px) 100vw, 25vw", alt="") if p["cover"] else ""
+    return f'''<a class="toc-item" href="{post_href(p)}">{pic}<div><p class="meta">{cms.fmt_date(p["date"])} &middot; {esc(p["category"])}</p><{h}>{esc(p["title"])}</{h}><p>{esc(p["excerpt"])}</p></div></a>'''
+
+
+def ld(*objs):
+    """JSON-LD blocks; "</" is escaped so text from the CMS can't close the script element."""
+    data = [json.dumps(o, ensure_ascii=False).replace("</", "<\\/") for o in objs]
+    return "".join(f'\n<script type="application/ld+json">{d}</script>' for d in data)
+
+
+def og(img):
+    """A 1200 x 630 crop around the Studio hotspot, for WhatsApp, Facebook and LinkedIn previews."""
+    h = img.get("hotspot") or {}
+    return f'{img["url"]}?w=1200&h=630&fit=crop&crop=focalpoint&fp-x={h.get("x", .5):.3f}&fp-y={h.get("y", .5):.3f}&auto=format'
+
+
 journal = page_head("Journal", "Notes from the studio on designing homes and workplaces that work.") + f'''
-<section class="sec sec--flush-top" aria-label="Articles"><div class="wrap"><div class="toc-list" data-stagger>{toc}</div></div></section>
-<section class="sec sec--flush-top"><div class="wrap">{arts}</div></section>'''
-page("journal.html", "Journal | Atwood Dsigns", "Articles from Atwood Dsigns on residential, sustainable and commercial interior design.", journal)
+<section class="sec sec--flush-top" aria-label="Articles"><div class="wrap"><div class="toc-list" data-stagger>{"".join(post_card(p) for p in JOURNAL)}</div></div></section>'''
+page("journal.html", "Journal | Atwood Dsigns", "Articles from Atwood Dsigns on residential, sustainable and commercial interior design.", journal,
+     head_extra=ld({"@context": "https://schema.org", "@type": "Blog", "name": "Journal | Atwood Dsigns", "url": SITE + "journal/",
+                    "blogPost": [{"@type": "BlogPosting", "headline": p["title"], "url": SITE + post_href(p).replace(".html", "/"),
+                                  "datePublished": p["date"].isoformat()} for p in JOURNAL]}))
+
+for p in JOURNAL:
+    PAGE = post_href(p)
+    url = SITE + PAGE.replace(".html", "/")
+    body_html, faqs = cms.render_body(p["body"], SITE)
+    by = esc(p["author"] or "Atwood Dsigns") + (f", {esc(p['author_role'])}" if p["author"] and p["author_role"] else "")
+    hero = f'''<div class="wrap">{cms.ph(p["hero"], "r-219 head-ph", "(max-width: 1320px) 100vw, 1320px", lazy=False, extra=' fetchpriority="high"')}</div>''' if p["hero"] else ""
+    same = [q for q in JOURNAL if q is not p and set(q["categories"]) & set(p["categories"])]
+    more = (same + [q for q in JOURNAL if q is not p and q not in same])[:3]
+    related = f'''<section class="sec post-more" aria-labelledby="more-h"><div class="wrap">
+  <h2 class="h2" id="more-h" data-lines>Keep reading</h2>
+  <div class="toc-list" data-stagger>{"".join(post_card(q, "h3") for q in more)}</div>
+</div></section>''' if more else ""
+    body = f'''<article aria-labelledby="post-h">
+<section class="page-head">
+  <div class="wrap grid">
+    <p class="label" data-rise><a href="journal.html">05 / Journal</a> &middot; {esc(p["category"])}</p>
+    <h1 id="post-h" data-lines>{esc(p["title"])}</h1>
+    <p class="lead" data-rise>{esc(p["excerpt"])}</p>
+    <div class="page-head__aside" data-rise><p class="meta">{cms.fmt_date(p["date"])}<br>{p["read"]}<br>{by}</p></div>
+  </div>
+</section>
+{hero}
+<section class="sec"><div class="wrap"><div class="article__body">
+{body_html}
+</div></div></section>
+</article>
+{related}'''
+    img = p["cover"] or p["hero"]
+    schema = [{"@context": "https://schema.org", "@type": "Article", "mainEntityOfPage": {"@type": "WebPage", "@id": url},
+               "headline": p["title"], "description": p["seo_desc"] or p["excerpt"], "image": [og(img)] if img else [],
+               "datePublished": p["date"].isoformat(), "dateModified": p["updated"].isoformat(),
+               "keywords": ", ".join(p["keywords"]), "articleSection": p["category"],
+               "author": {"@type": "Person", "name": p["author"]} if p["author"] else {"@type": "Organization", "name": "Atwood Dsigns", "url": SITE},
+               "publisher": {"@type": "Organization", "name": "Atwood Dsigns", "logo": {"@type": "ImageObject", "url": SITE + I + "logo-web-new-2.png"}}},
+              {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+                  {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE},
+                  {"@type": "ListItem", "position": 2, "name": "Journal", "item": SITE + "journal/"},
+                  {"@type": "ListItem", "position": 3, "name": p["title"], "item": url}]}]
+    if faqs:
+        schema.append({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": f["question"], "acceptedAnswer": {"@type": "Answer", "text": f["answer"]}} for f in faqs]})
+    extra = (f'\n<meta name="keywords" content="{esc(", ".join(p["keywords"]))}">' if p["keywords"] else "") + ld(*schema)
+    page(PAGE, esc(p["seo_title"] or f"{p['title']} | Atwood Dsigns"), esc(p["seo_desc"] or p["excerpt"]), body,
+         og_image=og(img) if img else None, og_type="article", head_extra=extra, section="journal.html")
+
+# Remove the pages of posts that were unpublished or renamed in the Studio.
+for f in os.listdir(OUT):
+    if f.startswith("journal-") and f.endswith(".html") and f not in {post_href(p) for p in JOURNAL}:
+        os.remove(os.path.join(OUT, f))
+        print("removed", f)
 
 # ================================================================================================ CONTACT
 PAGE = "contact.html"

@@ -1,0 +1,122 @@
+name: Build and publish to deploy branch
+
+# The Atwood Dsigns site is static HTML. This workflow builds it and commits the finished files to the `deploy`
+# branch, whose root IS the website, for the host (Hostinger Git deployment) to pull.
+#
+# Journal posts are read from Sanity (project xbvaq1gt, Studio https://atwood-dsigns.sanity.studio) at build time
+# by tools/build.py via tools/cms.py, so the site is also rebuilt when content changes:
+#   - repository_dispatch: sent by a Sanity webhook on publish (sanity.io/manage → xbvaq1gt → API → Webhooks)
+#   - schedule: hourly safety net for a missed webhook, and for posts scheduled for a future time.
+#     It only rebuilds when Sanity differs from what the deploy branch was built from.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  repository_dispatch:
+    types: [sanity-publish]
+  schedule:
+    - cron: "23 * * * *"
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+env:
+  # Public identifiers, not secrets: the dataset is read-only to the public.
+  SANITY_PROJECT_ID: xbvaq1gt
+  SANITY_DATASET: production
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # A fingerprint of every CMS document the site renders: how many there are, the latest edit,
+      # and how many posts are already due (so a scheduled post going live changes it too).
+      - name: Fingerprint CMS content
+        id: cms
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          query='{"count": count(*[_type in ["post","author","category"]]), "updated": *[_type in ["post","author","category"]] | order(_updatedAt desc)[0]._updatedAt, "due": count(*[_type == "post" && publishedAt <= now()])}'
+          current=$(curl -fsS --get "https://${SANITY_PROJECT_ID}.api.sanity.io/v2025-10-01/data/query/${SANITY_DATASET}" \
+            --data-urlencode "perspective=published" --data-urlencode "query=${query}" | jq -c .result) || current=unknown
+          deployed=$(gh api "repos/${GITHUB_REPOSITORY}/contents/cms-fingerprint.json?ref=deploy" \
+            -H "Accept: application/vnd.github.raw" 2>/dev/null || echo none)
+          echo "current=${current}" >> "$GITHUB_OUTPUT"
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "${current}" != unknown ] && [ "${current}" = "${deployed}" ]; then
+            echo "CMS unchanged since the deployed build — skipping."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.cms.outputs.skip != 'true'
+        with:
+          path: src
+
+      - uses: actions/setup-python@v5
+        if: steps.cms.outputs.skip != 'true'
+        with:
+          python-version: "3.12"
+
+      # No pip install: the build uses only the standard library. It fails (and stops this job)
+      # if Sanity is unreachable or returns no posts, so a bad fetch never publishes an empty Journal.
+      - name: Build site from Sanity
+        if: steps.cms.outputs.skip != 'true'
+        run: python3 src/tools/build.py
+
+      # Everything in the repo is the website except the CMS source, build tooling and repo files.
+      - name: Assemble site
+        if: steps.cms.outputs.skip != 'true'
+        env:
+          FINGERPRINT: ${{ steps.cms.outputs.current }}
+        run: |
+          set -e
+          mkdir site
+          rsync -a --exclude .git --exclude .github --exclude studio --exclude tools --exclude .taste-skill \
+                --exclude README.md --exclude ASSETS.md --exclude .gitignore --exclude .DS_Store \
+                --exclude node_modules --exclude __pycache__ \
+                src/ site/
+          printf '%s' "$FINGERPRINT" > site/cms-fingerprint.json
+
+      # Fail loudly rather than publishing a broken or partial site.
+      - name: Verify build output
+        if: steps.cms.outputs.skip != 'true'
+        run: |
+          set -e
+          cd site
+          for f in index.html journal.html portfolio.html contact.html assets/css/styles.css assets/js/main.js; do
+            test -s "$f" || { echo "MISSING: $f"; exit 1; }
+          done
+          posts=$(ls journal-*.html 2>/dev/null | wc -l)
+          [ "$posts" -ge 1 ] || { echo "No Journal posts were built"; exit 1; }
+          echo "All expected files present ($posts posts)."
+
+      - name: Publish to deploy branch
+        if: steps.cms.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          remote="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git ls-remote --exit-code --heads "$remote" deploy >/dev/null; then
+            git clone -q --depth 1 --branch deploy --single-branch "$remote" deploy
+          else
+            git init -q -b deploy deploy
+            git -C deploy remote add origin "$remote"
+          fi
+          rsync -a --delete --exclude .git site/ deploy/
+          cd deploy
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Built site is identical to the deploy branch — nothing to publish."
+            exit 0
+          fi
+          git commit -q -m "Build from ${GITHUB_SHA::7} (${{ github.event_name }})"
+          git push -q origin deploy
